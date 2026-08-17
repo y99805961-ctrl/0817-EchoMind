@@ -1,0 +1,602 @@
+{
+  "status": "NOT_RUN",
+  "intent_mode": "llm_embedding",
+  "total": 12,
+  "primary_routing_accuracy": 0.75,
+  "supporting_agent_recall": 0.625,
+  "exact_match": 0.666667,
+  "cases": [
+    {
+      "id": "route_001",
+      "semantic_intent": "other",
+      "top_candidates": [
+        {
+          "intent": "payment_issue",
+          "score": 0.869775
+        },
+        {
+          "intent": "technical_login",
+          "score": 0.8519
+        },
+        {
+          "intent": "billing",
+          "score": 0.847894
+        },
+        {
+          "intent": "account_security",
+          "score": 0.822821
+        },
+        {
+          "intent": "refund",
+          "score": 0.820758
+        }
+      ],
+      "rule_signals": [
+        {
+          "intent": "technical_login",
+          "rule": "technical_login"
+        }
+      ],
+      "domain_scores": {
+        "general": 0.8,
+        "technical": 2.813,
+        "billing": 1.229
+      },
+      "expected_primary": "technical",
+      "predicted_primary": "technical",
+      "expected_supporting": [
+        "billing"
+      ],
+      "predicted_supporting": [
+        "billing"
+      ],
+      "intent": "other",
+      "routing_reason": "intent=other, group=other, primary=technical, supporting=billing, scores=[technical=2.81, billing=1.23, general=0.80], top_candidates=[payment_issue:0.87, technical_login:0.85, billing:0.85], rule_signals=[technical_login]"
+    },
+    {
+      "id": "route_002",
+      "semantic_intent": "other",
+      "top_candidates": [
+        {
+          "intent": "technical_crash",
+          "score": 0.851803
+        },
+        {
+          "intent": "refund",
+          "score": 0.83847
+        },
+        {
+          "intent": "account",
+          "score": 0.81691
+        },
+        {
+          "intent": "payment_issue",
+          "score": 0.814761
+        },
+        {
+          "intent": "technical_login",
+          "score": 0.811539
+        }
+      ],
+      "rule_signals": [
+        {
+          "intent": "technical_crash",
+          "rule": "technical_crash"
+        },
+        {
+          "intent": "payment_issue",
+          "rule": "payment_issue"
+        }
+      ],
+      "domain_scores": {
+        "general": 0.8,
+        "technical": 2.463,
+        "billing": 1.464
+      },
+      "expected_primary": "technical",
+      "predicted_primary": "technical",
+      "expected_supporting": [
+        "billing"
+      ],
+      "predicted_supporting": [
+        "billing"
+      ],
+      "intent": "other",
+      "routing_reason": "intent=other, group=other, primary=technical, supporting=billing, scores=[technical=2.46, billing=1.46, general=0.80], top_candidates=[technical_crash:0.85, refund:0.84, account:0.82], rule_signals=[technical_crash, payment_issue]"
+    },
+    {
+      "id": "route_003",
+      "semantic_intent": "other",
+      "top_candidates": [
+        {
+          "intent": "order_status",
+          "score": 0.828845
+        },
+        {
+          "intent": "refund",
+          "score": 0.828833
+        },
+        {
+          "intent": "logistics",
+          "score": 0.810063
+        },
+        {
+          "intent": "human_handoff",
+          "score": 0.801976
+        },
+        {
+          "intent": "payment_issue",
+          "score": 0.795648
+        }
+      ],
+      "rule_signals": [
+        {
+          "intent": "logistics",
+          "rule": "logistics"
+        },
+        {
+          "intent": "order_status",
+          "rule": "order_status"
+        }
+      ],
+      "domain_scores": {
+        "general": 2.86,
+        "technical": 0.0,
+        "billing": 0.207
+      },
+      "expected_primary": "general",
+      "predicted_primary": "general",
+      "expected_supporting": [],
+      "predicted_supporting": [],
+      "intent": "other",
+      "routing_reason": "intent=other, group=other, primary=general, supporting=none, scores=[general=2.86, billing=0.21, technical=0.00], top_candidates=[order_status:0.83, refund:0.83, logistics:0.81], rule_signals=[logistics, order_status]"
+    },
+    {
+      "id": "route_004",
+      "semantic_intent": "other",
+      "top_candidates": [
+        {
+          "intent": "payment_issue",
+          "score": 0.896644
+        },
+        {
+          "intent": "order_status",
+          "score": 0.857452
+        },
+        {
+          "intent": "refund",
+          "score": 0.832632
+        },
+        {
+          "intent": "billing",
+          "score": 0.830258
+        },
+        {
+          "intent": "technical_login",
+          "score": 0.825637
+        }
+      ],
+      "rule_signals": [
+        {
+          "intent": "technical_crash",
+          "rule": "technical_crash"
+        },
+        {
+          "intent": "payment_issue",
+          "rule": "payment_issue"
+        }
+      ],
+      "domain_scores": {
+        "general": 1.314,
+        "technical": 2.6,
+        "billing": 1.182
+      },
+      "expected_primary": "technical",
+      "predicted_primary": "technical",
+      "expected_supporting": [
+        "billing"
+      ],
+      "predicted_supporting": [
+        "billing"
+      ],
+      "intent": "other",
+      "routing_reason": "intent=other, group=other, primary=technical, supporting=billing, scores=[technical=2.60, general=1.31, billing=1.18], top_candidates=[payment_issue:0.90, order_status:0.86, refund:0.83], rule_signals=[technical_crash, payment_issue]"
+    },
+    {
+      "id": "route_005",
+      "semantic_intent": "other",
+      "top_candidates": [
+        {
+          "intent": "order_status",
+          "score": 0.8508
+        },
+        {
+          "intent": "logistics",
+          "score": 0.839624
+        },
+        {
+          "intent": "invoice",
+          "score": 0.83163
+        },
+        {
+          "intent": "refund",
+          "score": 0.830439
+        },
+        {
+          "intent": "payment_issue",
+          "score": 0.81234
+        }
+      ],
+      "rule_signals": [
+        {
+          "intent": "invoice",
+          "rule": "invoice"
+        },
+        {
+          "intent": "order_status",
+          "rule": "order_status"
+        }
+      ],
+      "domain_scores": {
+        "general": 2.423,
+        "technical": 0.0,
+        "billing": 0.958
+      },
+      "expected_primary": "billing",
+      "predicted_primary": "general",
+      "expected_supporting": [
+        "general"
+      ],
+      "predicted_supporting": [
+        "billing"
+      ],
+      "intent": "other",
+      "routing_reason": "intent=other, group=other, primary=general, supporting=billing, scores=[general=2.42, billing=0.96, technical=0.00], top_candidates=[order_status:0.85, logistics:0.84, invoice:0.83], rule_signals=[invoice, order_status]"
+    },
+    {
+      "id": "route_006",
+      "semantic_intent": "other",
+      "top_candidates": [
+        {
+          "intent": "refund",
+          "score": 0.907888
+        },
+        {
+          "intent": "payment_issue",
+          "score": 0.862058
+        },
+        {
+          "intent": "order_status",
+          "score": 0.859596
+        },
+        {
+          "intent": "logistics",
+          "score": 0.848507
+        },
+        {
+          "intent": "billing",
+          "score": 0.833417
+        }
+      ],
+      "rule_signals": [
+        {
+          "intent": "refund",
+          "rule": "refund"
+        },
+        {
+          "intent": "logistics",
+          "rule": "logistics"
+        }
+      ],
+      "domain_scores": {
+        "general": 2.065,
+        "technical": 0.0,
+        "billing": 1.192
+      },
+      "expected_primary": "billing",
+      "predicted_primary": "general",
+      "expected_supporting": [
+        "general"
+      ],
+      "predicted_supporting": [
+        "billing"
+      ],
+      "intent": "other",
+      "routing_reason": "intent=other, group=other, primary=general, supporting=billing, scores=[general=2.06, billing=1.19, technical=0.00], top_candidates=[refund:0.91, payment_issue:0.86, order_status:0.86], rule_signals=[refund, logistics]"
+    },
+    {
+      "id": "route_007",
+      "semantic_intent": "other",
+      "top_candidates": [
+        {
+          "intent": "technical_login",
+          "score": 0.914372
+        },
+        {
+          "intent": "account_security",
+          "score": 0.885944
+        },
+        {
+          "intent": "payment_issue",
+          "score": 0.861085
+        },
+        {
+          "intent": "account",
+          "score": 0.842053
+        },
+        {
+          "intent": "technical",
+          "score": 0.837694
+        }
+      ],
+      "rule_signals": [
+        {
+          "intent": "account_security",
+          "rule": "account_security"
+        },
+        {
+          "intent": "technical_login",
+          "rule": "technical_login"
+        }
+      ],
+      "domain_scores": {
+        "general": 0.8,
+        "technical": 1.079,
+        "billing": 0.887
+      },
+      "expected_primary": "technical",
+      "predicted_primary": "technical",
+      "expected_supporting": [
+        "billing"
+      ],
+      "predicted_supporting": [
+        "billing"
+      ],
+      "intent": "other",
+      "routing_reason": "intent=other, group=other, primary=technical, supporting=billing, scores=[technical=1.08, billing=0.89, general=0.80], top_candidates=[technical_login:0.91, account_security:0.89, payment_issue:0.86], rule_signals=[account_security, technical_login]"
+    },
+    {
+      "id": "route_008",
+      "semantic_intent": "other",
+      "top_candidates": [
+        {
+          "intent": "refund",
+          "score": 0.879564
+        },
+        {
+          "intent": "payment_issue",
+          "score": 0.853841
+        },
+        {
+          "intent": "billing",
+          "score": 0.853609
+        },
+        {
+          "intent": "order_status",
+          "score": 0.820455
+        },
+        {
+          "intent": "complaint",
+          "score": 0.814673
+        }
+      ],
+      "rule_signals": [
+        {
+          "intent": "technical_crash",
+          "rule": "technical_crash"
+        },
+        {
+          "intent": "refund",
+          "rule": "refund"
+        }
+      ],
+      "domain_scores": {
+        "general": 0.8,
+        "technical": 2.6,
+        "billing": 1.397
+      },
+      "expected_primary": "technical",
+      "predicted_primary": "technical",
+      "expected_supporting": [
+        "billing"
+      ],
+      "predicted_supporting": [
+        "billing"
+      ],
+      "intent": "other",
+      "routing_reason": "intent=other, group=other, primary=technical, supporting=billing, scores=[technical=2.60, billing=1.40, general=0.80], top_candidates=[refund:0.88, payment_issue:0.85, billing:0.85], rule_signals=[technical_crash, refund]"
+    },
+    {
+      "id": "route_009",
+      "semantic_intent": "other",
+      "top_candidates": [
+        {
+          "intent": "refund",
+          "score": 0.916542
+        },
+        {
+          "intent": "payment_issue",
+          "score": 0.870793
+        },
+        {
+          "intent": "complaint",
+          "score": 0.865947
+        },
+        {
+          "intent": "order_status",
+          "score": 0.854589
+        },
+        {
+          "intent": "logistics",
+          "score": 0.844589
+        }
+      ],
+      "rule_signals": [
+        {
+          "intent": "refund",
+          "rule": "refund"
+        },
+        {
+          "intent": "complaint",
+          "rule": "complaint"
+        }
+      ],
+      "domain_scores": {
+        "general": 1.016,
+        "technical": 0.0,
+        "billing": 1.197
+      },
+      "expected_primary": "billing",
+      "predicted_primary": "billing",
+      "expected_supporting": [],
+      "predicted_supporting": [
+        "general"
+      ],
+      "intent": "other",
+      "routing_reason": "intent=other, group=other, primary=billing, supporting=general, scores=[billing=1.20, general=1.02, technical=0.00], top_candidates=[refund:0.92, payment_issue:0.87, complaint:0.87], rule_signals=[refund, complaint]"
+    },
+    {
+      "id": "route_010",
+      "semantic_intent": "other",
+      "top_candidates": [
+        {
+          "intent": "payment_issue",
+          "score": 0.901424
+        },
+        {
+          "intent": "order_status",
+          "score": 0.857509
+        },
+        {
+          "intent": "billing",
+          "score": 0.854313
+        },
+        {
+          "intent": "refund",
+          "score": 0.853764
+        },
+        {
+          "intent": "logistics",
+          "score": 0.832181
+        }
+      ],
+      "rule_signals": [
+        {
+          "intent": "payment_issue",
+          "rule": "payment_issue"
+        }
+      ],
+      "domain_scores": {
+        "general": 1.314,
+        "technical": 0.0,
+        "billing": 1.189
+      },
+      "expected_primary": "billing",
+      "predicted_primary": "general",
+      "expected_supporting": [
+        "general"
+      ],
+      "predicted_supporting": [
+        "billing"
+      ],
+      "intent": "other",
+      "routing_reason": "intent=other, group=other, primary=general, supporting=billing, scores=[general=1.31, billing=1.19, technical=0.00], top_candidates=[payment_issue:0.90, order_status:0.86, billing:0.85], rule_signals=[payment_issue]"
+    },
+    {
+      "id": "route_011",
+      "semantic_intent": "human_handoff",
+      "top_candidates": [
+        {
+          "intent": "payment_issue",
+          "score": 0.911095
+        },
+        {
+          "intent": "billing",
+          "score": 0.858084
+        },
+        {
+          "intent": "human_handoff",
+          "score": 0.850871
+        },
+        {
+          "intent": "refund",
+          "score": 0.846168
+        },
+        {
+          "intent": "request",
+          "score": 0.839705
+        }
+      ],
+      "rule_signals": [
+        {
+          "intent": "human_handoff",
+          "rule": "human_handoff"
+        },
+        {
+          "intent": "payment_issue",
+          "rule": "payment_issue"
+        }
+      ],
+      "domain_scores": {
+        "general": 0.1,
+        "technical": 0.0,
+        "billing": 1.492,
+        "escalation": 2.363
+      },
+      "expected_primary": "escalation",
+      "predicted_primary": "escalation",
+      "expected_supporting": [],
+      "predicted_supporting": [],
+      "intent": "human_handoff",
+      "routing_reason": "意图为 human_handoff，触发升级路由"
+    },
+    {
+      "id": "route_012",
+      "semantic_intent": "escalation",
+      "top_candidates": [
+        {
+          "intent": "account_security",
+          "score": 0.892365
+        },
+        {
+          "intent": "payment_issue",
+          "score": 0.879646
+        },
+        {
+          "intent": "billing",
+          "score": 0.854332
+        },
+        {
+          "intent": "refund",
+          "score": 0.851826
+        },
+        {
+          "intent": "technical_login",
+          "score": 0.842452
+        }
+      ],
+      "rule_signals": [
+        {
+          "intent": "account_security",
+          "rule": "account_security"
+        }
+      ],
+      "domain_scores": {
+        "general": 0.1,
+        "technical": 0.0,
+        "billing": 1.407,
+        "escalation": 3.7
+      },
+      "expected_primary": "escalation",
+      "predicted_primary": "escalation",
+      "expected_supporting": [],
+      "predicted_supporting": [],
+      "intent": "escalation",
+      "routing_reason": "紧急度为 CRITICAL，触发升级路由"
+    }
+  ],
+  "reason": "required source unavailable or failed",
+  "unavailable_sources": {
+    "llm:failed": 12
+  }
+}

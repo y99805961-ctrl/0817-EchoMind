@@ -61,25 +61,40 @@ queries measured 284.976 ms and 442.528 ms total. Generation evaluation with
 real rewrite had mean/p50/p95 total retrieval latency of
 9,518.267 / 8,789.809 / 14,446.299 ms.
 
-## Generation evaluation
+## Phase 2.1 Generation and Rewrite
 
-All 60 generation cases completed. There were 51 multi-query rewrite results
-and 9 explicit rewrite fallbacks. The LLM judge output is not accepted as a
-quality conclusion: 59 of 60 rows were all-zero and the adapter currently
-collapses judge exceptions into zero-valued scores. The raw answers and scores
-remain in `data/eval/results/rag/generation_eval.json`; this provider/judge
-instrumentation issue is a known limitation, not a manufactured metric.
+The Judge repair is implemented and verified against the actual provider:
+DeepSeek thinking is disabled for structured JSON judging, valid JSON can be
+embedded in Markdown/prose, retries are bounded, and every case records
+`judge_status`, `judge_error_type`, `judge_error_message`, redacted
+`judge_raw_output`, latency, and retry count. Failed scores are `null` and are
+excluded from averages.
+
+The 60-case Phase 2.1 audit completed all rows but the provider returned HTTP
+402 `Insufficient Balance` for generation. Therefore: generation failures
+60/60, valid judged cases 0/60, judge-not-run 60/60, and all quality metrics
+are `null`. Rewrite also recorded 60/60 original-query fallbacks. The result is
+explicitly unavailable, not a quality score. See
+`data/eval/results/rag/generation_eval_phase21.json`.
+
+Rewrite prefetch used bounded concurrency 10 and took 2,776.585 ms. The full
+provider-unavailable audit took 47,139.952 ms. The prior serial run was
+observed at approximately 1,468 seconds, but no speedup claim is made because
+the provider did not execute the current generation workload. The prior real
+answers remain in `data/eval/results/rag/generation_eval.json`.
 
 ## Regression and tests
 
 ```text
 pytest: 44 passed, 1 skipped
-Intent 76-case llm_embedding: OK; accuracy 0.934211; macro-F1 0.925230; entity-F1 0.941176
-Routing 12-case llm_embedding: OK; primary accuracy 1.0; supporting recall 1.0; exact match 1.0
+Intent 76-case llm_embedding: prior valid run OK; current Phase 2.1 rerun NOT_RUN (76/76 provider 402)
+Routing 12-case llm_embedding: prior valid run OK; current Phase 2.1 rerun NOT_RUN (12/12 provider 402)
 ```
 
 Regression artifacts are `data/eval/results/intent/rag_v2_intent_regression.json`
-and `data/eval/results/intent/rag_v2_routing_regression.json`.
+and `data/eval/results/intent/rag_v2_routing_regression.json`. Phase 2.1
+unavailable reruns are `rag_v2_intent_phase21.json` and
+`rag_v2_routing_phase21.json`.
 
 ## Modified files
 
@@ -96,7 +111,10 @@ and `data/eval/results/intent/rag_v2_routing_regression.json`.
   local persistent Chroma fallback is explicit and tested.
 - Chroma emits a non-blocking PostHog telemetry compatibility warning.
 - Long-form external judge calls need better error/status instrumentation before
-  generation quality scores can be used.
+  generation quality scores can be used; the instrumentation is now in place,
+  but the configured DeepSeek account currently has insufficient balance.
+- The Phase 2.1 provider-unavailable rerun cannot establish a valid generation
+  quality score or successful Rewrite latency improvement.
 
 Safe résumé claims are limited to the implemented and measured features:
 stable Parent–Child chunking, BGE-M3 Dense plus BM25 hybrid retrieval, RRF,

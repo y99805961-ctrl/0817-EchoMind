@@ -1,0 +1,2705 @@
+{
+  "benchmark": "rag_benchmark_60.json",
+  "metrics": {
+    "correctness": null,
+    "completeness": null,
+    "relevance": null,
+    "faithfulness": null,
+    "abstention_accuracy": null
+  },
+  "quality_eval": {
+    "valid_judged_cases": 0,
+    "unavailable_cases": 60,
+    "judge_successes": 0,
+    "judge_failures": 0,
+    "judge_not_run": 60,
+    "generation_failures": 60,
+    "judge_success_rate": 0.0,
+    "judge_failure_rate": 0.0
+  },
+  "rewrite_eval": {
+    "rewrite_successes": 0,
+    "rewrite_fallbacks": 60,
+    "rewrite_success_rate": 0.0,
+    "max_concurrency": 10
+  },
+  "timing": {
+    "wall_clock_ms": 47139.952,
+    "rewrite_prefetch_ms": 2776.585,
+    "case_count": 60
+  },
+  "cases": [
+    {
+      "id": "rag_001",
+      "answer": "",
+      "generation_status": "generation_failed",
+      "generation_error_type": "APIStatusError",
+      "generation_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "generation_latency_ms": 432.611,
+      "scores": {
+        "correctness": null,
+        "completeness": null,
+        "relevance": null,
+        "faithfulness": null,
+        "abstention_accuracy": null
+      },
+      "timing": {
+        "rewrite_ms": 515.551,
+        "dense_ms": 42.403,
+        "bm25_ms": 2.559,
+        "rrf_ms": 0.083,
+        "rerank_ms": 3208.733,
+        "parent_expand_ms": 0.044,
+        "context_pack_ms": 0.018,
+        "total_ms": 3251.463,
+        "cold_start_ms": 2772.19
+      },
+      "rewritten_queries": [
+        "订单显示已发货是什么意思？"
+      ],
+      "rewrite_status": "failed",
+      "rewrite_error": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "rewrite_latency_ms": 515.551,
+      "rewrite_fallback": true,
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ],
+      "judge_status": "not_run_generation_failed",
+      "judge_error_type": "GenerationNotRun",
+      "judge_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "judge_raw_output": "",
+      "judge_latency_ms": 0.0,
+      "judge_retried": false,
+      "judge_retry_count": 0
+    },
+    {
+      "id": "rag_002",
+      "answer": "",
+      "generation_status": "generation_failed",
+      "generation_error_type": "APIStatusError",
+      "generation_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "generation_latency_ms": 398.728,
+      "scores": {
+        "correctness": null,
+        "completeness": null,
+        "relevance": null,
+        "faithfulness": null,
+        "abstention_accuracy": null
+      },
+      "timing": {
+        "rewrite_ms": 576.515,
+        "dense_ms": 6.006,
+        "bm25_ms": 3.043,
+        "rrf_ms": 0.066,
+        "rerank_ms": 380.5,
+        "parent_expand_ms": 0.018,
+        "context_pack_ms": 0.019,
+        "total_ms": 386.714,
+        "cold_start_ms": 2772.19
+      },
+      "rewritten_queries": [
+        "现货下单后一般几天能发出？"
+      ],
+      "rewrite_status": "failed",
+      "rewrite_error": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "rewrite_latency_ms": 576.515,
+      "rewrite_fallback": true,
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ],
+      "judge_status": "not_run_generation_failed",
+      "judge_error_type": "GenerationNotRun",
+      "judge_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "judge_raw_output": "",
+      "judge_latency_ms": 0.0,
+      "judge_retried": false,
+      "judge_retry_count": 0
+    },
+    {
+      "id": "rag_003",
+      "answer": "",
+      "generation_status": "generation_failed",
+      "generation_error_type": "APIStatusError",
+      "generation_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "generation_latency_ms": 448.985,
+      "scores": {
+        "correctness": null,
+        "completeness": null,
+        "relevance": null,
+        "faithfulness": null,
+        "abstention_accuracy": null
+      },
+      "timing": {
+        "rewrite_ms": 570.631,
+        "dense_ms": 3.99,
+        "bm25_ms": 2.046,
+        "rrf_ms": 0.033,
+        "rerank_ms": 309.383,
+        "parent_expand_ms": 0.022,
+        "context_pack_ms": 0.024,
+        "total_ms": 313.558,
+        "cold_start_ms": 2772.19
+      },
+      "rewritten_queries": [
+        "签收后还能申请七天无理由退货吗？"
+      ],
+      "rewrite_status": "failed",
+      "rewrite_error": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "rewrite_latency_ms": 570.631,
+      "rewrite_fallback": true,
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ],
+      "judge_status": "not_run_generation_failed",
+      "judge_error_type": "GenerationNotRun",
+      "judge_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "judge_raw_output": "",
+      "judge_latency_ms": 0.0,
+      "judge_retried": false,
+      "judge_retry_count": 0
+    },
+    {
+      "id": "rag_004",
+      "answer": "",
+      "generation_status": "generation_failed",
+      "generation_error_type": "APIStatusError",
+      "generation_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "generation_latency_ms": 417.088,
+      "scores": {
+        "correctness": null,
+        "completeness": null,
+        "relevance": null,
+        "faithfulness": null,
+        "abstention_accuracy": null
+      },
+      "timing": {
+        "rewrite_ms": 548.507,
+        "dense_ms": 5.347,
+        "bm25_ms": 2.775,
+        "rrf_ms": 0.055,
+        "rerank_ms": 335.388,
+        "parent_expand_ms": 0.019,
+        "context_pack_ms": 0.019,
+        "total_ms": 340.938,
+        "cold_start_ms": 2772.19
+      },
+      "rewritten_queries": [
+        "退款申请提交后多久审核？"
+      ],
+      "rewrite_status": "failed",
+      "rewrite_error": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "rewrite_latency_ms": 548.507,
+      "rewrite_fallback": true,
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ],
+      "judge_status": "not_run_generation_failed",
+      "judge_error_type": "GenerationNotRun",
+      "judge_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "judge_raw_output": "",
+      "judge_latency_ms": 0.0,
+      "judge_retried": false,
+      "judge_retry_count": 0
+    },
+    {
+      "id": "rag_005",
+      "answer": "",
+      "generation_status": "generation_failed",
+      "generation_error_type": "APIStatusError",
+      "generation_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "generation_latency_ms": 448.752,
+      "scores": {
+        "correctness": null,
+        "completeness": null,
+        "relevance": null,
+        "faithfulness": null,
+        "abstention_accuracy": null
+      },
+      "timing": {
+        "rewrite_ms": 603.999,
+        "dense_ms": 3.727,
+        "bm25_ms": 2.09,
+        "rrf_ms": 0.042,
+        "rerank_ms": 334.249,
+        "parent_expand_ms": 0.019,
+        "context_pack_ms": 0.015,
+        "total_ms": 338.141,
+        "cold_start_ms": 2772.19
+      },
+      "rewritten_queries": [
+        "退款到平台余额要等多久？"
+      ],
+      "rewrite_status": "failed",
+      "rewrite_error": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "rewrite_latency_ms": 603.999,
+      "rewrite_fallback": true,
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ],
+      "judge_status": "not_run_generation_failed",
+      "judge_error_type": "GenerationNotRun",
+      "judge_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "judge_raw_output": "",
+      "judge_latency_ms": 0.0,
+      "judge_retried": false,
+      "judge_retry_count": 0
+    },
+    {
+      "id": "rag_006",
+      "answer": "",
+      "generation_status": "generation_failed",
+      "generation_error_type": "APIStatusError",
+      "generation_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "generation_latency_ms": 400.61,
+      "scores": {
+        "correctness": null,
+        "completeness": null,
+        "relevance": null,
+        "faithfulness": null,
+        "abstention_accuracy": null
+      },
+      "timing": {
+        "rewrite_ms": 565.921,
+        "dense_ms": 4.064,
+        "bm25_ms": 2.075,
+        "rrf_ms": 0.046,
+        "rerank_ms": 269.39,
+        "parent_expand_ms": 0.014,
+        "context_pack_ms": 0.013,
+        "total_ms": 273.622,
+        "cold_start_ms": 2772.19
+      },
+      "rewritten_queries": [
+        "支付失败时先检查什么？"
+      ],
+      "rewrite_status": "failed",
+      "rewrite_error": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "rewrite_latency_ms": 565.921,
+      "rewrite_fallback": true,
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ],
+      "judge_status": "not_run_generation_failed",
+      "judge_error_type": "GenerationNotRun",
+      "judge_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "judge_raw_output": "",
+      "judge_latency_ms": 0.0,
+      "judge_retried": false,
+      "judge_retry_count": 0
+    },
+    {
+      "id": "rag_007",
+      "answer": "",
+      "generation_status": "generation_failed",
+      "generation_error_type": "APIStatusError",
+      "generation_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "generation_latency_ms": 412.689,
+      "scores": {
+        "correctness": null,
+        "completeness": null,
+        "relevance": null,
+        "faithfulness": null,
+        "abstention_accuracy": null
+      },
+      "timing": {
+        "rewrite_ms": 526.278,
+        "dense_ms": 4.682,
+        "bm25_ms": 2.965,
+        "rrf_ms": 0.043,
+        "rerank_ms": 356.655,
+        "parent_expand_ms": 0.018,
+        "context_pack_ms": 0.014,
+        "total_ms": 361.528,
+        "cold_start_ms": 2772.19
+      },
+      "rewritten_queries": [
+        "已完成订单如何申请电子发票？"
+      ],
+      "rewrite_status": "failed",
+      "rewrite_error": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "rewrite_latency_ms": 526.278,
+      "rewrite_fallback": true,
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ],
+      "judge_status": "not_run_generation_failed",
+      "judge_error_type": "GenerationNotRun",
+      "judge_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "judge_raw_output": "",
+      "judge_latency_ms": 0.0,
+      "judge_retried": false,
+      "judge_retry_count": 0
+    },
+    {
+      "id": "rag_008",
+      "answer": "",
+      "generation_status": "generation_failed",
+      "generation_error_type": "APIStatusError",
+      "generation_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "generation_latency_ms": 387.754,
+      "scores": {
+        "correctness": null,
+        "completeness": null,
+        "relevance": null,
+        "faithfulness": null,
+        "abstention_accuracy": null
+      },
+      "timing": {
+        "rewrite_ms": 501.242,
+        "dense_ms": 3.855,
+        "bm25_ms": 2.198,
+        "rrf_ms": 0.049,
+        "rerank_ms": 156.141,
+        "parent_expand_ms": 0.016,
+        "context_pack_ms": 0.012,
+        "total_ms": 160.166,
+        "cold_start_ms": 2772.19
+      },
+      "rewritten_queries": [
+        "订阅自动续费是什么规则？"
+      ],
+      "rewrite_status": "failed",
+      "rewrite_error": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "rewrite_latency_ms": 501.242,
+      "rewrite_fallback": true,
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ],
+      "judge_status": "not_run_generation_failed",
+      "judge_error_type": "GenerationNotRun",
+      "judge_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "judge_raw_output": "",
+      "judge_latency_ms": 0.0,
+      "judge_retried": false,
+      "judge_retry_count": 0
+    },
+    {
+      "id": "rag_009",
+      "answer": "",
+      "generation_status": "generation_failed",
+      "generation_error_type": "APIStatusError",
+      "generation_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "generation_latency_ms": 436.031,
+      "scores": {
+        "correctness": null,
+        "completeness": null,
+        "relevance": null,
+        "faithfulness": null,
+        "abstention_accuracy": null
+      },
+      "timing": {
+        "rewrite_ms": 550.25,
+        "dense_ms": 4.679,
+        "bm25_ms": 2.987,
+        "rrf_ms": 0.062,
+        "rerank_ms": 376.017,
+        "parent_expand_ms": 0.039,
+        "context_pack_ms": 0.022,
+        "total_ms": 380.981,
+        "cold_start_ms": 2772.19
+      },
+      "rewritten_queries": [
+        "AUTH_4011代表什么？"
+      ],
+      "rewrite_status": "failed",
+      "rewrite_error": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "rewrite_latency_ms": 550.25,
+      "rewrite_fallback": true,
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ],
+      "judge_status": "not_run_generation_failed",
+      "judge_error_type": "GenerationNotRun",
+      "judge_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "judge_raw_output": "",
+      "judge_latency_ms": 0.0,
+      "judge_retried": false,
+      "judge_retry_count": 0
+    },
+    {
+      "id": "rag_010",
+      "answer": "",
+      "generation_status": "generation_failed",
+      "generation_error_type": "APIStatusError",
+      "generation_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "generation_latency_ms": 475.937,
+      "scores": {
+        "correctness": null,
+        "completeness": null,
+        "relevance": null,
+        "faithfulness": null,
+        "abstention_accuracy": null
+      },
+      "timing": {
+        "rewrite_ms": 727.139,
+        "dense_ms": 4.304,
+        "bm25_ms": 2.507,
+        "rrf_ms": 0.038,
+        "rerank_ms": 270.855,
+        "parent_expand_ms": 0.019,
+        "context_pack_ms": 0.014,
+        "total_ms": 275.351,
+        "cold_start_ms": 2772.19
+      },
+      "rewritten_queries": [
+        "积分什么时候发放？"
+      ],
+      "rewrite_status": "failed",
+      "rewrite_error": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "rewrite_latency_ms": 727.139,
+      "rewrite_fallback": true,
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ],
+      "judge_status": "not_run_generation_failed",
+      "judge_error_type": "GenerationNotRun",
+      "judge_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "judge_raw_output": "",
+      "judge_latency_ms": 0.0,
+      "judge_retried": false,
+      "judge_retry_count": 0
+    },
+    {
+      "id": "rag_011",
+      "answer": "",
+      "generation_status": "generation_failed",
+      "generation_error_type": "APIStatusError",
+      "generation_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "generation_latency_ms": 392.594,
+      "scores": {
+        "correctness": null,
+        "completeness": null,
+        "relevance": null,
+        "faithfulness": null,
+        "abstention_accuracy": null
+      },
+      "timing": {
+        "rewrite_ms": 397.705,
+        "dense_ms": 3.869,
+        "bm25_ms": 2.168,
+        "rrf_ms": 0.035,
+        "rerank_ms": 269.806,
+        "parent_expand_ms": 0.016,
+        "context_pack_ms": 0.012,
+        "total_ms": 273.828,
+        "cold_start_ms": 2772.19
+      },
+      "rewritten_queries": [
+        "收到货发现外包装和商品都坏了怎么办？"
+      ],
+      "rewrite_status": "failed",
+      "rewrite_error": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "rewrite_latency_ms": 397.705,
+      "rewrite_fallback": true,
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ],
+      "judge_status": "not_run_generation_failed",
+      "judge_error_type": "GenerationNotRun",
+      "judge_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "judge_raw_output": "",
+      "judge_latency_ms": 0.0,
+      "judge_retried": false,
+      "judge_retry_count": 0
+    },
+    {
+      "id": "rag_012",
+      "answer": "",
+      "generation_status": "generation_failed",
+      "generation_error_type": "APIStatusError",
+      "generation_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "generation_latency_ms": 454.842,
+      "scores": {
+        "correctness": null,
+        "completeness": null,
+        "relevance": null,
+        "faithfulness": null,
+        "abstention_accuracy": null
+      },
+      "timing": {
+        "rewrite_ms": 390.379,
+        "dense_ms": 4.272,
+        "bm25_ms": 2.655,
+        "rrf_ms": 0.055,
+        "rerank_ms": 307.07,
+        "parent_expand_ms": 0.014,
+        "context_pack_ms": 0.013,
+        "total_ms": 311.536,
+        "cold_start_ms": 2772.19
+      },
+      "rewritten_queries": [
+        "HTTP 500是什么问题？"
+      ],
+      "rewrite_status": "failed",
+      "rewrite_error": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "rewrite_latency_ms": 390.379,
+      "rewrite_fallback": true,
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ],
+      "judge_status": "not_run_generation_failed",
+      "judge_error_type": "GenerationNotRun",
+      "judge_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "judge_raw_output": "",
+      "judge_latency_ms": 0.0,
+      "judge_retried": false,
+      "judge_retry_count": 0
+    },
+    {
+      "id": "rag_013",
+      "answer": "",
+      "generation_status": "generation_failed",
+      "generation_error_type": "APIStatusError",
+      "generation_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "generation_latency_ms": 444.531,
+      "scores": {
+        "correctness": null,
+        "completeness": null,
+        "relevance": null,
+        "faithfulness": null,
+        "abstention_accuracy": null
+      },
+      "timing": {
+        "rewrite_ms": 398.988,
+        "dense_ms": 3.939,
+        "bm25_ms": 2.35,
+        "rrf_ms": 0.089,
+        "rerank_ms": 378.567,
+        "parent_expand_ms": 0.017,
+        "context_pack_ms": 0.011,
+        "total_ms": 382.736,
+        "cold_start_ms": 2772.19
+      },
+      "rewritten_queries": [
+        "注销账号后订单记录会立刻消失吗？"
+      ],
+      "rewrite_status": "failed",
+      "rewrite_error": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "rewrite_latency_ms": 398.988,
+      "rewrite_fallback": true,
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ],
+      "judge_status": "not_run_generation_failed",
+      "judge_error_type": "GenerationNotRun",
+      "judge_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "judge_raw_output": "",
+      "judge_latency_ms": 0.0,
+      "judge_retried": false,
+      "judge_retry_count": 0
+    },
+    {
+      "id": "rag_014",
+      "answer": "",
+      "generation_status": "generation_failed",
+      "generation_error_type": "APIStatusError",
+      "generation_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "generation_latency_ms": 405.899,
+      "scores": {
+        "correctness": null,
+        "completeness": null,
+        "relevance": null,
+        "faithfulness": null,
+        "abstention_accuracy": null
+      },
+      "timing": {
+        "rewrite_ms": 451.262,
+        "dense_ms": 3.9,
+        "bm25_ms": 2.209,
+        "rrf_ms": 0.036,
+        "rerank_ms": 183.495,
+        "parent_expand_ms": 0.016,
+        "context_pack_ms": 0.015,
+        "total_ms": 187.539,
+        "cold_start_ms": 2772.19
+      },
+      "rewritten_queries": [
+        "哪些情况应该升级人工？"
+      ],
+      "rewrite_status": "failed",
+      "rewrite_error": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "rewrite_latency_ms": 451.262,
+      "rewrite_fallback": true,
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ],
+      "judge_status": "not_run_generation_failed",
+      "judge_error_type": "GenerationNotRun",
+      "judge_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "judge_raw_output": "",
+      "judge_latency_ms": 0.0,
+      "judge_retried": false,
+      "judge_retry_count": 0
+    },
+    {
+      "id": "rag_015",
+      "answer": "",
+      "generation_status": "generation_failed",
+      "generation_error_type": "APIStatusError",
+      "generation_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "generation_latency_ms": 407.878,
+      "scores": {
+        "correctness": null,
+        "completeness": null,
+        "relevance": null,
+        "faithfulness": null,
+        "abstention_accuracy": null
+      },
+      "timing": {
+        "rewrite_ms": 403.373,
+        "dense_ms": 3.77,
+        "bm25_ms": 2.19,
+        "rrf_ms": 0.047,
+        "rerank_ms": 234.536,
+        "parent_expand_ms": 0.014,
+        "context_pack_ms": 0.013,
+        "total_ms": 238.469,
+        "cold_start_ms": 2772.19
+      },
+      "rewritten_queries": [
+        "物流多久不更新需要处理？"
+      ],
+      "rewrite_status": "failed",
+      "rewrite_error": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "rewrite_latency_ms": 403.373,
+      "rewrite_fallback": true,
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ],
+      "judge_status": "not_run_generation_failed",
+      "judge_error_type": "GenerationNotRun",
+      "judge_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "judge_raw_output": "",
+      "judge_latency_ms": 0.0,
+      "judge_retried": false,
+      "judge_retry_count": 0
+    },
+    {
+      "id": "rag_016",
+      "answer": "",
+      "generation_status": "generation_failed",
+      "generation_error_type": "APIStatusError",
+      "generation_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "generation_latency_ms": 383.592,
+      "scores": {
+        "correctness": null,
+        "completeness": null,
+        "relevance": null,
+        "faithfulness": null,
+        "abstention_accuracy": null
+      },
+      "timing": {
+        "rewrite_ms": 406.214,
+        "dense_ms": 4.281,
+        "bm25_ms": 2.342,
+        "rrf_ms": 0.036,
+        "rerank_ms": 237.924,
+        "parent_expand_ms": 0.016,
+        "context_pack_ms": 0.013,
+        "total_ms": 242.352,
+        "cold_start_ms": 2772.19
+      },
+      "rewritten_queries": [
+        "钱已经退了，可银行卡一直没显示，是不是失败了？"
+      ],
+      "rewrite_status": "failed",
+      "rewrite_error": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "rewrite_latency_ms": 406.214,
+      "rewrite_fallback": true,
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ],
+      "judge_status": "not_run_generation_failed",
+      "judge_error_type": "GenerationNotRun",
+      "judge_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "judge_raw_output": "",
+      "judge_latency_ms": 0.0,
+      "judge_retried": false,
+      "judge_retry_count": 0
+    },
+    {
+      "id": "rag_017",
+      "answer": "",
+      "generation_status": "generation_failed",
+      "generation_error_type": "APIStatusError",
+      "generation_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "generation_latency_ms": 402.158,
+      "scores": {
+        "correctness": null,
+        "completeness": null,
+        "relevance": null,
+        "faithfulness": null,
+        "abstention_accuracy": null
+      },
+      "timing": {
+        "rewrite_ms": 445.889,
+        "dense_ms": 4.217,
+        "bm25_ms": 2.674,
+        "rrf_ms": 0.039,
+        "rerank_ms": 380.052,
+        "parent_expand_ms": 0.016,
+        "context_pack_ms": 0.014,
+        "total_ms": 384.429,
+        "cold_start_ms": 2772.19
+      },
+      "rewritten_queries": [
+        "页面写着发货了但快递完全没动静怎么办？"
+      ],
+      "rewrite_status": "failed",
+      "rewrite_error": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "rewrite_latency_ms": 445.889,
+      "rewrite_fallback": true,
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ],
+      "judge_status": "not_run_generation_failed",
+      "judge_error_type": "GenerationNotRun",
+      "judge_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "judge_raw_output": "",
+      "judge_latency_ms": 0.0,
+      "judge_retried": false,
+      "judge_retry_count": 0
+    },
+    {
+      "id": "rag_018",
+      "answer": "",
+      "generation_status": "generation_failed",
+      "generation_error_type": "APIStatusError",
+      "generation_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "generation_latency_ms": 393.989,
+      "scores": {
+        "correctness": null,
+        "completeness": null,
+        "relevance": null,
+        "faithfulness": null,
+        "abstention_accuracy": null
+      },
+      "timing": {
+        "rewrite_ms": 401.202,
+        "dense_ms": 3.976,
+        "bm25_ms": 2.005,
+        "rrf_ms": 0.035,
+        "rerank_ms": 211.719,
+        "parent_expand_ms": 0.018,
+        "context_pack_ms": 0.014,
+        "total_ms": 215.848,
+        "cold_start_ms": 2772.19
+      },
+      "rewritten_queries": [
+        "同一笔钱被扣了两遍怎么处理？"
+      ],
+      "rewrite_status": "failed",
+      "rewrite_error": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "rewrite_latency_ms": 401.202,
+      "rewrite_fallback": true,
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ],
+      "judge_status": "not_run_generation_failed",
+      "judge_error_type": "GenerationNotRun",
+      "judge_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "judge_raw_output": "",
+      "judge_latency_ms": 0.0,
+      "judge_retried": false,
+      "judge_retry_count": 0
+    },
+    {
+      "id": "rag_019",
+      "answer": "",
+      "generation_status": "generation_failed",
+      "generation_error_type": "APIStatusError",
+      "generation_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "generation_latency_ms": 458.727,
+      "scores": {
+        "correctness": null,
+        "completeness": null,
+        "relevance": null,
+        "faithfulness": null,
+        "abstention_accuracy": null
+      },
+      "timing": {
+        "rewrite_ms": 408.609,
+        "dense_ms": 4.559,
+        "bm25_ms": 2.595,
+        "rrf_ms": 0.032,
+        "rerank_ms": 161.524,
+        "parent_expand_ms": 0.017,
+        "context_pack_ms": 0.015,
+        "total_ms": 166.225,
+        "cold_start_ms": 2772.19
+      },
+      "rewritten_queries": [
+        "我只想改发票邮箱，原发票要红冲吗？"
+      ],
+      "rewrite_status": "failed",
+      "rewrite_error": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "rewrite_latency_ms": 408.609,
+      "rewrite_fallback": true,
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ],
+      "judge_status": "not_run_generation_failed",
+      "judge_error_type": "GenerationNotRun",
+      "judge_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "judge_raw_output": "",
+      "judge_latency_ms": 0.0,
+      "judge_retried": false,
+      "judge_retry_count": 0
+    },
+    {
+      "id": "rag_020",
+      "answer": "",
+      "generation_status": "generation_failed",
+      "generation_error_type": "APIStatusError",
+      "generation_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "generation_latency_ms": 426.804,
+      "scores": {
+        "correctness": null,
+        "completeness": null,
+        "relevance": null,
+        "faithfulness": null,
+        "abstention_accuracy": null
+      },
+      "timing": {
+        "rewrite_ms": 410.923,
+        "dense_ms": 4.23,
+        "bm25_ms": 2.156,
+        "rrf_ms": 0.03,
+        "rerank_ms": 137.539,
+        "parent_expand_ms": 0.017,
+        "context_pack_ms": 0.015,
+        "total_ms": 141.919,
+        "cold_start_ms": 2772.19
+      },
+      "rewritten_queries": [
+        "手机丢了，登录用的2FA设备也没了怎么办？"
+      ],
+      "rewrite_status": "failed",
+      "rewrite_error": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "rewrite_latency_ms": 410.923,
+      "rewrite_fallback": true,
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ],
+      "judge_status": "not_run_generation_failed",
+      "judge_error_type": "GenerationNotRun",
+      "judge_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "judge_raw_output": "",
+      "judge_latency_ms": 0.0,
+      "judge_retried": false,
+      "judge_retry_count": 0
+    },
+    {
+      "id": "rag_021",
+      "answer": "",
+      "generation_status": "generation_failed",
+      "generation_error_type": "APIStatusError",
+      "generation_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "generation_latency_ms": 401.392,
+      "scores": {
+        "correctness": null,
+        "completeness": null,
+        "relevance": null,
+        "faithfulness": null,
+        "abstention_accuracy": null
+      },
+      "timing": {
+        "rewrite_ms": 424.061,
+        "dense_ms": 4.102,
+        "bm25_ms": 2.342,
+        "rrf_ms": 0.053,
+        "rerank_ms": 195.189,
+        "parent_expand_ms": 0.018,
+        "context_pack_ms": 0.014,
+        "total_ms": 199.481,
+        "cold_start_ms": 2772.19
+      },
+      "rewritten_queries": [
+        "优惠券明明满足金额却用不了，应该看什么？"
+      ],
+      "rewrite_status": "failed",
+      "rewrite_error": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "rewrite_latency_ms": 424.061,
+      "rewrite_fallback": true,
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ],
+      "judge_status": "not_run_generation_failed",
+      "judge_error_type": "GenerationNotRun",
+      "judge_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "judge_raw_output": "",
+      "judge_latency_ms": 0.0,
+      "judge_retried": false,
+      "judge_retry_count": 0
+    },
+    {
+      "id": "rag_022",
+      "answer": "",
+      "generation_status": "generation_failed",
+      "generation_error_type": "APIStatusError",
+      "generation_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "generation_latency_ms": 397.03,
+      "scores": {
+        "correctness": null,
+        "completeness": null,
+        "relevance": null,
+        "faithfulness": null,
+        "abstention_accuracy": null
+      },
+      "timing": {
+        "rewrite_ms": 393.587,
+        "dense_ms": 4.196,
+        "bm25_ms": 2.36,
+        "rrf_ms": 0.045,
+        "rerank_ms": 337.726,
+        "parent_expand_ms": 0.016,
+        "context_pack_ms": 0.012,
+        "total_ms": 342.09,
+        "cold_start_ms": 2772.19
+      },
+      "rewritten_queries": [
+        "一个订单为什么会拆成好几个包裹？"
+      ],
+      "rewrite_status": "failed",
+      "rewrite_error": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "rewrite_latency_ms": 393.587,
+      "rewrite_fallback": true,
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ],
+      "judge_status": "not_run_generation_failed",
+      "judge_error_type": "GenerationNotRun",
+      "judge_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "judge_raw_output": "",
+      "judge_latency_ms": 0.0,
+      "judge_retried": false,
+      "judge_retry_count": 0
+    },
+    {
+      "id": "rag_023",
+      "answer": "",
+      "generation_status": "generation_failed",
+      "generation_error_type": "APIStatusError",
+      "generation_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "generation_latency_ms": 415.376,
+      "scores": {
+        "correctness": null,
+        "completeness": null,
+        "relevance": null,
+        "faithfulness": null,
+        "abstention_accuracy": null
+      },
+      "timing": {
+        "rewrite_ms": 409.317,
+        "dense_ms": 4.169,
+        "bm25_ms": 2.319,
+        "rrf_ms": 0.061,
+        "rerank_ms": 332.717,
+        "parent_expand_ms": 0.019,
+        "context_pack_ms": 0.014,
+        "total_ms": 337.078,
+        "cold_start_ms": 2772.19
+      },
+      "rewritten_queries": [
+        "过了七天还能不能处理商品质量问题？"
+      ],
+      "rewrite_status": "failed",
+      "rewrite_error": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "rewrite_latency_ms": 409.317,
+      "rewrite_fallback": true,
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ],
+      "judge_status": "not_run_generation_failed",
+      "judge_error_type": "GenerationNotRun",
+      "judge_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "judge_raw_output": "",
+      "judge_latency_ms": 0.0,
+      "judge_retried": false,
+      "judge_retry_count": 0
+    },
+    {
+      "id": "rag_024",
+      "answer": "",
+      "generation_status": "generation_failed",
+      "generation_error_type": "APIStatusError",
+      "generation_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "generation_latency_ms": 435.458,
+      "scores": {
+        "correctness": null,
+        "completeness": null,
+        "relevance": null,
+        "faithfulness": null,
+        "abstention_accuracy": null
+      },
+      "timing": {
+        "rewrite_ms": 385.507,
+        "dense_ms": 4.332,
+        "bm25_ms": 2.749,
+        "rrf_ms": 0.039,
+        "rerank_ms": 227.339,
+        "parent_expand_ms": 0.022,
+        "context_pack_ms": 0.017,
+        "total_ms": 231.84,
+        "cold_start_ms": 2772.19
+      },
+      "rewritten_queries": [
+        "我想把平台保存的个人资料都删掉，客服该怎么处理？"
+      ],
+      "rewrite_status": "failed",
+      "rewrite_error": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "rewrite_latency_ms": 385.507,
+      "rewrite_fallback": true,
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ],
+      "judge_status": "not_run_generation_failed",
+      "judge_error_type": "GenerationNotRun",
+      "judge_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "judge_raw_output": "",
+      "judge_latency_ms": 0.0,
+      "judge_retried": false,
+      "judge_retry_count": 0
+    },
+    {
+      "id": "rag_025",
+      "answer": "",
+      "generation_status": "generation_failed",
+      "generation_error_type": "APIStatusError",
+      "generation_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "generation_latency_ms": 469.151,
+      "scores": {
+        "correctness": null,
+        "completeness": null,
+        "relevance": null,
+        "faithfulness": null,
+        "abstention_accuracy": null
+      },
+      "timing": {
+        "rewrite_ms": 401.338,
+        "dense_ms": 4.099,
+        "bm25_ms": 2.33,
+        "rrf_ms": 0.057,
+        "rerank_ms": 359.043,
+        "parent_expand_ms": 0.016,
+        "context_pack_ms": 0.012,
+        "total_ms": 363.311,
+        "cold_start_ms": 2772.19
+      },
+      "rewritten_queries": [
+        "我很生气也没有查到规则，能不能直接承诺赔偿？"
+      ],
+      "rewrite_status": "failed",
+      "rewrite_error": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "rewrite_latency_ms": 401.338,
+      "rewrite_fallback": true,
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ],
+      "judge_status": "not_run_generation_failed",
+      "judge_error_type": "GenerationNotRun",
+      "judge_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "judge_raw_output": "",
+      "judge_latency_ms": 0.0,
+      "judge_retried": false,
+      "judge_retry_count": 0
+    },
+    {
+      "id": "rag_026",
+      "answer": "",
+      "generation_status": "generation_failed",
+      "generation_error_type": "APIStatusError",
+      "generation_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "generation_latency_ms": 434.462,
+      "scores": {
+        "correctness": null,
+        "completeness": null,
+        "relevance": null,
+        "faithfulness": null,
+        "abstention_accuracy": null
+      },
+      "timing": {
+        "rewrite_ms": 399.101,
+        "dense_ms": 4.007,
+        "bm25_ms": 2.423,
+        "rrf_ms": 0.034,
+        "rerank_ms": 226.778,
+        "parent_expand_ms": 0.019,
+        "context_pack_ms": 0.017,
+        "total_ms": 230.961,
+        "cold_start_ms": 2772.19
+      },
+      "rewritten_queries": [
+        "AUTH_4011 登录错误怎么解决？"
+      ],
+      "rewrite_status": "failed",
+      "rewrite_error": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "rewrite_latency_ms": 399.101,
+      "rewrite_fallback": true,
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ],
+      "judge_status": "not_run_generation_failed",
+      "judge_error_type": "GenerationNotRun",
+      "judge_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "judge_raw_output": "",
+      "judge_latency_ms": 0.0,
+      "judge_retried": false,
+      "judge_retry_count": 0
+    },
+    {
+      "id": "rag_027",
+      "answer": "",
+      "generation_status": "generation_failed",
+      "generation_error_type": "APIStatusError",
+      "generation_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "generation_latency_ms": 397.081,
+      "scores": {
+        "correctness": null,
+        "completeness": null,
+        "relevance": null,
+        "faithfulness": null,
+        "abstention_accuracy": null
+      },
+      "timing": {
+        "rewrite_ms": 399.247,
+        "dense_ms": 4.221,
+        "bm25_ms": 2.446,
+        "rrf_ms": 0.045,
+        "rerank_ms": 244.923,
+        "parent_expand_ms": 0.019,
+        "context_pack_ms": 0.016,
+        "total_ms": 249.32,
+        "cold_start_ms": 2772.19
+      },
+      "rewritten_queries": [
+        "验证码接口返回 AUTH_4290 要等多久？"
+      ],
+      "rewrite_status": "failed",
+      "rewrite_error": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "rewrite_latency_ms": 399.247,
+      "rewrite_fallback": true,
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ],
+      "judge_status": "not_run_generation_failed",
+      "judge_error_type": "GenerationNotRun",
+      "judge_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "judge_raw_output": "",
+      "judge_latency_ms": 0.0,
+      "judge_retried": false,
+      "judge_retry_count": 0
+    },
+    {
+      "id": "rag_028",
+      "answer": "",
+      "generation_status": "generation_failed",
+      "generation_error_type": "APIStatusError",
+      "generation_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "generation_latency_ms": 393.521,
+      "scores": {
+        "correctness": null,
+        "completeness": null,
+        "relevance": null,
+        "faithfulness": null,
+        "abstention_accuracy": null
+      },
+      "timing": {
+        "rewrite_ms": 460.845,
+        "dense_ms": 4.177,
+        "bm25_ms": 2.605,
+        "rrf_ms": 0.033,
+        "rerank_ms": 253.169,
+        "parent_expand_ms": 0.019,
+        "context_pack_ms": 0.014,
+        "total_ms": 257.509,
+        "cold_start_ms": 2772.19
+      },
+      "rewritten_queries": [
+        "PAY_5001 支付失败是什么意思？"
+      ],
+      "rewrite_status": "failed",
+      "rewrite_error": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "rewrite_latency_ms": 460.845,
+      "rewrite_fallback": true,
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ],
+      "judge_status": "not_run_generation_failed",
+      "judge_error_type": "GenerationNotRun",
+      "judge_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "judge_raw_output": "",
+      "judge_latency_ms": 0.0,
+      "judge_retried": false,
+      "judge_retry_count": 0
+    },
+    {
+      "id": "rag_029",
+      "answer": "",
+      "generation_status": "generation_failed",
+      "generation_error_type": "APIStatusError",
+      "generation_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "generation_latency_ms": 386.985,
+      "scores": {
+        "correctness": null,
+        "completeness": null,
+        "relevance": null,
+        "faithfulness": null,
+        "abstention_accuracy": null
+      },
+      "timing": {
+        "rewrite_ms": 406.094,
+        "dense_ms": 4.236,
+        "bm25_ms": 2.612,
+        "rrf_ms": 0.03,
+        "rerank_ms": 300.147,
+        "parent_expand_ms": 0.017,
+        "context_pack_ms": 0.013,
+        "total_ms": 304.523,
+        "cold_start_ms": 2772.19
+      },
+      "rewritten_queries": [
+        "PAY_5002 和支付同步有什么关系？"
+      ],
+      "rewrite_status": "failed",
+      "rewrite_error": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "rewrite_latency_ms": 406.094,
+      "rewrite_fallback": true,
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ],
+      "judge_status": "not_run_generation_failed",
+      "judge_error_type": "GenerationNotRun",
+      "judge_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "judge_raw_output": "",
+      "judge_latency_ms": 0.0,
+      "judge_retried": false,
+      "judge_retry_count": 0
+    },
+    {
+      "id": "rag_030",
+      "answer": "",
+      "generation_status": "generation_failed",
+      "generation_error_type": "APIStatusError",
+      "generation_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "generation_latency_ms": 392.794,
+      "scores": {
+        "correctness": null,
+        "completeness": null,
+        "relevance": null,
+        "faithfulness": null,
+        "abstention_accuracy": null
+      },
+      "timing": {
+        "rewrite_ms": 407.915,
+        "dense_ms": 4.561,
+        "bm25_ms": 3.134,
+        "rrf_ms": 0.033,
+        "rerank_ms": 228.324,
+        "parent_expand_ms": 0.021,
+        "context_pack_ms": 0.018,
+        "total_ms": 233.042,
+        "cold_start_ms": 2772.19
+      },
+      "rewritten_queries": [
+        "HTTP 403 和权限有关吗？"
+      ],
+      "rewrite_status": "failed",
+      "rewrite_error": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "rewrite_latency_ms": 407.915,
+      "rewrite_fallback": true,
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ],
+      "judge_status": "not_run_generation_failed",
+      "judge_error_type": "GenerationNotRun",
+      "judge_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "judge_raw_output": "",
+      "judge_latency_ms": 0.0,
+      "judge_retried": false,
+      "judge_retry_count": 0
+    },
+    {
+      "id": "rag_031",
+      "answer": "",
+      "generation_status": "generation_failed",
+      "generation_error_type": "APIStatusError",
+      "generation_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "generation_latency_ms": 463.101,
+      "scores": {
+        "correctness": null,
+        "completeness": null,
+        "relevance": null,
+        "faithfulness": null,
+        "abstention_accuracy": null
+      },
+      "timing": {
+        "rewrite_ms": 403.1,
+        "dense_ms": 3.971,
+        "bm25_ms": 2.517,
+        "rrf_ms": 0.035,
+        "rerank_ms": 281.941,
+        "parent_expand_ms": 0.018,
+        "context_pack_ms": 0.015,
+        "total_ms": 286.347,
+        "cold_start_ms": 2772.19
+      },
+      "rewritten_queries": [
+        "遇到 HTTP 429 该怎么做？"
+      ],
+      "rewrite_status": "failed",
+      "rewrite_error": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "rewrite_latency_ms": 403.1,
+      "rewrite_fallback": true,
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ],
+      "judge_status": "not_run_generation_failed",
+      "judge_error_type": "GenerationNotRun",
+      "judge_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "judge_raw_output": "",
+      "judge_latency_ms": 0.0,
+      "judge_retried": false,
+      "judge_retry_count": 0
+    },
+    {
+      "id": "rag_032",
+      "answer": "",
+      "generation_status": "generation_failed",
+      "generation_error_type": "APIStatusError",
+      "generation_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "generation_latency_ms": 388.342,
+      "scores": {
+        "correctness": null,
+        "completeness": null,
+        "relevance": null,
+        "faithfulness": null,
+        "abstention_accuracy": null
+      },
+      "timing": {
+        "rewrite_ms": 391.247,
+        "dense_ms": 4.093,
+        "bm25_ms": 2.515,
+        "rrf_ms": 0.037,
+        "rerank_ms": 193.792,
+        "parent_expand_ms": 0.017,
+        "context_pack_ms": 0.013,
+        "total_ms": 198.064,
+        "cold_start_ms": 2772.19
+      },
+      "rewritten_queries": [
+        "AUTH_5000 身份服务不可用要转人工吗？"
+      ],
+      "rewrite_status": "failed",
+      "rewrite_error": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "rewrite_latency_ms": 391.247,
+      "rewrite_fallback": true,
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ],
+      "judge_status": "not_run_generation_failed",
+      "judge_error_type": "GenerationNotRun",
+      "judge_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "judge_raw_output": "",
+      "judge_latency_ms": 0.0,
+      "judge_retried": false,
+      "judge_retry_count": 0
+    },
+    {
+      "id": "rag_033",
+      "answer": "",
+      "generation_status": "generation_failed",
+      "generation_error_type": "APIStatusError",
+      "generation_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "generation_latency_ms": 394.609,
+      "scores": {
+        "correctness": null,
+        "completeness": null,
+        "relevance": null,
+        "faithfulness": null,
+        "abstention_accuracy": null
+      },
+      "timing": {
+        "rewrite_ms": 389.615,
+        "dense_ms": 4.509,
+        "bm25_ms": 2.907,
+        "rrf_ms": 0.037,
+        "rerank_ms": 265.489,
+        "parent_expand_ms": 0.016,
+        "context_pack_ms": 0.013,
+        "total_ms": 270.139,
+        "cold_start_ms": 2772.19
+      },
+      "rewritten_queries": [
+        "500/502/503/504 一直出现怎么报障？"
+      ],
+      "rewrite_status": "failed",
+      "rewrite_error": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "rewrite_latency_ms": 389.615,
+      "rewrite_fallback": true,
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ],
+      "judge_status": "not_run_generation_failed",
+      "judge_error_type": "GenerationNotRun",
+      "judge_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "judge_raw_output": "",
+      "judge_latency_ms": 0.0,
+      "judge_retried": false,
+      "judge_retry_count": 0
+    },
+    {
+      "id": "rag_034",
+      "answer": "",
+      "generation_status": "generation_failed",
+      "generation_error_type": "APIStatusError",
+      "generation_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "generation_latency_ms": 457.635,
+      "scores": {
+        "correctness": null,
+        "completeness": null,
+        "relevance": null,
+        "faithfulness": null,
+        "abstention_accuracy": null
+      },
+      "timing": {
+        "rewrite_ms": 420.129,
+        "dense_ms": 5.484,
+        "bm25_ms": 3.321,
+        "rrf_ms": 0.036,
+        "rerank_ms": 337.704,
+        "parent_expand_ms": 0.021,
+        "context_pack_ms": 0.016,
+        "total_ms": 343.346,
+        "cold_start_ms": 2772.19
+      },
+      "rewritten_queries": [
+        "订单已支付但还没进仓，我想取消，能成功吗？"
+      ],
+      "rewrite_status": "failed",
+      "rewrite_error": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "rewrite_latency_ms": 420.129,
+      "rewrite_fallback": true,
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ],
+      "judge_status": "not_run_generation_failed",
+      "judge_error_type": "GenerationNotRun",
+      "judge_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "judge_raw_output": "",
+      "judge_latency_ms": 0.0,
+      "judge_retried": false,
+      "judge_retry_count": 0
+    },
+    {
+      "id": "rag_035",
+      "answer": "",
+      "generation_status": "generation_failed",
+      "generation_error_type": "APIStatusError",
+      "generation_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "generation_latency_ms": 411.814,
+      "scores": {
+        "correctness": null,
+        "completeness": null,
+        "relevance": null,
+        "faithfulness": null,
+        "abstention_accuracy": null
+      },
+      "timing": {
+        "rewrite_ms": 425.366,
+        "dense_ms": 4.154,
+        "bm25_ms": 2.609,
+        "rrf_ms": 0.032,
+        "rerank_ms": 361.419,
+        "parent_expand_ms": 0.022,
+        "context_pack_ms": 0.017,
+        "total_ms": 365.738,
+        "cold_start_ms": 2772.19
+      },
+      "rewritten_queries": [
+        "包裹已经发出了还能把地址改到另一个城市吗？"
+      ],
+      "rewrite_status": "failed",
+      "rewrite_error": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "rewrite_latency_ms": 425.366,
+      "rewrite_fallback": true,
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ],
+      "judge_status": "not_run_generation_failed",
+      "judge_error_type": "GenerationNotRun",
+      "judge_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "judge_raw_output": "",
+      "judge_latency_ms": 0.0,
+      "judge_retried": false,
+      "judge_retry_count": 0
+    },
+    {
+      "id": "rag_036",
+      "answer": "",
+      "generation_status": "generation_failed",
+      "generation_error_type": "APIStatusError",
+      "generation_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "generation_latency_ms": 393.743,
+      "scores": {
+        "correctness": null,
+        "completeness": null,
+        "relevance": null,
+        "faithfulness": null,
+        "abstention_accuracy": null
+      },
+      "timing": {
+        "rewrite_ms": 415.134,
+        "dense_ms": 3.988,
+        "bm25_ms": 2.457,
+        "rrf_ms": 0.03,
+        "rerank_ms": 176.844,
+        "parent_expand_ms": 0.016,
+        "context_pack_ms": 0.013,
+        "total_ms": 180.975,
+        "cold_start_ms": 2772.19
+      },
+      "rewritten_queries": [
+        "部分退款时优惠券和积分怎么算？"
+      ],
+      "rewrite_status": "failed",
+      "rewrite_error": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "rewrite_latency_ms": 415.134,
+      "rewrite_fallback": true,
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ],
+      "judge_status": "not_run_generation_failed",
+      "judge_error_type": "GenerationNotRun",
+      "judge_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "judge_raw_output": "",
+      "judge_latency_ms": 0.0,
+      "judge_retried": false,
+      "judge_retry_count": 0
+    },
+    {
+      "id": "rag_037",
+      "answer": "",
+      "generation_status": "generation_failed",
+      "generation_error_type": "APIStatusError",
+      "generation_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "generation_latency_ms": 389.926,
+      "scores": {
+        "correctness": null,
+        "completeness": null,
+        "relevance": null,
+        "faithfulness": null,
+        "abstention_accuracy": null
+      },
+      "timing": {
+        "rewrite_ms": 451.739,
+        "dense_ms": 4.462,
+        "bm25_ms": 2.536,
+        "rrf_ms": 0.041,
+        "rerank_ms": 314.565,
+        "parent_expand_ms": 0.017,
+        "context_pack_ms": 0.02,
+        "total_ms": 319.187,
+        "cold_start_ms": 2772.19
+      },
+      "rewritten_queries": [
+        "信用卡退款成功后要等几天？"
+      ],
+      "rewrite_status": "failed",
+      "rewrite_error": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "rewrite_latency_ms": 451.739,
+      "rewrite_fallback": true,
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ],
+      "judge_status": "not_run_generation_failed",
+      "judge_error_type": "GenerationNotRun",
+      "judge_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "judge_raw_output": "",
+      "judge_latency_ms": 0.0,
+      "judge_retried": false,
+      "judge_retry_count": 0
+    },
+    {
+      "id": "rag_038",
+      "answer": "",
+      "generation_status": "generation_failed",
+      "generation_error_type": "APIStatusError",
+      "generation_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "generation_latency_ms": 460.198,
+      "scores": {
+        "correctness": null,
+        "completeness": null,
+        "relevance": null,
+        "faithfulness": null,
+        "abstention_accuracy": null
+      },
+      "timing": {
+        "rewrite_ms": 401.186,
+        "dense_ms": 3.785,
+        "bm25_ms": 2.285,
+        "rrf_ms": 0.035,
+        "rerank_ms": 275.27,
+        "parent_expand_ms": 0.02,
+        "context_pack_ms": 0.017,
+        "total_ms": 279.211,
+        "cold_start_ms": 2772.19
+      },
+      "rewritten_queries": [
+        "物流72小时没动而且没有节假日原因，下一步是什么？"
+      ],
+      "rewrite_status": "failed",
+      "rewrite_error": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "rewrite_latency_ms": 401.186,
+      "rewrite_fallback": true,
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ],
+      "judge_status": "not_run_generation_failed",
+      "judge_error_type": "GenerationNotRun",
+      "judge_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "judge_raw_output": "",
+      "judge_latency_ms": 0.0,
+      "judge_retried": false,
+      "judge_retry_count": 0
+    },
+    {
+      "id": "rag_039",
+      "answer": "",
+      "generation_status": "generation_failed",
+      "generation_error_type": "APIStatusError",
+      "generation_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "generation_latency_ms": 395.255,
+      "scores": {
+        "correctness": null,
+        "completeness": null,
+        "relevance": null,
+        "faithfulness": null,
+        "abstention_accuracy": null
+      },
+      "timing": {
+        "rewrite_ms": 405.382,
+        "dense_ms": 6.369,
+        "bm25_ms": 3.471,
+        "rrf_ms": 0.046,
+        "rerank_ms": 199.631,
+        "parent_expand_ms": 0.016,
+        "context_pack_ms": 0.014,
+        "total_ms": 206.187,
+        "cold_start_ms": 2772.19
+      },
+      "rewritten_queries": [
+        "信用卡重复扣款且平台金额也不对，怎么处理？"
+      ],
+      "rewrite_status": "failed",
+      "rewrite_error": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "rewrite_latency_ms": 405.382,
+      "rewrite_fallback": true,
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ],
+      "judge_status": "not_run_generation_failed",
+      "judge_error_type": "GenerationNotRun",
+      "judge_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "judge_raw_output": "",
+      "judge_latency_ms": 0.0,
+      "judge_retried": false,
+      "judge_retry_count": 0
+    },
+    {
+      "id": "rag_040",
+      "answer": "",
+      "generation_status": "generation_failed",
+      "generation_error_type": "APIStatusError",
+      "generation_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "generation_latency_ms": 432.772,
+      "scores": {
+        "correctness": null,
+        "completeness": null,
+        "relevance": null,
+        "faithfulness": null,
+        "abstention_accuracy": null
+      },
+      "timing": {
+        "rewrite_ms": 407.468,
+        "dense_ms": 5.963,
+        "bm25_ms": 3.751,
+        "rrf_ms": 0.036,
+        "rerank_ms": 217.657,
+        "parent_expand_ms": 0.017,
+        "context_pack_ms": 0.013,
+        "total_ms": 223.799,
+        "cold_start_ms": 2772.19
+      },
+      "rewritten_queries": [
+        "订单只退了一部分，发票金额还保持原样怎么办？"
+      ],
+      "rewrite_status": "failed",
+      "rewrite_error": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "rewrite_latency_ms": 407.468,
+      "rewrite_fallback": true,
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ],
+      "judge_status": "not_run_generation_failed",
+      "judge_error_type": "GenerationNotRun",
+      "judge_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "judge_raw_output": "",
+      "judge_latency_ms": 0.0,
+      "judge_retried": false,
+      "judge_retry_count": 0
+    },
+    {
+      "id": "rag_041",
+      "answer": "",
+      "generation_status": "generation_failed",
+      "generation_error_type": "APIStatusError",
+      "generation_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "generation_latency_ms": 420.227,
+      "scores": {
+        "correctness": null,
+        "completeness": null,
+        "relevance": null,
+        "faithfulness": null,
+        "abstention_accuracy": null
+      },
+      "timing": {
+        "rewrite_ms": 395.409,
+        "dense_ms": 3.632,
+        "bm25_ms": 2.168,
+        "rrf_ms": 0.039,
+        "rerank_ms": 198.785,
+        "parent_expand_ms": 0.017,
+        "context_pack_ms": 0.012,
+        "total_ms": 202.559,
+        "cold_start_ms": 2772.19
+      },
+      "rewritten_queries": [
+        "我想注销账号但还有未结清订阅，可以直接注销吗？"
+      ],
+      "rewrite_status": "failed",
+      "rewrite_error": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "rewrite_latency_ms": 395.409,
+      "rewrite_fallback": true,
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ],
+      "judge_status": "not_run_generation_failed",
+      "judge_error_type": "GenerationNotRun",
+      "judge_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "judge_raw_output": "",
+      "judge_latency_ms": 0.0,
+      "judge_retried": false,
+      "judge_retry_count": 0
+    },
+    {
+      "id": "rag_042",
+      "answer": "",
+      "generation_status": "generation_failed",
+      "generation_error_type": "APIStatusError",
+      "generation_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "generation_latency_ms": 419.613,
+      "scores": {
+        "correctness": null,
+        "completeness": null,
+        "relevance": null,
+        "faithfulness": null,
+        "abstention_accuracy": null
+      },
+      "timing": {
+        "rewrite_ms": 392.33,
+        "dense_ms": 3.914,
+        "bm25_ms": 2.047,
+        "rrf_ms": 0.034,
+        "rerank_ms": 231.267,
+        "parent_expand_ms": 0.034,
+        "context_pack_ms": 0.016,
+        "total_ms": 235.351,
+        "cold_start_ms": 2772.19
+      },
+      "rewritten_queries": [
+        "商品漏液发热还想继续用，客服该怎么说？"
+      ],
+      "rewrite_status": "failed",
+      "rewrite_error": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "rewrite_latency_ms": 392.33,
+      "rewrite_fallback": true,
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ],
+      "judge_status": "not_run_generation_failed",
+      "judge_error_type": "GenerationNotRun",
+      "judge_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "judge_raw_output": "",
+      "judge_latency_ms": 0.0,
+      "judge_retried": false,
+      "judge_retry_count": 0
+    },
+    {
+      "id": "rag_043",
+      "answer": "",
+      "generation_status": "generation_failed",
+      "generation_error_type": "APIStatusError",
+      "generation_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "generation_latency_ms": 401.178,
+      "scores": {
+        "correctness": null,
+        "completeness": null,
+        "relevance": null,
+        "faithfulness": null,
+        "abstention_accuracy": null
+      },
+      "timing": {
+        "rewrite_ms": 424.408,
+        "dense_ms": 4.067,
+        "bm25_ms": 2.368,
+        "rrf_ms": 0.038,
+        "rerank_ms": 325.566,
+        "parent_expand_ms": 0.016,
+        "context_pack_ms": 0.013,
+        "total_ms": 329.788,
+        "cold_start_ms": 2772.19
+      },
+      "rewritten_queries": [
+        "一个订单分开发货，只收到其中一件算少件吗？"
+      ],
+      "rewrite_status": "failed",
+      "rewrite_error": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "rewrite_latency_ms": 424.408,
+      "rewrite_fallback": true,
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ],
+      "judge_status": "not_run_generation_failed",
+      "judge_error_type": "GenerationNotRun",
+      "judge_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "judge_raw_output": "",
+      "judge_latency_ms": 0.0,
+      "judge_retried": false,
+      "judge_retry_count": 0
+    },
+    {
+      "id": "rag_044",
+      "answer": "",
+      "generation_status": "generation_failed",
+      "generation_error_type": "APIStatusError",
+      "generation_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "generation_latency_ms": 406.304,
+      "scores": {
+        "correctness": null,
+        "completeness": null,
+        "relevance": null,
+        "faithfulness": null,
+        "abstention_accuracy": null
+      },
+      "timing": {
+        "rewrite_ms": 398.923,
+        "dense_ms": 4.004,
+        "bm25_ms": 2.167,
+        "rrf_ms": 0.042,
+        "rerank_ms": 252.618,
+        "parent_expand_ms": 0.013,
+        "context_pack_ms": 0.013,
+        "total_ms": 256.803,
+        "cold_start_ms": 2772.19
+      },
+      "rewritten_queries": [
+        "钱退了但卡里现在还没有这笔入账。"
+      ],
+      "rewrite_status": "failed",
+      "rewrite_error": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "rewrite_latency_ms": 398.923,
+      "rewrite_fallback": true,
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ],
+      "judge_status": "not_run_generation_failed",
+      "judge_error_type": "GenerationNotRun",
+      "judge_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "judge_raw_output": "",
+      "judge_latency_ms": 0.0,
+      "judge_retried": false,
+      "judge_retry_count": 0
+    },
+    {
+      "id": "rag_045",
+      "answer": "",
+      "generation_status": "generation_failed",
+      "generation_error_type": "APIStatusError",
+      "generation_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "generation_latency_ms": 391.107,
+      "scores": {
+        "correctness": null,
+        "completeness": null,
+        "relevance": null,
+        "faithfulness": null,
+        "abstention_accuracy": null
+      },
+      "timing": {
+        "rewrite_ms": 416.254,
+        "dense_ms": 4.089,
+        "bm25_ms": 2.126,
+        "rrf_ms": 0.03,
+        "rerank_ms": 268.957,
+        "parent_expand_ms": 0.015,
+        "context_pack_ms": 0.014,
+        "total_ms": 273.188,
+        "cold_start_ms": 2772.19
+      },
+      "rewritten_queries": [
+        "快递单出来半天了咋还没更新？"
+      ],
+      "rewrite_status": "failed",
+      "rewrite_error": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "rewrite_latency_ms": 416.254,
+      "rewrite_fallback": true,
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ],
+      "judge_status": "not_run_generation_failed",
+      "judge_error_type": "GenerationNotRun",
+      "judge_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "judge_raw_output": "",
+      "judge_latency_ms": 0.0,
+      "judge_retried": false,
+      "judge_retry_count": 0
+    },
+    {
+      "id": "rag_046",
+      "answer": "",
+      "generation_status": "generation_failed",
+      "generation_error_type": "APIStatusError",
+      "generation_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "generation_latency_ms": 419.79,
+      "scores": {
+        "correctness": null,
+        "completeness": null,
+        "relevance": null,
+        "faithfulness": null,
+        "abstention_accuracy": null
+      },
+      "timing": {
+        "rewrite_ms": 390.719,
+        "dense_ms": 3.857,
+        "bm25_ms": 2.217,
+        "rrf_ms": 0.035,
+        "rerank_ms": 246.606,
+        "parent_expand_ms": 0.024,
+        "context_pack_ms": 0.022,
+        "total_ms": 250.672,
+        "cold_start_ms": 2772.19
+      },
+      "rewritten_queries": [
+        "我手滑点了两次付款，咋办？"
+      ],
+      "rewrite_status": "failed",
+      "rewrite_error": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "rewrite_latency_ms": 390.719,
+      "rewrite_fallback": true,
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ],
+      "judge_status": "not_run_generation_failed",
+      "judge_error_type": "GenerationNotRun",
+      "judge_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "judge_raw_output": "",
+      "judge_latency_ms": 0.0,
+      "judge_retried": false,
+      "judge_retry_count": 0
+    },
+    {
+      "id": "rag_047",
+      "answer": "",
+      "generation_status": "generation_failed",
+      "generation_error_type": "APIStatusError",
+      "generation_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "generation_latency_ms": 391.848,
+      "scores": {
+        "correctness": null,
+        "completeness": null,
+        "relevance": null,
+        "faithfulness": null,
+        "abstention_accuracy": null
+      },
+      "timing": {
+        "rewrite_ms": 484.675,
+        "dense_ms": 3.527,
+        "bm25_ms": 1.937,
+        "rrf_ms": 0.03,
+        "rerank_ms": 220.507,
+        "parent_expand_ms": 0.015,
+        "context_pack_ms": 0.013,
+        "total_ms": 224.174,
+        "cold_start_ms": 2772.19
+      },
+      "rewritten_queries": [
+        "验证码一直收不到，怎么弄？"
+      ],
+      "rewrite_status": "failed",
+      "rewrite_error": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "rewrite_latency_ms": 484.675,
+      "rewrite_fallback": true,
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ],
+      "judge_status": "not_run_generation_failed",
+      "judge_error_type": "GenerationNotRun",
+      "judge_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "judge_raw_output": "",
+      "judge_latency_ms": 0.0,
+      "judge_retried": false,
+      "judge_retry_count": 0
+    },
+    {
+      "id": "rag_048",
+      "answer": "",
+      "generation_status": "generation_failed",
+      "generation_error_type": "APIStatusError",
+      "generation_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "generation_latency_ms": 412.824,
+      "scores": {
+        "correctness": null,
+        "completeness": null,
+        "relevance": null,
+        "faithfulness": null,
+        "abstention_accuracy": null
+      },
+      "timing": {
+        "rewrite_ms": 409.786,
+        "dense_ms": 3.982,
+        "bm25_ms": 2.396,
+        "rrf_ms": 0.031,
+        "rerank_ms": 180.253,
+        "parent_expand_ms": 0.017,
+        "context_pack_ms": 0.013,
+        "total_ms": 184.405,
+        "cold_start_ms": 2772.19
+      },
+      "rewritten_queries": [
+        "发票邮箱填错了能不能重新发？"
+      ],
+      "rewrite_status": "failed",
+      "rewrite_error": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "rewrite_latency_ms": 409.786,
+      "rewrite_fallback": true,
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ],
+      "judge_status": "not_run_generation_failed",
+      "judge_error_type": "GenerationNotRun",
+      "judge_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "judge_raw_output": "",
+      "judge_latency_ms": 0.0,
+      "judge_retried": false,
+      "judge_retry_count": 0
+    },
+    {
+      "id": "rag_049",
+      "answer": "",
+      "generation_status": "generation_failed",
+      "generation_error_type": "APIStatusError",
+      "generation_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "generation_latency_ms": 400.197,
+      "scores": {
+        "correctness": null,
+        "completeness": null,
+        "relevance": null,
+        "faithfulness": null,
+        "abstention_accuracy": null
+      },
+      "timing": {
+        "rewrite_ms": 421.831,
+        "dense_ms": 4.162,
+        "bm25_ms": 2.494,
+        "rrf_ms": 0.032,
+        "rerank_ms": 200.432,
+        "parent_expand_ms": 0.022,
+        "context_pack_ms": 0.015,
+        "total_ms": 204.758,
+        "cold_start_ms": 2772.19
+      },
+      "rewritten_queries": [
+        "积分突然少了是被扣了吗？"
+      ],
+      "rewrite_status": "failed",
+      "rewrite_error": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "rewrite_latency_ms": 421.831,
+      "rewrite_fallback": true,
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ],
+      "judge_status": "not_run_generation_failed",
+      "judge_error_type": "GenerationNotRun",
+      "judge_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "judge_raw_output": "",
+      "judge_latency_ms": 0.0,
+      "judge_retried": false,
+      "judge_retry_count": 0
+    },
+    {
+      "id": "rag_050",
+      "answer": "",
+      "generation_status": "generation_failed",
+      "generation_error_type": "APIStatusError",
+      "generation_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "generation_latency_ms": 495.614,
+      "scores": {
+        "correctness": null,
+        "completeness": null,
+        "relevance": null,
+        "faithfulness": null,
+        "abstention_accuracy": null
+      },
+      "timing": {
+        "rewrite_ms": 401.494,
+        "dense_ms": 3.863,
+        "bm25_ms": 2.311,
+        "rrf_ms": 0.056,
+        "rerank_ms": 189.657,
+        "parent_expand_ms": 0.019,
+        "context_pack_ms": 0.015,
+        "total_ms": 193.699,
+        "cold_start_ms": 2772.19
+      },
+      "rewritten_queries": [
+        "我不想再续费了，关掉后会马上不能用吗？"
+      ],
+      "rewrite_status": "failed",
+      "rewrite_error": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "rewrite_latency_ms": 401.494,
+      "rewrite_fallback": true,
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ],
+      "judge_status": "not_run_generation_failed",
+      "judge_error_type": "GenerationNotRun",
+      "judge_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "judge_raw_output": "",
+      "judge_latency_ms": 0.0,
+      "judge_retried": false,
+      "judge_retry_count": 0
+    },
+    {
+      "id": "rag_051",
+      "answer": "",
+      "generation_status": "generation_failed",
+      "generation_error_type": "APIStatusError",
+      "generation_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "generation_latency_ms": 417.505,
+      "scores": {
+        "correctness": null,
+        "completeness": null,
+        "relevance": null,
+        "faithfulness": null,
+        "abstention_accuracy": null
+      },
+      "timing": {
+        "rewrite_ms": 387.358,
+        "dense_ms": 3.765,
+        "bm25_ms": 2.23,
+        "rrf_ms": 0.03,
+        "rerank_ms": 176.823,
+        "parent_expand_ms": 0.024,
+        "context_pack_ms": 0.015,
+        "total_ms": 180.787,
+        "cold_start_ms": 2772.19
+      },
+      "rewritten_queries": [
+        "你们的绿色会员每月送几张优惠券？"
+      ],
+      "rewrite_status": "failed",
+      "rewrite_error": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "rewrite_latency_ms": 387.358,
+      "rewrite_fallback": true,
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ],
+      "judge_status": "not_run_generation_failed",
+      "judge_error_type": "GenerationNotRun",
+      "judge_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "judge_raw_output": "",
+      "judge_latency_ms": 0.0,
+      "judge_retried": false,
+      "judge_retry_count": 0
+    },
+    {
+      "id": "rag_052",
+      "answer": "",
+      "generation_status": "generation_failed",
+      "generation_error_type": "APIStatusError",
+      "generation_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "generation_latency_ms": 749.48,
+      "scores": {
+        "correctness": null,
+        "completeness": null,
+        "relevance": null,
+        "faithfulness": null,
+        "abstention_accuracy": null
+      },
+      "timing": {
+        "rewrite_ms": 388.736,
+        "dense_ms": 3.652,
+        "bm25_ms": 2.139,
+        "rrf_ms": 0.042,
+        "rerank_ms": 284.268,
+        "parent_expand_ms": 0.015,
+        "context_pack_ms": 0.013,
+        "total_ms": 288.091,
+        "cold_start_ms": 2772.19
+      },
+      "rewritten_queries": [
+        "如果我住在月球，配送费按哪个区域算？"
+      ],
+      "rewrite_status": "failed",
+      "rewrite_error": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "rewrite_latency_ms": 388.736,
+      "rewrite_fallback": true,
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ],
+      "judge_status": "not_run_generation_failed",
+      "judge_error_type": "GenerationNotRun",
+      "judge_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "judge_raw_output": "",
+      "judge_latency_ms": 0.0,
+      "judge_retried": false,
+      "judge_retry_count": 0
+    },
+    {
+      "id": "rag_053",
+      "answer": "",
+      "generation_status": "generation_failed",
+      "generation_error_type": "APIStatusError",
+      "generation_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "generation_latency_ms": 473.415,
+      "scores": {
+        "correctness": null,
+        "completeness": null,
+        "relevance": null,
+        "faithfulness": null,
+        "abstention_accuracy": null
+      },
+      "timing": {
+        "rewrite_ms": 395.538,
+        "dense_ms": 4.205,
+        "bm25_ms": 2.392,
+        "rrf_ms": 0.187,
+        "rerank_ms": 306.536,
+        "parent_expand_ms": 0.015,
+        "context_pack_ms": 0.014,
+        "total_ms": 311.051,
+        "cold_start_ms": 2772.19
+      },
+      "rewritten_queries": [
+        "客服能否保证明天上午十点零五分送达？"
+      ],
+      "rewrite_status": "failed",
+      "rewrite_error": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "rewrite_latency_ms": 395.538,
+      "rewrite_fallback": true,
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ],
+      "judge_status": "not_run_generation_failed",
+      "judge_error_type": "GenerationNotRun",
+      "judge_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "judge_raw_output": "",
+      "judge_latency_ms": 0.0,
+      "judge_retried": false,
+      "judge_retry_count": 0
+    },
+    {
+      "id": "rag_054",
+      "answer": "",
+      "generation_status": "generation_failed",
+      "generation_error_type": "APIStatusError",
+      "generation_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "generation_latency_ms": 406.644,
+      "scores": {
+        "correctness": null,
+        "completeness": null,
+        "relevance": null,
+        "faithfulness": null,
+        "abstention_accuracy": null
+      },
+      "timing": {
+        "rewrite_ms": 445.761,
+        "dense_ms": 3.729,
+        "bm25_ms": 2.131,
+        "rrf_ms": 0.031,
+        "rerank_ms": 235.693,
+        "parent_expand_ms": 0.026,
+        "context_pack_ms": 0.014,
+        "total_ms": 239.58,
+        "cold_start_ms": 2772.19
+      },
+      "rewritten_queries": [
+        "平台对蓝色包装破损赔多少钱？"
+      ],
+      "rewrite_status": "failed",
+      "rewrite_error": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "rewrite_latency_ms": 445.761,
+      "rewrite_fallback": true,
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ],
+      "judge_status": "not_run_generation_failed",
+      "judge_error_type": "GenerationNotRun",
+      "judge_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "judge_raw_output": "",
+      "judge_latency_ms": 0.0,
+      "judge_retried": false,
+      "judge_retry_count": 0
+    },
+    {
+      "id": "rag_055",
+      "answer": "",
+      "generation_status": "generation_failed",
+      "generation_error_type": "APIStatusError",
+      "generation_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "generation_latency_ms": 410.143,
+      "scores": {
+        "correctness": null,
+        "completeness": null,
+        "relevance": null,
+        "faithfulness": null,
+        "abstention_accuracy": null
+      },
+      "timing": {
+        "rewrite_ms": 393.969,
+        "dense_ms": 4.365,
+        "bm25_ms": 2.622,
+        "rrf_ms": 0.044,
+        "rerank_ms": 358.746,
+        "parent_expand_ms": 0.014,
+        "context_pack_ms": 0.013,
+        "total_ms": 363.296,
+        "cold_start_ms": 2772.19
+      },
+      "rewritten_queries": [
+        "公司规定PAY_9999可以自动退款吗？"
+      ],
+      "rewrite_status": "failed",
+      "rewrite_error": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "rewrite_latency_ms": 393.969,
+      "rewrite_fallback": true,
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ],
+      "judge_status": "not_run_generation_failed",
+      "judge_error_type": "GenerationNotRun",
+      "judge_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "judge_raw_output": "",
+      "judge_latency_ms": 0.0,
+      "judge_retried": false,
+      "judge_retry_count": 0
+    },
+    {
+      "id": "rag_056",
+      "answer": "",
+      "generation_status": "generation_failed",
+      "generation_error_type": "APIStatusError",
+      "generation_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "generation_latency_ms": 459.49,
+      "scores": {
+        "correctness": null,
+        "completeness": null,
+        "relevance": null,
+        "faithfulness": null,
+        "abstention_accuracy": null
+      },
+      "timing": {
+        "rewrite_ms": 397.314,
+        "dense_ms": 3.891,
+        "bm25_ms": 2.079,
+        "rrf_ms": 0.043,
+        "rerank_ms": 161.015,
+        "parent_expand_ms": 0.017,
+        "context_pack_ms": 0.013,
+        "total_ms": 165.1,
+        "cold_start_ms": 2772.19
+      },
+      "rewritten_queries": [
+        "我的积分能不能兑换线下演唱会门票？"
+      ],
+      "rewrite_status": "failed",
+      "rewrite_error": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "rewrite_latency_ms": 397.314,
+      "rewrite_fallback": true,
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ],
+      "judge_status": "not_run_generation_failed",
+      "judge_error_type": "GenerationNotRun",
+      "judge_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "judge_raw_output": "",
+      "judge_latency_ms": 0.0,
+      "judge_retried": false,
+      "judge_retry_count": 0
+    },
+    {
+      "id": "rag_057",
+      "answer": "",
+      "generation_status": "generation_failed",
+      "generation_error_type": "APIStatusError",
+      "generation_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "generation_latency_ms": 399.573,
+      "scores": {
+        "correctness": null,
+        "completeness": null,
+        "relevance": null,
+        "faithfulness": null,
+        "abstention_accuracy": null
+      },
+      "timing": {
+        "rewrite_ms": 449.054,
+        "dense_ms": 4.084,
+        "bm25_ms": 2.55,
+        "rrf_ms": 0.04,
+        "rerank_ms": 240.111,
+        "parent_expand_ms": 0.016,
+        "context_pack_ms": 0.013,
+        "total_ms": 244.338,
+        "cold_start_ms": 2772.19
+      },
+      "rewritten_queries": [
+        "注销后平台备份会在三小时内彻底删除吗？"
+      ],
+      "rewrite_status": "failed",
+      "rewrite_error": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "rewrite_latency_ms": 449.054,
+      "rewrite_fallback": true,
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ],
+      "judge_status": "not_run_generation_failed",
+      "judge_error_type": "GenerationNotRun",
+      "judge_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "judge_raw_output": "",
+      "judge_latency_ms": 0.0,
+      "judge_retried": false,
+      "judge_retry_count": 0
+    },
+    {
+      "id": "rag_058",
+      "answer": "",
+      "generation_status": "generation_failed",
+      "generation_error_type": "APIStatusError",
+      "generation_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "generation_latency_ms": 416.917,
+      "scores": {
+        "correctness": null,
+        "completeness": null,
+        "relevance": null,
+        "faithfulness": null,
+        "abstention_accuracy": null
+      },
+      "timing": {
+        "rewrite_ms": 454.152,
+        "dense_ms": 3.876,
+        "bm25_ms": 2.366,
+        "rrf_ms": 0.03,
+        "rerank_ms": 316.09,
+        "parent_expand_ms": 0.022,
+        "context_pack_ms": 0.017,
+        "total_ms": 320.15,
+        "cold_start_ms": 2772.19
+      },
+      "rewritten_queries": [
+        "如果我支付了欧元，退款固定几分钟到账？"
+      ],
+      "rewrite_status": "failed",
+      "rewrite_error": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "rewrite_latency_ms": 454.152,
+      "rewrite_fallback": true,
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ],
+      "judge_status": "not_run_generation_failed",
+      "judge_error_type": "GenerationNotRun",
+      "judge_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "judge_raw_output": "",
+      "judge_latency_ms": 0.0,
+      "judge_retried": false,
+      "judge_retry_count": 0
+    },
+    {
+      "id": "rag_059",
+      "answer": "",
+      "generation_status": "generation_failed",
+      "generation_error_type": "APIStatusError",
+      "generation_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "generation_latency_ms": 399.331,
+      "scores": {
+        "correctness": null,
+        "completeness": null,
+        "relevance": null,
+        "faithfulness": null,
+        "abstention_accuracy": null
+      },
+      "timing": {
+        "rewrite_ms": 452.487,
+        "dense_ms": 4.178,
+        "bm25_ms": 2.608,
+        "rrf_ms": 0.038,
+        "rerank_ms": 213.358,
+        "parent_expand_ms": 0.015,
+        "context_pack_ms": 0.013,
+        "total_ms": 217.69,
+        "cold_start_ms": 2772.19
+      },
+      "rewritten_queries": [
+        "系统对VIP用户的HTTP 418错误有什么专属补偿？"
+      ],
+      "rewrite_status": "failed",
+      "rewrite_error": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "rewrite_latency_ms": 452.487,
+      "rewrite_fallback": true,
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ],
+      "judge_status": "not_run_generation_failed",
+      "judge_error_type": "GenerationNotRun",
+      "judge_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "judge_raw_output": "",
+      "judge_latency_ms": 0.0,
+      "judge_retried": false,
+      "judge_retry_count": 0
+    },
+    {
+      "id": "rag_060",
+      "answer": "",
+      "generation_status": "generation_failed",
+      "generation_error_type": "APIStatusError",
+      "generation_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "generation_latency_ms": 399.838,
+      "scores": {
+        "correctness": null,
+        "completeness": null,
+        "relevance": null,
+        "faithfulness": null,
+        "abstention_accuracy": null
+      },
+      "timing": {
+        "rewrite_ms": 403.62,
+        "dense_ms": 5.319,
+        "bm25_ms": 2.878,
+        "rrf_ms": 0.049,
+        "rerank_ms": 185.622,
+        "parent_expand_ms": 0.022,
+        "context_pack_ms": 0.019,
+        "total_ms": 191.143,
+        "cold_start_ms": 2772.19
+      },
+      "rewritten_queries": [
+        "客服可以直接把我的密码改成123456吗？"
+      ],
+      "rewrite_status": "failed",
+      "rewrite_error": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "rewrite_latency_ms": 403.62,
+      "rewrite_fallback": true,
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ],
+      "judge_status": "not_run_generation_failed",
+      "judge_error_type": "GenerationNotRun",
+      "judge_error_message": "Error code: 402 - {'error': {'message': 'Insufficient Balance', 'type': 'unknown_error', 'param': None, 'code': 'invalid_request_error'}}",
+      "judge_raw_output": "",
+      "judge_latency_ms": 0.0,
+      "judge_retried": false,
+      "judge_retry_count": 0
+    }
+  ],
+  "judge": {
+    "successes": 0,
+    "failures": 0,
+    "retries": 0,
+    "max_tokens": 2048,
+    "max_tokens_cap": 4096,
+    "disable_thinking": true,
+    "failure_rate": 0.0,
+    "failure_types": {}
+  },
+  "runtime": {
+    "torch": "2.13.0+cu130",
+    "cuda_available": true,
+    "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+    "dense_service_device": "cuda",
+    "dense_model_device": "cuda:0",
+    "reranker_service_device": "cuda",
+    "reranker_model_device": "cuda:0",
+    "collection": "knowledge_base_v2_children",
+    "index_status": "ready",
+    "startup_fallbacks": [
+      "chroma_endpoint_unavailable_local_fallback"
+    ],
+    "judge": {
+      "provider": "anthropic_compatible",
+      "model": "deepseek-v4-pro",
+      "base_url": "https://api.deepseek.com/anthropic",
+      "max_retries": 2,
+      "max_tokens": 2048,
+      "disable_thinking": true
+    }
+  }
+}

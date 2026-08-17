@@ -51,6 +51,7 @@ class BM25Config:
 class RewriteConfig:
     enabled: bool = True
     count: int = 3
+    max_concurrency: int = 10
 
 
 @dataclass
@@ -119,6 +120,7 @@ class RAGConfig:
             "RAG_MAX_PARENT_CHARS": (self.chunking, "max_parent_chars", int),
             "RAG_DENSE_TOP_K": (self.dense, "top_k_per_query", int),
             "RAG_BM25_TOP_K": (self.bm25, "top_k_per_query", int),
+            "RAG_REWRITE_MAX_CONCURRENCY": (self.rewrite, "max_concurrency", int),
             "RAG_COLLECTION": (self.dense, "collection", str),
             "RAG_RERANKER_ENABLED": (self.reranker, "enabled", _as_bool),
             "RAG_RERANKER_DEVICE": (self.reranker, "device", str),

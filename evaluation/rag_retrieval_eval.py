@@ -63,6 +63,10 @@ async def evaluate_retrieval(
                 "child_ids": [hit.child_id for hit in result.retrieved_children] or [hit.child_id for hit in result.reranked_hits],
                 "parent_ids": [selection.parent.parent_id for selection in result.selected_parents],
                 "rewritten_queries": result.rewritten_queries,
+                "rewrite_status": result.rewrite_status,
+                "rewrite_error": result.rewrite_error,
+                "rewrite_latency_ms": result.timing.rewrite_ms,
+                "rewrite_fallback": any("rewrite" in item for item in result.fallbacks),
                 "timing": result.timing.to_dict(),
                 "fallbacks": result.fallbacks,
             })
@@ -75,20 +79,26 @@ async def evaluate_retrieval(
         key: latency_summary([row["timing"].get(key, 0.0) for row in result_rows])
         for key in ("rewrite_ms", "dense_ms", "bm25_ms", "rrf_ms", "rerank_ms", "total_ms")
     }
-    rewrite_rows = [row for row in result_rows if row.get("rewritten_queries")]
+    rewrite_rows = [row for row in result_rows if row.get("rewrite_status") in {"ok", "failed", "empty"}]
     metrics["rewrite"] = {
         "cases": len(rewrite_rows),
+        "successes": sum(row.get("rewrite_status") == "ok" for row in rewrite_rows),
         "multi_query_cases": sum(len(row.get("rewritten_queries", [])) > 1 for row in rewrite_rows),
-        "fallback_cases": sum(any("rewrite" in item for item in row.get("fallbacks", [])) for row in rewrite_rows),
+        "fallback_cases": sum(bool(row.get("rewrite_fallback")) for row in rewrite_rows),
+        "success_rate": round(sum(row.get("rewrite_status") == "ok" for row in rewrite_rows) / len(rewrite_rows), 6) if rewrite_rows else 0.0,
     }
     return {"method": method, "metrics": metrics, "cases": result_rows}
 
 
 async def run_retrieval_ablation(pipeline: RAGPipeline, cases: Sequence[Dict[str, Any]]) -> Dict[str, Any]:
+    rewrite_started = asyncio.get_running_loop().time()
+    if pipeline.config.rewrite.enabled:
+        await pipeline.prefetch_rewrites([case["query"] for case in cases])
+    rewrite_prefetch_ms = (asyncio.get_running_loop().time() - rewrite_started) * 1000
     results = {}
     for method in ("dense", "bm25", "hybrid", "hybrid_rewrite", "production"):
         results[method] = await evaluate_retrieval(pipeline, cases, method=method)
-    return {"benchmark": "rag_benchmark_60.json", "methods": results}
+    return {"benchmark": "rag_benchmark_60.json", "methods": results, "rewrite_prefetch_ms": round(rewrite_prefetch_ms, 3), "rewrite_max_concurrency": pipeline.config.rewrite.max_concurrency}
 
 
 def write_ablation_report(result: Dict[str, Any], output: str | Path) -> None:

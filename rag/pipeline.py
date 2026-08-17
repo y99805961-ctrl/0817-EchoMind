@@ -80,16 +80,16 @@ class RAGPipeline:
         children_rows = read_jsonl(config.children_path)
         parents_rows = read_jsonl(config.parents_path)
         if not children_rows or not parents_rows or not config.manifest_path.exists():
-            return cls(config, rewriter=QueryRewriter(rewrite_client, rewrite_model, config.rewrite.count), reranker=reranker)
+            return cls(config, rewriter=QueryRewriter(rewrite_client, rewrite_model, config.rewrite.count, max_concurrency=config.rewrite.max_concurrency), reranker=reranker)
 
         manifest = json.loads(config.manifest_path.read_text(encoding="utf-8"))
         expected_hash = source_hash(config.corpus.source_dir)
         if manifest.get("source_hash") != expected_hash:
             logger.warning("RAG index source hash mismatch; rebuild is required")
-            return cls(config, rewriter=QueryRewriter(rewrite_client, rewrite_model, config.rewrite.count), reranker=reranker)
+            return cls(config, rewriter=QueryRewriter(rewrite_client, rewrite_model, config.rewrite.count, max_concurrency=config.rewrite.max_concurrency), reranker=reranker)
         if manifest.get("chunk_config", {}).get("target_child_chars") != config.chunking.target_child_chars:
             logger.warning("RAG index chunk config mismatch; rebuild is required")
-            return cls(config, rewriter=QueryRewriter(rewrite_client, rewrite_model, config.rewrite.count), reranker=reranker)
+            return cls(config, rewriter=QueryRewriter(rewrite_client, rewrite_model, config.rewrite.count, max_concurrency=config.rewrite.max_concurrency), reranker=reranker)
 
         children = [ChildChunk.from_dict(row) for row in children_rows]
         from .models import ParentChunk
@@ -141,7 +141,7 @@ class RAGPipeline:
         )
         return cls(
             config,
-            rewriter=QueryRewriter(rewrite_client, rewrite_model, config.rewrite.count),
+            rewriter=QueryRewriter(rewrite_client, rewrite_model, config.rewrite.count, max_concurrency=config.rewrite.max_concurrency),
             dense_retriever=dense,
             bm25_retriever=bm25,
             reranker=reranker,
@@ -160,15 +160,21 @@ class RAGPipeline:
         rewrite_started = time.perf_counter()
         if rewrite is False or not self.config.rewrite.enabled:
             queries = [query]
+            result.rewrite_status = "disabled"
+            result.rewrite_error = None
+            result.timing.rewrite_ms = _elapsed(rewrite_started)
         else:
             queries = await self.rewriter.rewrite(query, self.config.rewrite.count)
+            rewrite_metadata = self.rewriter.status_for(query, self.config.rewrite.count)
+            rewrite_status = rewrite_metadata.get("status", getattr(self.rewriter, "last_status", ""))
+            result.rewrite_status = rewrite_status
+            result.rewrite_error = rewrite_metadata.get("error")
+            if rewrite_status == "failed":
+                result.fallbacks.append("rewrite_failed_original_only")
+            elif self.config.rewrite.count > 0 and len(queries) == 1:
+                result.fallbacks.append("rewrite_original_only")
+            result.timing.rewrite_ms = max(_elapsed(rewrite_started), float(rewrite_metadata.get("latency_ms", 0.0)))
         result.rewritten_queries = queries
-        rewrite_status = getattr(self.rewriter, "last_status", "")
-        if rewrite_status == "failed":
-            result.fallbacks.append("rewrite_failed_original_only")
-        elif self.config.rewrite.enabled and self.config.rewrite.count > 0 and len(queries) == 1:
-            result.fallbacks.append("rewrite_original_only")
-        result.timing.rewrite_ms = _elapsed(rewrite_started)
         query_sources = ["original" if index == 0 else "rewrite" for index in range(len(queries))]
 
         dense_lists: List[List[RetrievalHit]] = []
@@ -277,6 +283,15 @@ class RAGPipeline:
         result.timing.cold_start_ms = float(getattr(self.reranker, "cold_start_ms", 0.0))
         result.timing.total_ms = _elapsed(started)
         return result
+
+    async def prefetch_rewrites(self, queries: Sequence[str]) -> List[dict[str, Any]]:
+        if not self.config.rewrite.enabled:
+            return []
+        return await self.rewriter.rewrite_many(
+            list(queries),
+            self.config.rewrite.count,
+            self.config.rewrite.max_concurrency,
+        )
 
     def _expand_parents(self, hits: Sequence[RerankedHit]) -> List[ParentSelection]:
         grouped: Dict[str, ParentSelection] = {}

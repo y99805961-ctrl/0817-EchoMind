@@ -188,6 +188,8 @@ class RAGResult:
     fallbacks: List[str] = field(default_factory=list)
     reranker_status: str = "disabled"
     index_status: str = "ready"
+    rewrite_status: str = "disabled"
+    rewrite_error: Optional[str] = None
 
     @property
     def has_context(self) -> bool:
@@ -208,4 +210,6 @@ class RAGResult:
             "fallbacks": list(self.fallbacks),
             "reranker_status": self.reranker_status,
             "index_status": self.index_status,
+            "rewrite_status": self.rewrite_status,
+            "rewrite_error": self.rewrite_error,
         }

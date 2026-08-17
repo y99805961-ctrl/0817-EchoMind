@@ -28,6 +28,7 @@ bm25:
 rewrite:
   enabled: true
   count: 3
+  max_concurrency: 10
 
 rrf:
   k: 60

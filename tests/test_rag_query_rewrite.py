@@ -14,3 +14,21 @@ def test_rewrite_failure_falls_back_to_original():
     def broken(query, count):
         raise RuntimeError("offline")
     assert asyncio.run(QueryRewriter(rewrite_fn=broken).rewrite("PAY_5001")) == ["PAY_5001"]
+
+
+def test_rewrite_many_uses_bounded_concurrency():
+    state = {"active": 0, "max_active": 0}
+
+    async def rewrite_fn(query, count):
+        state["active"] += 1
+        state["max_active"] = max(state["max_active"], state["active"])
+        await asyncio.sleep(0.01)
+        state["active"] -= 1
+        return [f"{query} 改写"]
+
+    rewriter = QueryRewriter(rewrite_fn=rewrite_fn, max_concurrency=3)
+    rows = asyncio.run(rewriter.rewrite_many([f"q{i}" for i in range(8)]))
+    assert len(rows) == 8
+    assert state["max_active"] == 3
+    assert all(row["status"] == "ok" for row in rows)
+    assert all(row["latency_ms"] >= 0 for row in rows)

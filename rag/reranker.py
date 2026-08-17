@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import logging
+import os
 import threading
 import time
 from typing import Callable, List, Optional, Sequence
@@ -16,6 +17,7 @@ class CrossEncoderReranker:
         self.model_name = model_name
         self.requested_device = device
         self.scorer = scorer
+        self.local_files_only = str(os.getenv("RAG_LOCAL_FILES_ONLY", "0")).strip().lower() in {"1", "true", "yes", "on"}
         self._model = None
         self._device: Optional[str] = None
         self._lock = threading.Lock()
@@ -42,7 +44,7 @@ class CrossEncoderReranker:
                 import torch
                 from sentence_transformers import CrossEncoder
                 device = self._select_device(torch)
-                self._model = CrossEncoder(self.model_name, device=device)
+                self._model = CrossEncoder(self.model_name, device=device, local_files_only=self.local_files_only)
                 self._device = device
                 self.cold_start_ms += (time.perf_counter() - started) * 1000
                 return self._model
