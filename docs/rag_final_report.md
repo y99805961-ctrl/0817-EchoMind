@@ -86,7 +86,7 @@ answers remain in `data/eval/results/rag/generation_eval.json`.
 ## Regression and tests
 
 ```text
-pytest: 44 passed, 1 skipped
+pytest: 49 passed, 1 skipped
 Intent 76-case llm_embedding: prior valid run OK; current Phase 2.1 rerun NOT_RUN (76/76 provider 402)
 Routing 12-case llm_embedding: prior valid run OK; current Phase 2.1 rerun NOT_RUN (12/12 provider 402)
 ```
