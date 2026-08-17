@@ -1,0 +1,1869 @@
+{
+  "benchmark": "rag_benchmark_60.json",
+  "metrics": {
+    "correctness": 0.0167,
+    "completeness": 0.0167,
+    "relevance": 0.0167,
+    "faithfulness": 0.0167,
+    "abstention_accuracy": 0.0167
+  },
+  "cases": [
+    {
+      "id": "rag_001",
+      "answer": "订单显示“已发货”表示：**至少一个包裹已经生成有效物流单号，并已交由承运方处理**。\n\n但需要注意，订单状态与物流状态不是同一概念。即使订单显示“已发货”，承运商页面可能暂时还没有揽收或运输更新；如果只是刚创建运单、承运商尚未完成首个扫描，短时间内属于常见情况，超过 24 小时仍无揽收信息再进一步核查。",
+      "scores": {
+        "correctness": 0.0,
+        "completeness": 0.0,
+        "relevance": 0.0,
+        "faithfulness": 0.0,
+        "abstention_accuracy": 0.0
+      },
+      "timing": {
+        "rewrite_ms": 10555.474,
+        "dense_ms": 116.67,
+        "bm25_ms": 6.487,
+        "rrf_ms": 0.098,
+        "rerank_ms": 7636.912,
+        "parent_expand_ms": 0.026,
+        "context_pack_ms": 0.017,
+        "total_ms": 18309.297,
+        "cold_start_ms": 6817.48
+      },
+      "rewritten_queries": [
+        "订单显示已发货是什么意思？",
+        "订单显示已发货状态含义",
+        "订单已发货后续流程",
+        "订单发货后物流时效"
+      ],
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback"
+      ]
+    },
+    {
+      "id": "rag_002",
+      "answer": "根据知识库，现货商品通常在支付成功后 **1-2 个工作日**内完成仓库处理并交接承运商。大促、节假日、极端天气、库存调拨或高峰期可能延长。",
+      "scores": {
+        "correctness": 1.0,
+        "completeness": 1.0,
+        "relevance": 1.0,
+        "faithfulness": 1.0,
+        "abstention_accuracy": 1.0
+      },
+      "timing": {
+        "rewrite_ms": 13097.176,
+        "dense_ms": 82.448,
+        "bm25_ms": 7.31,
+        "rrf_ms": 0.072,
+        "rerank_ms": 526.045,
+        "parent_expand_ms": 0.016,
+        "context_pack_ms": 0.021,
+        "total_ms": 13705.869,
+        "cold_start_ms": 6817.48
+      },
+      "rewritten_queries": [
+        "现货下单后一般几天能发出？",
+        "现货订单发货时效",
+        "现货下单后几天发出",
+        "现货发货流程需要几天"
+      ],
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback"
+      ]
+    },
+    {
+      "id": "rag_003",
+      "answer": "可以。根据知识库：在不影响二次销售且商品属于可退范围时，用户可自签收次日起 **7 个自然日**内申请无理由退货。是否支持以商品页、订单页和售后页面展示为准。",
+      "scores": {
+        "correctness": 0.0,
+        "completeness": 0.0,
+        "relevance": 0.0,
+        "faithfulness": 0.0,
+        "abstention_accuracy": 0.0
+      },
+      "timing": {
+        "rewrite_ms": 6181.068,
+        "dense_ms": 88.816,
+        "bm25_ms": 11.335,
+        "rrf_ms": 0.057,
+        "rerank_ms": 533.958,
+        "parent_expand_ms": 0.015,
+        "context_pack_ms": 0.016,
+        "total_ms": 6804.017,
+        "cold_start_ms": 6817.48
+      },
+      "rewritten_queries": [
+        "签收后还能申请七天无理由退货吗？",
+        "签收后 七天无理由退货 申请条件",
+        "七天无理由退货 签收后 起算时效",
+        "签收后 申请七天无理由退货 流程"
+      ],
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback"
+      ]
+    },
+    {
+      "id": "rag_004",
+      "answer": "普通退款申请通常在 **1-3 个工作日**完成初步审核。涉及退货的订单，需要等待商品退回后再进行后续验收。",
+      "scores": {
+        "correctness": 0.0,
+        "completeness": 0.0,
+        "relevance": 0.0,
+        "faithfulness": 0.0,
+        "abstention_accuracy": 0.0
+      },
+      "timing": {
+        "rewrite_ms": 14136.679,
+        "dense_ms": 4.667,
+        "bm25_ms": 2.65,
+        "rrf_ms": 0.041,
+        "rerank_ms": 418.09,
+        "parent_expand_ms": 0.014,
+        "context_pack_ms": 0.014,
+        "total_ms": 14559.61,
+        "cold_start_ms": 6817.48
+      },
+      "rewritten_queries": [
+        "退款申请提交后多久审核？"
+      ],
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ]
+    },
+    {
+      "id": "rag_005",
+      "answer": "根据知识库中的规则，退款到**平台余额**通常为**即时到账**，最迟 **24 小时内**到账。",
+      "scores": {
+        "correctness": 0.0,
+        "completeness": 0.0,
+        "relevance": 0.0,
+        "faithfulness": 0.0,
+        "abstention_accuracy": 0.0
+      },
+      "timing": {
+        "rewrite_ms": 3967.119,
+        "dense_ms": 82.122,
+        "bm25_ms": 6.194,
+        "rrf_ms": 0.067,
+        "rerank_ms": 575.779,
+        "parent_expand_ms": 0.014,
+        "context_pack_ms": 0.013,
+        "total_ms": 4625.201,
+        "cold_start_ms": 6817.48
+      },
+      "rewritten_queries": [
+        "退款到平台余额要等多久？",
+        "退款到平台余额到账时间",
+        "退款到平台余额处理流程",
+        "退款到平台余额延迟原因"
+      ],
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback"
+      ]
+    },
+    {
+      "id": "rag_006",
+      "answer": "支付失败时，建议按以下顺序先检查：\n\n1. **查看平台 `payment_id` 状态**；  \n2. **确认支付渠道是否有实际扣款**；  \n3. 检查订单是否仍有效；  \n4. 检查是否存在错误码；  \n5. 必要时建议更换支付方式，但不要在“不确定是否已扣款”的情况下让用户连续重复支付。\n\n同时，客服处理 SOP 强调：**支付失败先确认有没有实际扣款，再决定是否重试**。",
+      "scores": {
+        "correctness": 0.0,
+        "completeness": 0.0,
+        "relevance": 0.0,
+        "faithfulness": 0.0,
+        "abstention_accuracy": 0.0
+      },
+      "timing": {
+        "rewrite_ms": 4171.91,
+        "dense_ms": 80.739,
+        "bm25_ms": 5.48,
+        "rrf_ms": 0.075,
+        "rerank_ms": 446.823,
+        "parent_expand_ms": 0.016,
+        "context_pack_ms": 0.015,
+        "total_ms": 4699.656,
+        "cold_start_ms": 6817.48
+      },
+      "rewritten_queries": [
+        "支付失败时先检查什么？",
+        "支付失败 首先检查什么",
+        "支付失败 排查流程 第一步",
+        "支付失败 常见原因 检查项"
+      ],
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback"
+      ]
+    },
+    {
+      "id": "rag_007",
+      "answer": "已完成订单可在订单页申请电子发票。申请时通常需要提供：订单号、发票类型、个人或企业抬头、企业税号（企业发票时）、接收邮箱、需要展示的商品或服务信息。\n\n请自行确认企业抬头和税号的准确性。",
+      "scores": {
+        "correctness": 0.0,
+        "completeness": 0.0,
+        "relevance": 0.0,
+        "faithfulness": 0.0,
+        "abstention_accuracy": 0.0
+      },
+      "timing": {
+        "rewrite_ms": 8146.559,
+        "dense_ms": 83.866,
+        "bm25_ms": 8.311,
+        "rrf_ms": 0.091,
+        "rerank_ms": 646.61,
+        "parent_expand_ms": 0.014,
+        "context_pack_ms": 0.013,
+        "total_ms": 8877.273,
+        "cold_start_ms": 6817.48
+      },
+      "rewritten_queries": [
+        "已完成订单如何申请电子发票？",
+        "已完成订单 电子发票 申请流程",
+        "已完成订单 电子发票 申请入口",
+        "已完成订单 电子发票 开具条件"
+      ],
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback"
+      ]
+    },
+    {
+      "id": "rag_008",
+      "answer": "根据当前知识库内容，订阅自动续费规则如下：\n\n- **扣款方式**：启用自动续费后，系统会在每个计费周期按约定方式尝试扣款。\n- **状态查看**：用户应能在账户设置中查看是否开启自动续费。\n- **取消自动续费的含义**（需明确区分）：\n  1. 当前已支付周期仍可继续使用；\n  2. 到期后不再自动扣款；\n  3. 已发生的历史扣款不会因为“关闭续费”自动退款。\n\n此外，知识库提到订阅服务可能按月、季度或年计费，购买前应明确自动续费状态、计费周期等信息。如需了解具体计划或取消操作路径，当前知识库未提供更多细节。",
+      "scores": {
+        "correctness": 0.0,
+        "completeness": 0.0,
+        "relevance": 0.0,
+        "faithfulness": 0.0,
+        "abstention_accuracy": 0.0
+      },
+      "timing": {
+        "rewrite_ms": 4378.411,
+        "dense_ms": 81.421,
+        "bm25_ms": 5.813,
+        "rrf_ms": 0.065,
+        "rerank_ms": 223.093,
+        "parent_expand_ms": 0.015,
+        "context_pack_ms": 0.013,
+        "total_ms": 4683.102,
+        "cold_start_ms": 6817.48
+      },
+      "rewritten_queries": [
+        "订阅自动续费是什么规则？",
+        "订阅自动续费规则说明",
+        "订阅自动续费扣款流程",
+        "订阅自动续费生效条件"
+      ],
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback"
+      ]
+    },
+    {
+      "id": "rag_009",
+      "answer": "`AUTH_4011` 表示**登录凭证已过期**。",
+      "scores": {
+        "correctness": 0.0,
+        "completeness": 0.0,
+        "relevance": 0.0,
+        "faithfulness": 0.0,
+        "abstention_accuracy": 0.0
+      },
+      "timing": {
+        "rewrite_ms": 9571.079,
+        "dense_ms": 81.258,
+        "bm25_ms": 5.583,
+        "rrf_ms": 0.101,
+        "rerank_ms": 665.18,
+        "parent_expand_ms": 0.019,
+        "context_pack_ms": 0.014,
+        "total_ms": 10317.731,
+        "cold_start_ms": 6817.48
+      },
+      "rewritten_queries": [
+        "AUTH_4011代表什么？",
+        "AUTH_4011 含义",
+        "AUTH_4011 触发原因",
+        "AUTH_4011 处理方法"
+      ],
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback"
+      ]
+    },
+    {
+      "id": "rag_010",
+      "answer": "根据知识库信息：积分通常在订单达到“已完成”后发放，以避免未完成订单提前产生大量积分。积分来源可能包括有效消费、签到或任务、活动奖励、客服补偿、会员专属奖励等，不同来源的积分发放时间可能不同。  \n如果您需要确认某一笔具体积分何时到账，建议提供订单号或积分来源，由客服进一步核实。",
+      "scores": {
+        "correctness": 0.0,
+        "completeness": 0.0,
+        "relevance": 0.0,
+        "faithfulness": 0.0,
+        "abstention_accuracy": 0.0
+      },
+      "timing": {
+        "rewrite_ms": 10563.215,
+        "dense_ms": 80.54,
+        "bm25_ms": 5.611,
+        "rrf_ms": 0.064,
+        "rerank_ms": 456.81,
+        "parent_expand_ms": 0.015,
+        "context_pack_ms": 0.013,
+        "total_ms": 11100.841,
+        "cold_start_ms": 6817.48
+      },
+      "rewritten_queries": [
+        "积分什么时候发放？",
+        "积分发放时效",
+        "积分发放流程",
+        "积分发放异常原因"
+      ],
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback"
+      ]
+    },
+    {
+      "id": "rag_011",
+      "answer": "收到货发现外包装和商品都损坏，建议按以下步骤处理：\n\n1. 保留外包装、面单和商品原状；\n2. 拍摄外箱、面单、商品损坏部位的照片/视频；\n3. 不要丢弃关键配件；\n4. 若是高风险商品，先停止继续使用；\n5. 同时记录物流和商品证据；\n6. 在售后页面提交问题，说明“到货即损坏”情况。\n\n另外，根据知识库，“到货即损坏”属于换新的适用情形之一，但换新通常要求原设备和主要配件回收；如果是带序列号的设备，还必须核对 `serial_number`。具体能否换新需以售后审核结果为准。",
+      "scores": {
+        "correctness": 0.0,
+        "completeness": 0.0,
+        "relevance": 0.0,
+        "faithfulness": 0.0,
+        "abstention_accuracy": 0.0
+      },
+      "timing": {
+        "rewrite_ms": 6218.909,
+        "dense_ms": 79.701,
+        "bm25_ms": 6.45,
+        "rrf_ms": 0.066,
+        "rerank_ms": 617.59,
+        "parent_expand_ms": 0.013,
+        "context_pack_ms": 0.012,
+        "total_ms": 6916.373,
+        "cold_start_ms": 6817.48
+      },
+      "rewritten_queries": [
+        "收到货发现外包装和商品都坏了怎么办？",
+        "收到货外包装和商品都坏了处理流程",
+        "收货后发现外包装和商品损坏如何申请售后",
+        "外包装和商品均损坏的处理条件"
+      ],
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback"
+      ]
+    },
+    {
+      "id": "rag_012",
+      "answer": "HTTP 500 表示服务端内部错误。\n\n客户端可以：重试一次；保留 request_id；记录发生时间；避免连续大量重试。如果 500 持续出现，应升级服务端排查，不应长期要求用户清缓存。",
+      "scores": {
+        "correctness": 0.0,
+        "completeness": 0.0,
+        "relevance": 0.0,
+        "faithfulness": 0.0,
+        "abstention_accuracy": 0.0
+      },
+      "timing": {
+        "rewrite_ms": 4191.848,
+        "dense_ms": 79.428,
+        "bm25_ms": 5.801,
+        "rrf_ms": 0.155,
+        "rerank_ms": 664.515,
+        "parent_expand_ms": 0.016,
+        "context_pack_ms": 0.014,
+        "total_ms": 4936.074,
+        "cold_start_ms": 6817.48
+      },
+      "rewritten_queries": [
+        "HTTP 500是什么问题？",
+        "HTTP 500 含义",
+        "HTTP 500 错误原因",
+        "HTTP 500 处理方法"
+      ],
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback"
+      ]
+    },
+    {
+      "id": "rag_013",
+      "answer": "不一定。注销后，与交易、财务、安全相关的必要记录可能需要在一定期限内保留；已完成订单的必要记录会按法定或业务要求继续保留。因此不能理解为注销后订单记录立刻全部消失。",
+      "scores": {
+        "correctness": 0.0,
+        "completeness": 0.0,
+        "relevance": 0.0,
+        "faithfulness": 0.0,
+        "abstention_accuracy": 0.0
+      },
+      "timing": {
+        "rewrite_ms": 6025.788,
+        "dense_ms": 82.071,
+        "bm25_ms": 7.051,
+        "rrf_ms": 0.105,
+        "rerank_ms": 637.706,
+        "parent_expand_ms": 0.014,
+        "context_pack_ms": 0.013,
+        "total_ms": 6745.788,
+        "cold_start_ms": 6817.48
+      },
+      "rewritten_queries": [
+        "注销账号后订单记录会立刻消失吗？",
+        "注销账号后订单记录处理流程",
+        "注销账号订单记录消失时效",
+        "注销账号后订单记录保留条件"
+      ],
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback"
+      ]
+    },
+    {
+      "id": "rag_014",
+      "answer": "根据当前知识库，以下情况应考虑升级人工：\n\n## 一、通用客服场景（依据《10_客服服务规范与人工升级.md》第5节）\n\n- 当前 Agent 缺少必要权限；\n- 需要读取受限后台信息；\n- 需要跨部门人工确认；\n- 用户连续两轮明确表示自动回答没有解决问题；\n- 业务规则存在例外；\n- 需要补偿、退款或特殊审批；\n- 风险级别较高；\n- 用户明确要求人工且问题无法通过自助完成。\n\n## 二、订单与物流",
+      "scores": {
+        "correctness": 0.0,
+        "completeness": 0.0,
+        "relevance": 0.0,
+        "faithfulness": 0.0,
+        "abstention_accuracy": 0.0
+      },
+      "timing": {
+        "rewrite_ms": 5546.164,
+        "dense_ms": 69.901,
+        "bm25_ms": 5.785,
+        "rrf_ms": 0.11,
+        "rerank_ms": 421.874,
+        "parent_expand_ms": 0.015,
+        "context_pack_ms": 0.013,
+        "total_ms": 6038.169,
+        "cold_start_ms": 6817.48
+      },
+      "rewritten_queries": [
+        "哪些情况应该升级人工？",
+        "人工升级的触发条件",
+        "哪些异常情况需要转人工处理",
+        "升级人工的处理规则与流程"
+      ],
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback"
+      ]
+    },
+    {
+      "id": "rag_015",
+      "answer": "根据知识库内容，物流不更新的处理节点如下：\n\n- **24–48 小时无更新**：可能属于正常中转，特别是在夜间干线、节假日或跨区域运输时，可继续观察。\n- **超过 48 小时无更新**：客服应检查最后一次轨迹位置，建议用户继续观察，并可发起承运商查询。\n- **超过 72 小时无更新**：若没有节假日、极端天气等已知原因，应创建物流异常工单，并且属于人工升级条件之一。\n\n所以在没有已知公共原因的情况下，**超过 72 小时无更新就需要进入异常处理/升级流程**。",
+      "scores": {
+        "correctness": 0.0,
+        "completeness": 0.0,
+        "relevance": 0.0,
+        "faithfulness": 0.0,
+        "abstention_accuracy": 0.0
+      },
+      "timing": {
+        "rewrite_ms": 14089.309,
+        "dense_ms": 4.422,
+        "bm25_ms": 2.285,
+        "rrf_ms": 0.039,
+        "rerank_ms": 352.715,
+        "parent_expand_ms": 0.017,
+        "context_pack_ms": 0.016,
+        "total_ms": 14446.624,
+        "cold_start_ms": 6817.48
+      },
+      "rewritten_queries": [
+        "物流多久不更新需要处理？"
+      ],
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ]
+    },
+    {
+      "id": "rag_016",
+      "answer": "根据现有知识库，**不能直接判断为退款失败**。退款成功但银行卡未显示，可能仍在正常到账时效内，也可能是显示方式/银行侧处理差异导致。\n\n请按以下顺序处理：\n\n1. **确认平台退款状态是否为“退款成功”**  \n   请先核实平台/订单页显示的退款状态，而不是仅凭银行卡未显示判断。\n\n2. **获取并保留关键信息**  \n   - `refund_id`  \n   - 退款金额  \n   - 发起时间  \n   - 原支付渠道（银行卡、信用卡、余额、组合支付等）\n\n3. **检查是否为组合支付**  \n   如果原订单是组合支付，退款可能分渠道退回，到账时间可能不一致。\n\n4. **判断是否仍在正常到账时效内**  \n   不同支付渠道到账时效不同，未超过时效时通常不需要额外处理。\n\n5. **若已超过时效，再创建支付渠道查询**  \n   只有确认超过正常时效后，才需要进一步向支付渠道发起查询。\n\n另外，",
+      "scores": {
+        "correctness": 0.0,
+        "completeness": 0.0,
+        "relevance": 0.0,
+        "faithfulness": 0.0,
+        "abstention_accuracy": 0.0
+      },
+      "timing": {
+        "rewrite_ms": 6414.042,
+        "dense_ms": 80.127,
+        "bm25_ms": 6.376,
+        "rrf_ms": 0.066,
+        "rerank_ms": 482.603,
+        "parent_expand_ms": 0.015,
+        "context_pack_ms": 0.014,
+        "total_ms": 6976.947,
+        "cold_start_ms": 6817.48
+      },
+      "rewritten_queries": [
+        "钱已经退了，可银行卡一直没显示，是不是失败了？",
+        "退款成功但银行卡未到账原因",
+        "退款到银行卡到账时效",
+        "如何判断退款是否失败"
+      ],
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback"
+      ]
+    },
+    {
+      "id": "rag_017",
+      "answer": "根据知识库中的说明：订单显示“已发货”但物流没有更新，可能只是已经创建运单、承运商尚未完成首个扫描，短时间内属于常见情况。\n\n建议这样处理：\n\n1. **先看时间**：如果距离显示“已发货”还没超过 24 小时，可以先稍等，通常后续会有揽收/扫描更新。\n2. **超过 24 小时仍无揽收信息**：再进一步核查物流状态。\n\n如果你已经超过 24 小时仍完全没动静，可以告诉我订单号和当前物流页面显示的状态，我帮你按知识库中的核查路径继续处理。",
+      "scores": {
+        "correctness": 0.0,
+        "completeness": 0.0,
+        "relevance": 0.0,
+        "faithfulness": 0.0,
+        "abstention_accuracy": 0.0
+      },
+      "timing": {
+        "rewrite_ms": 6193.747,
+        "dense_ms": 79.833,
+        "bm25_ms": 6.864,
+        "rrf_ms": 0.09,
+        "rerank_ms": 670.151,
+        "parent_expand_ms": 0.019,
+        "context_pack_ms": 0.016,
+        "total_ms": 6943.942,
+        "cold_start_ms": 6817.48
+      },
+      "rewritten_queries": [
+        "页面写着发货了但快递完全没动静怎么办？",
+        "页面显示已发货但快递无物流更新原因",
+        "显示发货后快递完全没动静怎么处理",
+        "快递已发货无物流动态如何核实与解决"
+      ],
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback"
+      ]
+    },
+    {
+      "id": "rag_018",
+      "answer": "您反馈“同一笔钱被扣了两遍”，我们很重视。不过，仅凭“看到两条银行记录”还不能直接认定平台重复收费，需要先核对交易明细。\n\n请您提供以下信息，方便我们进一步核实：\n\n1. 订单号（或平台交易号）；\n2. 两笔扣款的金额、时间和支付渠道；\n3. 如能看到，请提供两笔交易的 `payment_id` 或银行流水截图。\n\n我们会按以下方向核对：\n\n- 两笔是否都是“已完成交易”；\n- 是否一笔为已完成交易，另一笔为预授权/冻结；\n- ",
+      "scores": {
+        "correctness": 0.0,
+        "completeness": 0.0,
+        "relevance": 0.0,
+        "faithfulness": 0.0,
+        "abstention_accuracy": 0.0
+      },
+      "timing": {
+        "rewrite_ms": 10269.496,
+        "dense_ms": 80.164,
+        "bm25_ms": 5.332,
+        "rrf_ms": 0.088,
+        "rerank_ms": 432.966,
+        "parent_expand_ms": 0.015,
+        "context_pack_ms": 0.014,
+        "total_ms": 10782.822,
+        "cold_start_ms": 6817.48
+      },
+      "rewritten_queries": [
+        "同一笔钱被扣了两遍怎么处理？",
+        "重复扣款处理流程",
+        "重复扣款处理时效",
+        "重复扣款原因及处理条件"
+      ],
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback"
+      ]
+    },
+    {
+      "id": "rag_019",
+      "answer": "根据知识库内容，仅修改发票接收邮箱通常**不需要红冲**，只需重新发送已开具的电子发票即可。",
+      "scores": {
+        "correctness": 0.0,
+        "completeness": 0.0,
+        "relevance": 0.0,
+        "faithfulness": 0.0,
+        "abstention_accuracy": 0.0
+      },
+      "timing": {
+        "rewrite_ms": 6922.185,
+        "dense_ms": 79.622,
+        "bm25_ms": 5.6,
+        "rrf_ms": 0.079,
+        "rerank_ms": 278.851,
+        "parent_expand_ms": 0.016,
+        "context_pack_ms": 0.013,
+        "total_ms": 7280.846,
+        "cold_start_ms": 6817.48
+      },
+      "rewritten_queries": [
+        "我只想改发票邮箱，原发票要红冲吗？",
+        "修改发票邮箱 原发票红冲流程",
+        "发票邮箱变更 红冲条件",
+        "仅修改发票邮箱 是否需红冲"
+      ],
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback"
+      ]
+    },
+    {
+      "id": "rag_020",
+      "answer": "根据当前知识库，针对“手机丢失且 2FA 设备也没了”的情况，建议按以下优先级处理：\n\n1. **优先使用备用验证码**：如果之前保存过备用验证码，可尝试使用。\n2. **使用备用验证方式**：例如已设置的备用邮箱、备用手机号或其他验证方式。\n3. **使用已登录可信设备**：如果还有其他已登录且受信任的设备，可在该设备上操作账户恢复或验证。\n4. **走账户恢复流程**：通过官方提供的账户恢复流程申请恢复访问。\n\n需要注意：\n- 客服**不应仅凭用户口头描述就关闭 2FA**。\n- 高风险恢复（如关闭 2FA、修改关键安全设置）需要**额外身份校验**。\n\n当前知识库没有提供更具体的账户恢复步骤或额外身份校验的详细要求。建议你通过官方 App/网站的“账户恢复”入口或联系官方客服渠道，按提示提交身份验证材料后进一步处理。",
+      "scores": {
+        "correctness": 0.0,
+        "completeness": 0.0,
+        "relevance": 0.0,
+        "faithfulness": 0.0,
+        "abstention_accuracy": 0.0
+      },
+      "timing": {
+        "rewrite_ms": 12268.584,
+        "dense_ms": 64.44,
+        "bm25_ms": 6.274,
+        "rrf_ms": 0.076,
+        "rerank_ms": 354.319,
+        "parent_expand_ms": 0.018,
+        "context_pack_ms": 0.015,
+        "total_ms": 12687.546,
+        "cold_start_ms": 6817.48
+      },
+      "rewritten_queries": [
+        "手机丢了，登录用的2FA设备也没了怎么办？",
+        "手机丢失 2FA设备丢失 登录处理流程",
+        "2FA设备丢失 账号恢复 方法",
+        "手机丢失 2FA设备丢失 身份验证 异常处理"
+      ],
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback"
+      ]
+    },
+    {
+      "id": "rag_021",
+      "answer": "建议先不要只看订单总额，重点核对“可优惠金额”是否达到券的门槛，因为部分商品、运费或服务费可能不计入优惠门槛。\n\n同时请检查以下条件，避免只说“系统不支持”：\n\n- 优惠券是否过期；\n- 是否达到门槛；\n- 商品是否在适用范围；\n- 是否仅限特定会员；\n- 是否已经使用；\n- 是否与当前活动互斥；\n- 是否达到单订单最大优惠限制。\n\n如果以上都符合但仍无法使用，可以提供具体券码和订单信息，我帮您进一步核实具体不满足的条件。",
+      "scores": {
+        "correctness": 0.0,
+        "completeness": 0.0,
+        "relevance": 0.0,
+        "faithfulness": 0.0,
+        "abstention_accuracy": 0.0
+      },
+      "timing": {
+        "rewrite_ms": 4900.84,
+        "dense_ms": 80.243,
+        "bm25_ms": 5.455,
+        "rrf_ms": 0.089,
+        "rerank_ms": 369.024,
+        "parent_expand_ms": 0.014,
+        "context_pack_ms": 0.013,
+        "total_ms": 5350.307,
+        "cold_start_ms": 6817.48
+      },
+      "rewritten_queries": [
+        "优惠券明明满足金额却用不了，应该看什么？",
+        "优惠券满足金额却无法使用的原因",
+        "优惠券使用条件与门槛核对",
+        "优惠券无法使用排查流程"
+      ],
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback"
+      ]
+    },
+    {
+      "id": "rag_022",
+      "answer": "一个订单可能因为以下原因拆成多个包裹：\n\n- 不同仓库发货；\n- 普通商品与预售商品同时购买；\n- 商品体积或重量超出单包裹限制；\n- 部分商品缺货，需要先发可用库存；\n- 不同温控或运输要求。\n\n拆单后，每个包裹应有独立 `package_id` 或物流单号。",
+      "scores": {
+        "correctness": 0.0,
+        "completeness": 0.0,
+        "relevance": 0.0,
+        "faithfulness": 0.0,
+        "abstention_accuracy": 0.0
+      },
+      "timing": {
+        "rewrite_ms": 3633.387,
+        "dense_ms": 79.764,
+        "bm25_ms": 6.243,
+        "rrf_ms": 0.1,
+        "rerank_ms": 637.733,
+        "parent_expand_ms": 0.015,
+        "context_pack_ms": 0.017,
+        "total_ms": 4351.105,
+        "cold_start_ms": 6817.48
+      },
+      "rewritten_queries": [
+        "一个订单为什么会拆成好几个包裹？",
+        "订单拆分成多个包裹的原因",
+        "一个订单多个包裹的拆分流程",
+        "订单拆分包裹的处理条件"
+      ],
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback"
+      ]
+    },
+    {
+      "id": "rag_023",
+      "answer": "可以处理。超过 7 天仍可处理商品质量问题，因为 7 天无理由退货与质量保修不是同一个规则。退货期和保修期是不同概念，不能只凭“超过退货期”就拒绝所有质量问题。\n\n但具体是否能保修，需要根据购买日期、商品类型和故障原因进一步判断；是否为保修范围需按实际售后规则核实。当前知识库未提供不同商品的具体保修期限或判定细节，如需确认，建议提供订单号或商品信息后转接售后核实。",
+      "scores": {
+        "correctness": 0.0,
+        "completeness": 0.0,
+        "relevance": 0.0,
+        "faithfulness": 0.0,
+        "abstention_accuracy": 0.0
+      },
+      "timing": {
+        "rewrite_ms": 7429.709,
+        "dense_ms": 79.556,
+        "bm25_ms": 5.537,
+        "rrf_ms": 0.1,
+        "rerank_ms": 405.106,
+        "parent_expand_ms": 0.016,
+        "context_pack_ms": 0.015,
+        "total_ms": 7914.593,
+        "cold_start_ms": 6817.48
+      },
+      "rewritten_queries": [
+        "过了七天还能不能处理商品质量问题？",
+        "商品质量问题 超过七天 处理流程",
+        "商品质量问题 七天 时效限制",
+        "商品质量问题 过了七天 处理条件"
+      ],
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback"
+      ]
+    },
+    {
+      "id": "rag_024",
+      "answer": "客服应先判断用户的具体诉求：是删除某项个人资料、注销账户，还是正式的数据删除请求。\n\n处理时需区分：\n- 用户可自行删除的资料；\n- 可在注销账户时删除的数据；\n- 因财务、交易、安全或合规原因需要保留的数据。\n\n如果客服不确定某些数据的保留期限，应升级给隐私或合规团队处理，不要随意承诺“马上全部删除”。",
+      "scores": {
+        "correctness": 0.0,
+        "completeness": 0.0,
+        "relevance": 0.0,
+        "faithfulness": 0.0,
+        "abstention_accuracy": 0.0
+      },
+      "timing": {
+        "rewrite_ms": 8206.483,
+        "dense_ms": 80.32,
+        "bm25_ms": 6.119,
+        "rrf_ms": 0.079,
+        "rerank_ms": 483.951,
+        "parent_expand_ms": 0.014,
+        "context_pack_ms": 0.014,
+        "total_ms": 8770.94,
+        "cold_start_ms": 6817.48
+      },
+      "rewritten_queries": [
+        "我想把平台保存的个人资料都删掉，客服该怎么处理？",
+        "个人资料删除客服处理流程",
+        "用户请求删除个人资料的处理时效",
+        "删除平台保存的个人资料处理条件"
+      ],
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback"
+      ]
+    },
+    {
+      "id": "rag_025",
+      "answer": "不能直接承诺赔偿。\n\n根据当前知识库的规则：用户很生气时，客服可以表达理解并升级处理，但赔偿需要符合权限和审批规则；在事实尚未核查时，也不要直接承认法律责任或承诺赔偿金额。\n\n建议您先说明具体问题，我会帮您记录并走核实/升级流程。",
+      "scores": {
+        "correctness": 0.0,
+        "completeness": 0.0,
+        "relevance": 0.0,
+        "faithfulness": 0.0,
+        "abstention_accuracy": 0.0
+      },
+      "timing": {
+        "rewrite_ms": 12205.677,
+        "dense_ms": 75.591,
+        "bm25_ms": 5.717,
+        "rrf_ms": 0.125,
+        "rerank_ms": 652.515,
+        "parent_expand_ms": 0.026,
+        "context_pack_ms": 0.021,
+        "total_ms": 12934.066,
+        "cold_start_ms": 6817.48
+      },
+      "rewritten_queries": [
+        "我很生气也没有查到规则，能不能直接承诺赔偿？",
+        "未查到规则能否直接承诺赔偿",
+        "直接承诺赔偿的条件和流程",
+        "查不到规则时赔偿承诺的处理方式"
+      ],
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback"
+      ]
+    },
+    {
+      "id": "rag_026",
+      "answer": "根据知识库信息：\n\n- `AUTH_4011` 表示 **登录凭证已过期**。\n- 解决方向可参考知识库中关于凭证过期的排查建议：**刷新 token 或重新登录**。\n- 如果重新登录后仍反复出现该错误，当前知识库没有提供进一步的处理步骤，建议联系人工客服或技术支持进一步核实。",
+      "scores": {
+        "correctness": 0.0,
+        "completeness": 0.0,
+        "relevance": 0.0,
+        "faithfulness": 0.0,
+        "abstention_accuracy": 0.0
+      },
+      "timing": {
+        "rewrite_ms": 8147.72,
+        "dense_ms": 79.183,
+        "bm25_ms": 5.799,
+        "rrf_ms": 0.075,
+        "rerank_ms": 427.574,
+        "parent_expand_ms": 0.015,
+        "context_pack_ms": 0.014,
+        "total_ms": 8654.655,
+        "cold_start_ms": 6817.48
+      },
+      "rewritten_queries": [
+        "AUTH_4011 登录错误怎么解决？",
+        "AUTH_4011 登录错误 异常原因",
+        "AUTH_4011 登录错误 解决流程",
+        "AUTH_4011 登录错误 处理条件"
+      ],
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback"
+      ]
+    },
+    {
+      "id": "rag_027",
+      "answer": "当前知识库未明确 `AUTH_4290` 限流窗口的具体等待时长。  \n已知信息仅说明：出现 `AUTH_4290` 表示“验证码请求过于频繁”，应等待限流窗口结束，不要持续点击发送。  \n\n建议：  \n- 停止继续点击发送，稍后再试；  \n- 若持续出现该错误码，可通过人工升级路径进一步核实具体限流策略或账户状态。",
+      "scores": {
+        "correctness": 0.0,
+        "completeness": 0.0,
+        "relevance": 0.0,
+        "faithfulness": 0.0,
+        "abstention_accuracy": 0.0
+      },
+      "timing": {
+        "rewrite_ms": 10410.427,
+        "dense_ms": 80.103,
+        "bm25_ms": 6.47,
+        "rrf_ms": 0.076,
+        "rerank_ms": 586.782,
+        "parent_expand_ms": 0.015,
+        "context_pack_ms": 0.013,
+        "total_ms": 11077.49,
+        "cold_start_ms": 6817.48
+      },
+      "rewritten_queries": [
+        "验证码接口返回 AUTH_4290 要等多久？",
+        "验证码接口 AUTH_4290 等待时长",
+        "验证码接口 AUTH_4290 多久可重试",
+        "验证码接口 AUTH_4290 处理条件"
+      ],
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback"
+      ]
+    },
+    {
+      "id": "rag_028",
+      "answer": "根据当前知识库：\n\n`PAY_5001` 表示 **支付渠道暂时不可用**。\n\n处理建议：可以建议用户稍后重试，但需要先确认旧的支付请求是否已经成功，避免重复支付。",
+      "scores": {
+        "correctness": 0.0,
+        "completeness": 0.0,
+        "relevance": 0.0,
+        "faithfulness": 0.0,
+        "abstention_accuracy": 0.0
+      },
+      "timing": {
+        "rewrite_ms": 11106.883,
+        "dense_ms": 81.591,
+        "bm25_ms": 7.619,
+        "rrf_ms": 0.064,
+        "rerank_ms": 578.429,
+        "parent_expand_ms": 0.016,
+        "context_pack_ms": 0.018,
+        "total_ms": 11767.079,
+        "cold_start_ms": 6817.48
+      },
+      "rewritten_queries": [
+        "PAY_5001 支付失败是什么意思？",
+        "PAY_5001 支付失败 含义",
+        "PAY_5001 支付失败 原因",
+        "PAY_5001 支付失败 处理"
+      ],
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback"
+      ]
+    },
+    {
+      "id": "rag_029",
+      "answer": "PAY_5002 在知识库中定义为“平台与支付渠道状态同步超时”，它直接对应支付状态同步环节的异常，即平台未能及时从支付渠道获取或确认支付结果，导致订单状态可能无法及时更新。\n\n处理上需注意：遇到 `PAY_5002` 可建议稍后重试，但**先要确认旧支付请求是否已经成功**，避免重复支付。若该错误码属于系统级 `PAY_500x` 且持续出现，则符合人工升级条件。",
+      "scores": {
+        "correctness": 0.0,
+        "completeness": 0.0,
+        "relevance": 0.0,
+        "faithfulness": 0.0,
+        "abstention_accuracy": 0.0
+      },
+      "timing": {
+        "rewrite_ms": 6074.272,
+        "dense_ms": 80.99,
+        "bm25_ms": 6.471,
+        "rrf_ms": 0.074,
+        "rerank_ms": 565.569,
+        "parent_expand_ms": 0.013,
+        "context_pack_ms": 0.014,
+        "total_ms": 6721.006,
+        "cold_start_ms": 6817.48
+      },
+      "rewritten_queries": [
+        "PAY_5002 和支付同步有什么关系？",
+        "PAY_5002 支付同步 关系",
+        "PAY_5002 支付同步 触发场景",
+        "PAY_5002 支付同步 处理流程"
+      ],
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback"
+      ]
+    },
+    {
+      "id": "rag_030",
+      "answer": "是的。根据知识库，HTTP 403 表示身份可能已经识别，但当前请求没有权限，常见原因包括账户权限不足、资源属于其他用户或租户、风控临时限制、管理员策略、API scope 不包含目标权限等。",
+      "scores": {
+        "correctness": 0.0,
+        "completeness": 0.0,
+        "relevance": 0.0,
+        "faithfulness": 0.0,
+        "abstention_accuracy": 0.0
+      },
+      "timing": {
+        "rewrite_ms": 8787.199,
+        "dense_ms": 80.224,
+        "bm25_ms": 6.68,
+        "rrf_ms": 0.078,
+        "rerank_ms": 684.459,
+        "parent_expand_ms": 0.015,
+        "context_pack_ms": 0.013,
+        "total_ms": 9552.064,
+        "cold_start_ms": 6817.48
+      },
+      "rewritten_queries": [
+        "HTTP 403 和权限有关吗？",
+        "HTTP 403 权限 关系",
+        "HTTP 403 状态码 权限 含义",
+        "HTTP 403 权限 相关 原因"
+      ],
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback"
+      ]
+    },
+    {
+      "id": "rag_031",
+      "answer": "根据知识库中的说明，遇到 HTTP 429（请求频率超过限制）时，建议按以下方式处理：\n\n- 降低请求频率；\n- 遵守响应中的 `Retry-After` 指示；\n- 使用指数退避；\n- 避免无意义地循环重试；\n- 如果你是 API 客户端，检查是否重复发送请求；\n- 如果是用户验证码场景，不要连续点击。\n\n如果单个普通用户在正常操作下持续触发 429，需要检查限流配置是否异常。客服处理 SOP 中也提到：停止高频重试，尊重退避。",
+      "scores": {
+        "correctness": 0.0,
+        "completeness": 0.0,
+        "relevance": 0.0,
+        "faithfulness": 0.0,
+        "abstention_accuracy": 0.0
+      },
+      "timing": {
+        "rewrite_ms": 5885.252,
+        "dense_ms": 80.42,
+        "bm25_ms": 6.421,
+        "rrf_ms": 0.124,
+        "rerank_ms": 502.351,
+        "parent_expand_ms": 0.02,
+        "context_pack_ms": 0.016,
+        "total_ms": 6468.276,
+        "cold_start_ms": 6817.48
+      },
+      "rewritten_queries": [
+        "遇到 HTTP 429 该怎么做？",
+        "HTTP 429 处理步骤",
+        "HTTP 429 触发原因及应对",
+        "HTTP 429 重试与限流策略"
+      ],
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback"
+      ]
+    },
+    {
+      "id": "rag_032",
+      "answer": "",
+      "scores": {
+        "correctness": 0.0,
+        "completeness": 0.0,
+        "relevance": 0.0,
+        "faithfulness": 0.0,
+        "abstention_accuracy": 0.0
+      },
+      "timing": {
+        "rewrite_ms": 9525.861,
+        "dense_ms": 81.149,
+        "bm25_ms": 6.931,
+        "rrf_ms": 0.075,
+        "rerank_ms": 401.994,
+        "parent_expand_ms": 0.022,
+        "context_pack_ms": 0.025,
+        "total_ms": 10009.209,
+        "cold_start_ms": 6817.48
+      },
+      "rewritten_queries": [
+        "AUTH_5000 身份服务不可用要转人工吗？",
+        "AUTH_5000 身份服务不可用 原因",
+        "AUTH_5000 身份服务不可用 处理流程",
+        "AUTH_5000 身份服务不可用 转人工 条件"
+      ],
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback"
+      ]
+    },
+    {
+      "id": "rag_033",
+      "answer": "根据当前知识库，500/502/503/504 持续出现时的处理建议如下：\n\n- **保留 request_id**：报障时需要提供，便于定位问题。\n- **记录发生时间**：包括首次出现时间和频率。\n- **避免连续大量重试**：尤其是 500 错误，不要持续高频重试。\n- **判断是否系统性故障**：如果多个用户同时出现，优先查看系统状态和依赖服务，而不是只处理单个用户。\n- **升级服务端排查**：500 持续出现应升级服务端排查，不应",
+      "scores": {
+        "correctness": 0.0,
+        "completeness": 0.0,
+        "relevance": 0.0,
+        "faithfulness": 0.0,
+        "abstention_accuracy": 0.0
+      },
+      "timing": {
+        "rewrite_ms": 13237.309,
+        "dense_ms": 4.357,
+        "bm25_ms": 2.752,
+        "rrf_ms": 0.045,
+        "rerank_ms": 459.51,
+        "parent_expand_ms": 0.018,
+        "context_pack_ms": 0.014,
+        "total_ms": 13701.351,
+        "cold_start_ms": 6817.48
+      },
+      "rewritten_queries": [
+        "500/502/503/504 一直出现怎么报障？"
+      ],
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ]
+    },
+    {
+      "id": "rag_034",
+      "answer": "根据知识库，已支付但未进入仓库处理的订单，**通常可以发起取消**。系统会先尝试拦截仓库任务，**拦截成功后**订单会进入“已取消”，随后创建退款单。\n\n但知识库没有保证取消一定 100% 成功，最终以系统实际拦截结果为准。退款到账时间需以《退款退货与换货》中的支付渠道规则为准。建议你在订单页面查看是否有取消入口并关注订单状态变化。",
+      "scores": {
+        "correctness": 0.0,
+        "completeness": 0.0,
+        "relevance": 0.0,
+        "faithfulness": 0.0,
+        "abstention_accuracy": 0.0
+      },
+      "timing": {
+        "rewrite_ms": 5075.795,
+        "dense_ms": 79.829,
+        "bm25_ms": 6.117,
+        "rrf_ms": 0.105,
+        "rerank_ms": 658.203,
+        "parent_expand_ms": 0.024,
+        "context_pack_ms": 0.016,
+        "total_ms": 5814.083,
+        "cold_start_ms": 6817.48
+      },
+      "rewritten_queries": [
+        "订单已支付但还没进仓，我想取消，能成功吗？",
+        "已支付未进仓订单取消流程",
+        "已支付未进仓订单能否成功取消",
+        "已支付未进仓取消条件与时效"
+      ],
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback"
+      ]
+    },
+    {
+      "id": "rag_035",
+      "answer": "根据当前知识库：\n\n包裹已经发出后，平台通常不能直接修改物流面单。而且你提到的是“改到另一个城市”，这属于跨城市地址修改，按规则通常不支持，因为会涉及运费和风险规则变化。\n\n可以尝试的做法是：\n1. 联系承运商/快递，确认是否支持改派到新城市；\n2. 如果承运商不支持跨城市改派，通常无法直接修改；\n3. 若修改失败，可以考虑拒收或等待包裹退回后重新处理。\n\n如果你愿意，我也可以帮你继续梳理“联系快递时怎么说”或“拒收/退回后续怎么处理”。",
+      "scores": {
+        "correctness": 0.0,
+        "completeness": 0.0,
+        "relevance": 0.0,
+        "faithfulness": 0.0,
+        "abstention_accuracy": 0.0
+      },
+      "timing": {
+        "rewrite_ms": 9969.619,
+        "dense_ms": 80.018,
+        "bm25_ms": 6.179,
+        "rrf_ms": 0.06,
+        "rerank_ms": 499.806,
+        "parent_expand_ms": 0.014,
+        "context_pack_ms": 0.013,
+        "total_ms": 10549.605,
+        "cold_start_ms": 6817.48
+      },
+      "rewritten_queries": [
+        "包裹已经发出了还能把地址改到另一个城市吗？",
+        "包裹已经发出修改地址流程",
+        "包裹发出后跨城市改地址条件",
+        "已发出包裹改地址到另一个城市处理方式"
+      ],
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback"
+      ]
+    },
+    {
+      "id": "rag_036",
+      "answer": "根据当前知识库，部分退款时：\n\n- **优惠金额**：可能按商品金额分摊，不能简单按商品原价退款；剩余商品仍需满足活动门槛。如果退款后订单不再满足满减条件，退款金额可能按系统分摊",
+      "scores": {
+        "correctness": 0.0,
+        "completeness": 0.0,
+        "relevance": 0.0,
+        "faithfulness": 0.0,
+        "abstention_accuracy": 0.0
+      },
+      "timing": {
+        "rewrite_ms": 8317.807,
+        "dense_ms": 79.445,
+        "bm25_ms": 5.897,
+        "rrf_ms": 0.057,
+        "rerank_ms": 392.383,
+        "parent_expand_ms": 0.019,
+        "context_pack_ms": 0.015,
+        "total_ms": 8789.809,
+        "cold_start_ms": 6817.48
+      },
+      "rewritten_queries": [
+        "部分退款时优惠券和积分怎么算？",
+        "部分退款 优惠券 分摊计算规则",
+        "部分退款 积分 返还计算方式",
+        "部分退款 优惠券 积分 处理流程"
+      ],
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback"
+      ]
+    },
+    {
+      "id": "rag_037",
+      "answer": "根据知识库信息，平台显示“退款成功”后，信用卡退款通常需要 **5-15 个工作日** 到账。\n\n需要注意：\n- 部分银行可能显示为“原交易冲正”，即原交易金额减少，而不是新增一笔退款入账。\n- 这是预计范围，客服只能解释预计时间，不能承诺具体某一分钟到账。",
+      "scores": {
+        "correctness": 0.0,
+        "completeness": 0.0,
+        "relevance": 0.0,
+        "faithfulness": 0.0,
+        "abstention_accuracy": 0.0
+      },
+      "timing": {
+        "rewrite_ms": 13733.387,
+        "dense_ms": 4.916,
+        "bm25_ms": 2.26,
+        "rrf_ms": 0.043,
+        "rerank_ms": 426.834,
+        "parent_expand_ms": 0.013,
+        "context_pack_ms": 0.015,
+        "total_ms": 14165.282,
+        "cold_start_ms": 6817.48
+      },
+      "rewritten_queries": [
+        "信用卡退款成功后要等几天？"
+      ],
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ]
+    },
+    {
+      "id": "rag_038",
+      "answer": "根据知识库，物流超过 72 小时无更新且没有节假日、极端天气等已知原因时，下一步是：\n\n1. **创建物流异常工单**，并至少包含以下信息：\n   - `order_id`\n   - `package_id`\n   - 物流单号\n   - 最后一次轨迹时间和地点\n   - 用户收货城市\n   - 用户期望：继续配送、补发或退款\n\n2. 该情况同时符合**人工升级条件**，应进行升级处理。\n\n3. 在承运商完成调查前，**不应承诺包裹已经丢失**。\n\n因此，请向用户收集上述缺失信息，创建物流异常工单并升级，同时避免对包裹状态做出未经确认的承诺。",
+      "scores": {
+        "correctness": 0.0,
+        "completeness": 0.0,
+        "relevance": 0.0,
+        "faithfulness": 0.0,
+        "abstention_accuracy": 0.0
+      },
+      "timing": {
+        "rewrite_ms": 8159.085,
+        "dense_ms": 81.695,
+        "bm25_ms": 7.209,
+        "rrf_ms": 0.087,
+        "rerank_ms": 624.652,
+        "parent_expand_ms": 0.022,
+        "context_pack_ms": 0.018,
+        "total_ms": 8865.655,
+        "cold_start_ms": 6817.48
+      },
+      "rewritten_queries": [
+        "物流72小时没动而且没有节假日原因，下一步是什么？",
+        "物流72小时没动 无节假日 下一步处理流程",
+        "物流停滞72小时 非节假日 异常原因",
+        "物流72小时未更新 排除节假日 处理时效规定"
+      ],
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback"
+      ]
+    },
+    {
+      "id": "rag_039",
+      "answer": "",
+      "scores": {
+        "correctness": 0.0,
+        "completeness": 0.0,
+        "relevance": 0.0,
+        "faithfulness": 0.0,
+        "abstention_accuracy": 0.0
+      },
+      "timing": {
+        "rewrite_ms": 11759.068,
+        "dense_ms": 79.716,
+        "bm25_ms": 6.279,
+        "rrf_ms": 0.063,
+        "rerank_ms": 332.636,
+        "parent_expand_ms": 0.017,
+        "context_pack_ms": 0.015,
+        "total_ms": 12171.595,
+        "cold_start_ms": 6817.48
+      },
+      "rewritten_queries": [
+        "信用卡重复扣款且平台金额也不对，怎么处理？",
+        "信用卡重复扣款 平台金额也不对 处理流程",
+        "信用卡重复扣款 平台金额也不对 原因",
+        "信用卡重复扣款 平台金额也不对 处理时效"
+      ],
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback"
+      ]
+    },
+    {
+      "id": "rag_040",
+      "answer": "根据当前知识库，部分退款时发票金额不应简单保持原样不变。订单发生部分退款后，需要根据实际开票规则判断是否进行红冲或调整，不能未经流程直接保留原发票金额，也不能直接生成另一张金额冲突的发票。\n\n但具体到您的订单应如何操作、需要您配合提供哪些信息或由谁发起调整，当前知识库没有足够信息确认。建议您通过官方客服渠道升级至财务支持/账单支持处理，并提供订单号、原发票信息及实际退款金额。",
+      "scores": {
+        "correctness": 0.0,
+        "completeness": 0.0,
+        "relevance": 0.0,
+        "faithfulness": 0.0,
+        "abstention_accuracy": 0.0
+      },
+      "timing": {
+        "rewrite_ms": 6992.363,
+        "dense_ms": 81.333,
+        "bm25_ms": 5.98,
+        "rrf_ms": 0.103,
+        "rerank_ms": 386.64,
+        "parent_expand_ms": 0.016,
+        "context_pack_ms": 0.014,
+        "total_ms": 7460.592,
+        "cold_start_ms": 6817.48
+      },
+      "rewritten_queries": [
+        "订单只退了一部分，发票金额还保持原样怎么办？",
+        "部分退款 发票金额未变 处理流程",
+        "部分退款后 发票金额不变 原因",
+        "订单部分退款 发票金额保持原样 处理方法"
+      ],
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback"
+      ]
+    },
+    {
+      "id": "rag_041",
+      "answer": "根据当前知识库，**不建议/不可以直接注销**。\n\n知识库中关于“账户注销”明确列出：注销前应确认是否有**未结清订阅**；并且“存在进行中业务时，可要求先处理完相关事项再进入注销”。\n\n所以，如果你还有未结清订阅，属于进行中业务，通常需要先处理完该订阅事项（例如完成结清、取消订阅或确认到期）后再申请注销。\n\n另外注意：取消订阅不必然等于立即退款，具体退款政策知识库中未提供，需以实际订阅政策或人工客服核实为准。",
+      "scores": {
+        "correctness": 0.0,
+        "completeness": 0.0,
+        "relevance": 0.0,
+        "faithfulness": 0.0,
+        "abstention_accuracy": 0.0
+      },
+      "timing": {
+        "rewrite_ms": 10977.622,
+        "dense_ms": 67.977,
+        "bm25_ms": 6.002,
+        "rrf_ms": 0.088,
+        "rerank_ms": 657.111,
+        "parent_expand_ms": 0.016,
+        "context_pack_ms": 0.012,
+        "total_ms": 11702.912,
+        "cold_start_ms": 6817.48
+      },
+      "rewritten_queries": [
+        "我想注销账号但还有未结清订阅，可以直接注销吗？",
+        "账号注销 未结清订阅 条件",
+        "未结清订阅 注销账号 流程",
+        "未结清订阅 导致无法注销账号"
+      ],
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback"
+      ]
+    },
+    {
+      "id": "rag_042",
+      "answer": "根据知识上下文，商品漏液、异常发热属于高风险质量问题。客服应首先明确要求用户**立即停止使用，不要继续操作**，并说明会升级专业售后处理。不要要求用户为了拍视频继续操作可能危险的商品。\n\n建议话术：\n\n“您描述的商品漏液和发热情况存在安全风险，请先立即停止使用，不要再继续操作或充电。这个情况我会为您优先升级专业售后处理。为了尽快定位订单，请提供订单号、商品名称或SKU；如果已有清晰照片/视频可以上传，但请不要为了拍摄而继续操作或触碰漏液部位。”\n\n要点：\n- 明确停止使用；\n- 不推诿，说明升级路径；\n- 可收集订单号等必要信息，但不强求危险操作下的视频。",
+      "scores": {
+        "correctness": 0.0,
+        "completeness": 0.0,
+        "relevance": 0.0,
+        "faithfulness": 0.0,
+        "abstention_accuracy": 0.0
+      },
+      "timing": {
+        "rewrite_ms": 10815.238,
+        "dense_ms": 79.056,
+        "bm25_ms": 5.422,
+        "rrf_ms": 0.105,
+        "rerank_ms": 383.034,
+        "parent_expand_ms": 0.016,
+        "context_pack_ms": 0.014,
+        "total_ms": 11277.553,
+        "cold_start_ms": 6817.48
+      },
+      "rewritten_queries": [
+        "商品漏液发热还想继续用，客服该怎么说？",
+        "商品漏液发热 客服应对话术",
+        "商品漏液发热 继续使用风险",
+        "商品漏液发热 售后处理流程"
+      ],
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback"
+      ]
+    },
+    {
+      "id": "rag_043",
+      "answer": "根据当前知识库，**不能直接认定为少件**。\n\n应先检查订单是否显示“部分发货”：\n\n- 如果订单因不同仓库、预售与普通商品、缺货等原因被拆成多个包裹，只收到其中一件可能是**拆单后的正常分批发货**，其他包裹可能仍在运输中。\n- 如果同一包裹应包含多件商品，但实际只收到其中一件，且不存在其他在途包裹，才更符合**少件**情形。\n\n因此，需要先核实订单的物流状态、是否有多个包裹/物流单号，以及是否属于“部分发货”，再判断是否为少件。当前知识库无法仅凭“只收到一件”就确认是否少件。",
+      "scores": {
+        "correctness": 0.0,
+        "completeness": 0.0,
+        "relevance": 0.0,
+        "faithfulness": 0.0,
+        "abstention_accuracy": 0.0
+      },
+      "timing": {
+        "rewrite_ms": 7779.336,
+        "dense_ms": 73.951,
+        "bm25_ms": 10.739,
+        "rrf_ms": 0.07,
+        "rerank_ms": 728.141,
+        "parent_expand_ms": 0.02,
+        "context_pack_ms": 0.015,
+        "total_ms": 8581.62,
+        "cold_start_ms": 6817.48
+      },
+      "rewritten_queries": [
+        "一个订单分开发货，只收到其中一件算少件吗？",
+        "分开发货只收到一件是否算少件",
+        "订单分开发货少件判定标准",
+        "分开发货收货不全处理流程"
+      ],
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback"
+      ]
+    },
+    {
+      "id": "rag_044",
+      "answer": "",
+      "scores": {
+        "correctness": 0.0,
+        "completeness": 0.0,
+        "relevance": 0.0,
+        "faithfulness": 0.0,
+        "abstention_accuracy": 0.0
+      },
+      "timing": {
+        "rewrite_ms": 8140.688,
+        "dense_ms": 82.005,
+        "bm25_ms": 6.935,
+        "rrf_ms": 0.127,
+        "rerank_ms": 468.87,
+        "parent_expand_ms": 0.024,
+        "context_pack_ms": 0.02,
+        "total_ms": 8691.847,
+        "cold_start_ms": 6817.48
+      },
+      "rewritten_queries": [
+        "钱退了但卡里现在还没有这笔入账。",
+        "退款成功但银行卡未入账的原因",
+        "退款到银行卡的到账时效",
+        "退款已退但卡里没收到怎么处理"
+      ],
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback"
+      ]
+    },
+    {
+      "id": "rag_045",
+      "answer": "根据知识库内容，订单显示“已发货”但物流没有更新，可能只是已经创建运单、承运商尚未完成首个扫描。半天属于短时间内，通常是常见情况。\n\n建议您先继续观察；如果超过 **24 小时**仍无揽收信息，再进一步核查。",
+      "scores": {
+        "correctness": 0.0,
+        "completeness": 0.0,
+        "relevance": 0.0,
+        "faithfulness": 0.0,
+        "abstention_accuracy": 0.0
+      },
+      "timing": {
+        "rewrite_ms": 5937.279,
+        "dense_ms": 79.452,
+        "bm25_ms": 6.448,
+        "rrf_ms": 0.066,
+        "rerank_ms": 569.929,
+        "parent_expand_ms": 0.017,
+        "context_pack_ms": 0.017,
+        "total_ms": 6586.834,
+        "cold_start_ms": 6817.48
+      },
+      "rewritten_queries": [
+        "快递单出来半天了咋还没更新？",
+        "快递单生成后物流信息多久更新",
+        "快递单半天没更新是什么原因",
+        "快递单物流信息不更新怎么处理"
+      ],
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback"
+      ]
+    },
+    {
+      "id": "rag_046",
+      "answer": "",
+      "scores": {
+        "correctness": 0.0,
+        "completeness": 0.0,
+        "relevance": 0.0,
+        "faithfulness": 0.0,
+        "abstention_accuracy": 0.0
+      },
+      "timing": {
+        "rewrite_ms": 6241.033,
+        "dense_ms": 81.929,
+        "bm25_ms": 6.687,
+        "rrf_ms": 0.15,
+        "rerank_ms": 557.087,
+        "parent_expand_ms": 0.024,
+        "context_pack_ms": 0.021,
+        "total_ms": 6880.359,
+        "cold_start_ms": 6817.48
+      },
+      "rewritten_queries": [
+        "我手滑点了两次付款，咋办？",
+        "重复付款 退款流程",
+        "误操作支付两次 处理办法",
+        "重复支付 退款时效与条件"
+      ],
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback"
+      ]
+    },
+    {
+      "id": "rag_047",
+      "answer": "根据知识库中《账户登录与安全》的“验证码收不到”排查指引，建议按以下步骤处理：\n\n1. 检查手机号或邮箱是否输入正确；\n2. 检查垃圾邮件、短信拦截；\n3. 确认是否频繁请求触发限流；\n4. 等待 1-2 分钟再重试；\n5. 检查运营商或邮件服务延迟；\n6. 尝试另一种已绑定验证方式。\n\n如果出现 `AUTH_4290`，说明触发了限流，应等待限流窗口结束，不要持续点击发送。",
+      "scores": {
+        "correctness": 0.0,
+        "completeness": 0.0,
+        "relevance": 0.0,
+        "faithfulness": 0.0,
+        "abstention_accuracy": 0.0
+      },
+      "timing": {
+        "rewrite_ms": 13872.337,
+        "dense_ms": 4.007,
+        "bm25_ms": 2.227,
+        "rrf_ms": 0.033,
+        "rerank_ms": 375.799,
+        "parent_expand_ms": 0.017,
+        "context_pack_ms": 0.016,
+        "total_ms": 14252.289,
+        "cold_start_ms": 6817.48
+      },
+      "rewritten_queries": [
+        "验证码一直收不到，怎么弄？"
+      ],
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ]
+    },
+    {
+      "id": "rag_048",
+      "answer": "根据当前知识库，仅修改发票接收邮箱通常**不需要红冲**，可以重新发送已开具的电子发票。如果发票尚未开具，可直接修改邮箱信息。\n\n但若涉及企业名称、税号等核心字段变更，则可能需要红冲后重新开具。",
+      "scores": {
+        "correctness": 0.0,
+        "completeness": 0.0,
+        "relevance": 0.0,
+        "faithfulness": 0.0,
+        "abstention_accuracy": 0.0
+      },
+      "timing": {
+        "rewrite_ms": 13236.166,
+        "dense_ms": 4.004,
+        "bm25_ms": 2.319,
+        "rrf_ms": 0.038,
+        "rerank_ms": 293.586,
+        "parent_expand_ms": 0.023,
+        "context_pack_ms": 0.016,
+        "total_ms": 13533.933,
+        "cold_start_ms": 6817.48
+      },
+      "rewritten_queries": [
+        "发票邮箱填错了能不能重新发？"
+      ],
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ]
+    },
+    {
+      "id": "rag_049",
+      "answer": "根据现有知识库，积分减少可能涉及以下原因之一：\n\n- **退款扣回**：如果订单发生退款，原订单产生的积分可能按实际退款比例扣回。\n- **积分过期**：可能存在积分有效期规则，过期后积分减少。\n- **兑换记录**：如果使用积分兑换过权益或商品，积分会相应减少。\n\n但你的账户“积分突然少了”是否属于被扣、具体因哪一项导致，当前知识库无法直接确认。建议你：\n\n1. 查看账户内的积分明细/变动记录，确认是否有“退款扣回”“过期”“兑换”等条目；\n2. 如仍无法判断，可提供订单号或积分变动截图，由客服进一步核实具体原因。",
+      "scores": {
+        "correctness": 0.0,
+        "completeness": 0.0,
+        "relevance": 0.0,
+        "faithfulness": 0.0,
+        "abstention_accuracy": 0.0
+      },
+      "timing": {
+        "rewrite_ms": 11425.342,
+        "dense_ms": 70.363,
+        "bm25_ms": 6.491,
+        "rrf_ms": 0.063,
+        "rerank_ms": 490.342,
+        "parent_expand_ms": 0.017,
+        "context_pack_ms": 0.014,
+        "total_ms": 11986.234,
+        "cold_start_ms": 6817.48
+      },
+      "rewritten_queries": [
+        "积分突然少了是被扣了吗？",
+        "积分减少是否为扣减导致",
+        "积分扣减明细查询方式",
+        "积分异常扣减处理方法"
+      ],
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback"
+      ]
+    },
+    {
+      "id": "rag_050",
+      "answer": "根据当前知识库：关闭自动续费通常**不是马上失效**。当前已支付周期仍可继续使用，到期后停止续费，也不会再自动扣款。已发生的历史扣款不会因为“关闭续费”自动退款。",
+      "scores": {
+        "correctness": 0.0,
+        "completeness": 0.0,
+        "relevance": 0.0,
+        "faithfulness": 0.0,
+        "abstention_accuracy": 0.0
+      },
+      "timing": {
+        "rewrite_ms": 13265.517,
+        "dense_ms": 4.867,
+        "bm25_ms": 2.165,
+        "rrf_ms": 0.1,
+        "rerank_ms": 276.544,
+        "parent_expand_ms": 0.02,
+        "context_pack_ms": 0.014,
+        "total_ms": 13548.036,
+        "cold_start_ms": 6817.48
+      },
+      "rewritten_queries": [
+        "我不想再续费了，关掉后会马上不能用吗？"
+      ],
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ]
+    },
+    {
+      "id": "rag_051",
+      "answer": "当前知识库中没有“绿色会员”每月赠送优惠券数量的信息，因此无法确认具体每月送几张。\n\n建议核实路径：  \n- 查看会员等级权益说明或会员章程；  \n- 联系对应业务客服或会员专线，提供“绿色会员”名称和手机号/会员ID后核实。",
+      "scores": {
+        "correctness": 0.0,
+        "completeness": 0.0,
+        "relevance": 0.0,
+        "faithfulness": 0.0,
+        "abstention_accuracy": 0.0
+      },
+      "timing": {
+        "rewrite_ms": 4819.432,
+        "dense_ms": 79.01,
+        "bm25_ms": 7.163,
+        "rrf_ms": 0.1,
+        "rerank_ms": 323.454,
+        "parent_expand_ms": 0.014,
+        "context_pack_ms": 0.013,
+        "total_ms": 5222.115,
+        "cold_start_ms": 6817.48
+      },
+      "rewritten_queries": [
+        "你们的绿色会员每月送几张优惠券？",
+        "绿色会员 每月赠送优惠券 数量",
+        "绿色会员 优惠券 发放规则",
+        "绿色会员 每月优惠券 张数"
+      ],
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback"
+      ]
+    },
+    {
+      "id": "rag_052",
+      "answer": "当前知识库没有足够信息确认“住在月球”的配送费按哪个区域计算。知识上下文中未包含配送费区域规则，也未覆盖月球等非标准配送地址。\n\n建议你通过以下路径核实：\n- 查看订单结算页或平台配送范围说明；\n- 联系平台官方客服确认是否支持该地址及对应费用。",
+      "scores": {
+        "correctness": 0.0,
+        "completeness": 0.0,
+        "relevance": 0.0,
+        "faithfulness": 0.0,
+        "abstention_accuracy": 0.0
+      },
+      "timing": {
+        "rewrite_ms": 13988.519,
+        "dense_ms": 5.709,
+        "bm25_ms": 2.43,
+        "rrf_ms": 0.05,
+        "rerank_ms": 451.859,
+        "parent_expand_ms": 0.015,
+        "context_pack_ms": 0.014,
+        "total_ms": 14446.299,
+        "cold_start_ms": 6817.48
+      },
+      "rewritten_queries": [
+        "如果我住在月球，配送费按哪个区域算？"
+      ],
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ]
+    },
+    {
+      "id": "rag_053",
+      "answer": "不能保证。依据知识库规则，除非承运商提供明确的预约配送服务，否则客服只能提供预计日期或时间范围，不能承诺具体到分钟级（例如“明天上午十点零五分”）的送达时间。",
+      "scores": {
+        "correctness": 0.0,
+        "completeness": 0.0,
+        "relevance": 0.0,
+        "faithfulness": 0.0,
+        "abstention_accuracy": 0.0
+      },
+      "timing": {
+        "rewrite_ms": 7948.348,
+        "dense_ms": 84.377,
+        "bm25_ms": 6.64,
+        "rrf_ms": 0.081,
+        "rerank_ms": 650.953,
+        "parent_expand_ms": 0.015,
+        "context_pack_ms": 0.015,
+        "total_ms": 8683.875,
+        "cold_start_ms": 6817.48
+      },
+      "rewritten_queries": [
+        "客服能否保证明天上午十点零五分送达？",
+        "客服 保证 明天上午十点零五分 送达 流程",
+        "明天上午十点零五分 送达 时效 保证",
+        "客服 承诺 明天上午十点零五分 送达 条件"
+      ],
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback"
+      ]
+    },
+    {
+      "id": "rag_054",
+      "answer": "当前知识库没有足够信息确认“蓝色包装破损赔多少钱”的具体赔偿金额或标准。\n\n依据已有知识：\n- 外包装破损但商品未损坏时，不一定要退货，应先确认商品功能和外观是否正常，再按用户诉求和商品属性处理。\n- 破损处理 SOP：确认是否存在安全风险，收集照片，再决定补发、退货或换新。\n- 质量问题退货需要提供订单号、商品 SKU/名称、问题描述、清晰照片或视频等，若涉及安全风险应停止使用并升级专业售后。\n\n建议你提供订单号、商品名称、破损照片等信息，由客服按实际商品状态和平台规则核实处理；如涉及安全风险，请先停止使用并联系专业售后升级。",
+      "scores": {
+        "correctness": 0.0,
+        "completeness": 0.0,
+        "relevance": 0.0,
+        "faithfulness": 0.0,
+        "abstention_accuracy": 0.0
+      },
+      "timing": {
+        "rewrite_ms": 7195.347,
+        "dense_ms": 84.588,
+        "bm25_ms": 5.788,
+        "rrf_ms": 0.099,
+        "rerank_ms": 522.613,
+        "parent_expand_ms": 0.019,
+        "context_pack_ms": 0.016,
+        "total_ms": 7802.778,
+        "cold_start_ms": 6817.48
+      },
+      "rewritten_queries": [
+        "平台对蓝色包装破损赔多少钱？",
+        "平台 蓝色包装破损 赔偿金额 标准",
+        "蓝色包装破损 赔付 流程",
+        "平台 蓝色包装 破损 理赔 条件"
+      ],
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback"
+      ]
+    },
+    {
+      "id": "rag_055",
+      "answer": "当前知识库中没有关于“PAY_9999”自动退款规则的信息，无法确认该代码是否可自动退款。  \n建议核实路径：查阅内部订单/支付系统对应的错误码或政策文档，或联系相关业务/财务/平台支持确认。",
+      "scores": {
+        "correctness": 0.0,
+        "completeness": 0.0,
+        "relevance": 0.0,
+        "faithfulness": 0.0,
+        "abstention_accuracy": 0.0
+      },
+      "timing": {
+        "rewrite_ms": 9188.034,
+        "dense_ms": 80.812,
+        "bm25_ms": 6.312,
+        "rrf_ms": 0.077,
+        "rerank_ms": 589.851,
+        "parent_expand_ms": 0.015,
+        "context_pack_ms": 0.012,
+        "total_ms": 9858.882,
+        "cold_start_ms": 6817.48
+      },
+      "rewritten_queries": [
+        "公司规定PAY_9999可以自动退款吗？",
+        "公司规定 PAY_9999 自动退款 条件",
+        "PAY_9999 自动退款 流程",
+        "PAY_9999 自动退款 时效"
+      ],
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback"
+      ]
+    },
+    {
+      "id": "rag_056",
+      "answer": "当前知识库没有足够信息确认积分能否兑换线下演唱会门票。\n\n知识内容仅说明积分可用于：\n- 抵扣现金；\n- 兑换优惠券；\n- 兑换商品或会员权益。\n\n但未明确“线下演唱会门票”是否属于可兑换的商品或会员权益范围，也未列出门票类兑换的具体规则、库存或限制。\n\n建议你通过以下方式核实：\n1. 在积分商城/兑换页面搜索“演唱会门票”或相关活动；\n2. 联系人工客服并提供具体活动名称，由客服按最新活动规则确认；\n3. 若涉及特定会员等级或专属权益，可让客服查询你的账户是否具备兑换资格。",
+      "scores": {
+        "correctness": 0.0,
+        "completeness": 0.0,
+        "relevance": 0.0,
+        "faithfulness": 0.0,
+        "abstention_accuracy": 0.0
+      },
+      "timing": {
+        "rewrite_ms": 4521.1,
+        "dense_ms": 79.833,
+        "bm25_ms": 5.562,
+        "rrf_ms": 0.099,
+        "rerank_ms": 463.74,
+        "parent_expand_ms": 0.019,
+        "context_pack_ms": 0.013,
+        "total_ms": 5064.895,
+        "cold_start_ms": 6817.48
+      },
+      "rewritten_queries": [
+        "我的积分能不能兑换线下演唱会门票？",
+        "积分兑换线下演唱会门票条件",
+        "积分使用范围 线下演唱会门票",
+        "线下演唱会门票积分兑换流程"
+      ],
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback"
+      ]
+    },
+    {
+      "id": "rag_057",
+      "answer": "根据当前知识库，无法确认“注销后平台备份会在三小时内彻底删除”这一说法。\n\n知识内容中仅说明：注销账户不应被解释为“所有服务器备份立即物理清零”；与交易、财务、安全相关的必要记录可能需要在一定期限内保留；已完成订单的必要记录按法定或业务要求继续保留。\n\n因此，关于“三小时内彻底删除”的具体时限，当前知识库没有足够信息确认。如需准确答复，建议升级至隐私或合规团队核实，不要向用户承诺“马上全部删除”或某个具体小时数。",
+      "scores": {
+        "correctness": 0.0,
+        "completeness": 0.0,
+        "relevance": 0.0,
+        "faithfulness": 0.0,
+        "abstention_accuracy": 0.0
+      },
+      "timing": {
+        "rewrite_ms": 11840.727,
+        "dense_ms": 83.592,
+        "bm25_ms": 6.549,
+        "rrf_ms": 0.099,
+        "rerank_ms": 590.465,
+        "parent_expand_ms": 0.015,
+        "context_pack_ms": 0.013,
+        "total_ms": 12514.995,
+        "cold_start_ms": 6817.48
+      },
+      "rewritten_queries": [
+        "注销后平台备份会在三小时内彻底删除吗？",
+        "注销后平台备份删除流程",
+        "注销后平台备份彻底删除时效 三小时内",
+        "注销后平台备份三小时内删除处理条件"
+      ],
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback"
+      ]
+    },
+    {
+      "id": "rag_058",
+      "answer": "当前知识库中没有关于“欧元支付”或外币支付渠道的退款到账时间信息，无法确认欧元退款是否固定几分钟到账。\n\n依据现有规则，退款到账时间取决于支付渠道（如平台余额、支付宝/微信、借记卡、信用卡、组合支付），不同渠道时效不同；且客服只能解释预计范围，不能承诺具体某一分钟到账。\n\n建议你提供原支付渠道（例如信用卡、PayPal、国际银行卡等）或订单号，我可以帮你按对应渠道查询预计时效；若涉及外币/跨境支付，建议同时核实发卡行或支付机构的入账规则。",
+      "scores": {
+        "correctness": 0.0,
+        "completeness": 0.0,
+        "relevance": 0.0,
+        "faithfulness": 0.0,
+        "abstention_accuracy": 0.0
+      },
+      "timing": {
+        "rewrite_ms": 12591.474,
+        "dense_ms": 4.593,
+        "bm25_ms": 2.715,
+        "rrf_ms": 0.041,
+        "rerank_ms": 490.981,
+        "parent_expand_ms": 0.017,
+        "context_pack_ms": 0.017,
+        "total_ms": 13087.264,
+        "cold_start_ms": 6817.48
+      },
+      "rewritten_queries": [
+        "如果我支付了欧元，退款固定几分钟到账？"
+      ],
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback",
+        "rewrite_failed_original_only"
+      ]
+    },
+    {
+      "id": "rag_059",
+      "answer": "当前知识库没有关于“HTTP 418 错误”或“VIP 用户专属补偿”的具体规则，因此无法确认是否存在该类专属补偿。\n\n可参考的处理路径是：  \n- 补偿通常需明确原因（如系统故障、服务体验问题等）和权限；  \n- 涉及补偿、特殊审批或规则例外时，应按知识库建议升级人工处理；  \n- 建议整理用户身份、错误码、发生时间等信息后升级，由有权限的客服或相关部门核实。",
+      "scores": {
+        "correctness": 0.0,
+        "completeness": 0.0,
+        "relevance": 0.0,
+        "faithfulness": 0.0,
+        "abstention_accuracy": 0.0
+      },
+      "timing": {
+        "rewrite_ms": 6794.067,
+        "dense_ms": 81.635,
+        "bm25_ms": 7.431,
+        "rrf_ms": 0.078,
+        "rerank_ms": 440.44,
+        "parent_expand_ms": 0.021,
+        "context_pack_ms": 0.018,
+        "total_ms": 7316.341,
+        "cold_start_ms": 6817.48
+      },
+      "rewritten_queries": [
+        "系统对VIP用户的HTTP 418错误有什么专属补偿？",
+        "VIP用户 HTTP 418错误 专属补偿流程",
+        "HTTP 418错误 VIP专属补偿条件",
+        "系统 VIP用户 HTTP 418 补偿异常原因"
+      ],
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback"
+      ]
+    },
+    {
+      "id": "rag_060",
+      "answer": "不能。客服不能直接把您的密码改成 123456。密码应通过安全的自助重置流程设置，例如点击“忘记密码”并通过已绑定手机号或邮箱完成身份验证后设置新密码。",
+      "scores": {
+        "correctness": 0.0,
+        "completeness": 0.0,
+        "relevance": 0.0,
+        "faithfulness": 0.0,
+        "abstention_accuracy": 0.0
+      },
+      "timing": {
+        "rewrite_ms": 12943.828,
+        "dense_ms": 84.075,
+        "bm25_ms": 6.693,
+        "rrf_ms": 0.082,
+        "rerank_ms": 502.356,
+        "parent_expand_ms": 0.018,
+        "context_pack_ms": 0.014,
+        "total_ms": 13530.468,
+        "cold_start_ms": 6817.48
+      },
+      "rewritten_queries": [
+        "客服可以直接把我的密码改成123456吗？",
+        "客服修改用户密码流程",
+        "客服是否有权限设置密码为123456",
+        "用户密码设置为123456的条件或限制"
+      ],
+      "fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback"
+      ]
+    }
+  ],
+  "runtime": {
+    "torch": "2.13.0+cu130",
+    "cuda_available": true,
+    "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+    "dense_service_device": "cuda",
+    "dense_model_device": "cuda:0",
+    "reranker_service_device": "cuda",
+    "reranker_model_device": "cuda:0",
+    "collection": "knowledge_base_v2_children",
+    "index_status": "ready",
+    "startup_fallbacks": [
+      "chroma_endpoint_unavailable_local_fallback"
+    ],
+    "judge": "anthropic"
+  }
+}

@@ -1,0 +1,48 @@
+corpus:
+  source_dir: data/demo_docs/customer_kb_v2
+  index_dir: data/rag_index
+  children_file: children.jsonl
+  parents_file: parents.jsonl
+  manifest_file: manifest.json
+
+chunking:
+  strategy: parent_child
+  target_child_chars: 400
+  child_overlap_chars: 60
+  max_parent_chars: 1500
+  min_parent_chars: 80
+
+dense:
+  model: BAAI/bge-m3
+  top_k_per_query: 10
+  collection: knowledge_base_v2_children
+  device: auto
+  batch_size: 4
+
+bm25:
+  top_k_per_query: 10
+  tokenizer: jieba+protected_tokens
+  k1: 1.5
+  b: 0.75
+
+rewrite:
+  enabled: true
+  count: 3
+
+rrf:
+  k: 60
+  dense_weight: 1.0
+  bm25_weight: 1.0
+  original_query_weight: 1.0
+  rewrite_query_weight: 1.0
+
+reranker:
+  enabled: true
+  model: BAAI/bge-reranker-v2-m3
+  candidate_k: 25
+  final_child_k: 8
+  device: auto
+
+context:
+  max_parents: 3
+  max_context_chars: 5000

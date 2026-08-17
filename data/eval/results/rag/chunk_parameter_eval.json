@@ -1,0 +1,65 @@
+{
+  "300/50": {
+    "child_recall@3": 0.7333,
+    "parent_recall@3": 0.75,
+    "child_recall@5": 0.8,
+    "parent_recall@5": 0.75,
+    "child_recall@10": 0.8167,
+    "parent_recall@10": 0.75,
+    "mrr@10": 0.7071,
+    "ndcg@10": 0.7183,
+    "no_answer_false_positive_rate": 0.1667,
+    "cases": 60,
+    "child_size": 300,
+    "overlap": 50,
+    "children_count": 167,
+    "avg_child_chars": 149.6,
+    "latency": {
+      "mean": 7.301,
+      "p50": 7.308,
+      "p95": 7.807
+    }
+  },
+  "400/60": {
+    "child_recall@3": 0.75,
+    "parent_recall@3": 0.75,
+    "child_recall@5": 0.8,
+    "parent_recall@5": 0.75,
+    "child_recall@10": 0.8167,
+    "parent_recall@10": 0.75,
+    "mrr@10": 0.7093,
+    "ndcg@10": 0.7202,
+    "no_answer_false_positive_rate": 0.1667,
+    "cases": 60,
+    "child_size": 400,
+    "overlap": 60,
+    "children_count": 165,
+    "avg_child_chars": 151.22,
+    "latency": {
+      "mean": 8.397,
+      "p50": 8.558,
+      "p95": 9.297
+    }
+  },
+  "550/80": {
+    "child_recall@3": 0.75,
+    "parent_recall@3": 0.75,
+    "child_recall@5": 0.8,
+    "parent_recall@5": 0.75,
+    "child_recall@10": 0.8167,
+    "parent_recall@10": 0.75,
+    "mrr@10": 0.7121,
+    "ndcg@10": 0.7224,
+    "no_answer_false_positive_rate": 0.1667,
+    "cases": 60,
+    "child_size": 550,
+    "overlap": 80,
+    "children_count": 164,
+    "avg_child_chars": 151.76,
+    "latency": {
+      "mean": 7.456,
+      "p50": 7.232,
+      "p95": 8.609
+    }
+  }
+}

@@ -52,6 +52,15 @@ data/eval/results/
 !data/demo_docs/customer_kb_v2/
 !data/demo_docs/customer_kb_v2/**
 
+# Keep the deterministic v2 corpus and manifest; Chroma's local runtime DB remains rebuildable.
+!data/rag_index/
+!data/rag_index/parents.jsonl
+!data/rag_index/children.jsonl
+!data/rag_index/manifest.json
+!data/eval/results/
+!data/eval/results/rag/
+!data/eval/results/rag/*.json
+
 # Backup files
 *~
 *.bak

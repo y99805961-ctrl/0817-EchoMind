@@ -25,6 +25,7 @@ from typing import Any, Callable, Dict, List, Optional, Tuple
 from anthropic import AsyncAnthropic
 
 from core.llm_utils import extract_text_content
+from rag.query_rewriter import QueryRewriter
 
 logger = logging.getLogger(__name__)
 
@@ -142,6 +143,7 @@ class MCPToolManager:
         self._model  = model
         self._tools: Dict[str, Tool] = {}
         self._cache: Dict[str, tuple] = {}   # key → (result, expire_at, reranked)
+        self._query_rewriter = QueryRewriter(client=self._client, model=self._model, count=3)
 
     # ── 注册 / 注销 ───────────────────────────────────────────────────────────
 
@@ -290,24 +292,7 @@ class MCPToolManager:
           原始: "退款流程"
           改写: ["如何申请退款", "退款需要多少天", "退款政策是什么"]
         """
-        prompt = f"""将以下用户查询改写为 {n} 个不同角度的搜索子查询，用于检索知识库。
-要求：每个子查询角度不同，覆盖原始问题的不同方面。
-原始查询: "{query}"
-返回 JSON 数组，例如: ["子查询1", "子查询2", "子查询3"]"""
-        prompt = self._clean_text(prompt)
-        try:
-            resp = await self._client.messages.create(
-                model=self._model, max_tokens=256, temperature=0.3,
-                messages=[{"role": "user", "content": prompt}],
-            )
-            raw = extract_text_content(resp.content)
-            s, e = raw.find("["), raw.rfind("]") + 1
-            queries = json.loads(raw[s:e])
-            # 原始查询也保留，去重
-            return list(dict.fromkeys([query] + queries))
-        except Exception as ex:
-            logger.warning(f"查询改写失败，使用原始查询: {ex}")
-            return [query]
+        return await self._query_rewriter.rewrite(query, count=n)
 
     async def search_with_rewrite(
         self,
@@ -333,12 +318,13 @@ class MCPToolManager:
         ]
         results = await asyncio.gather(*tasks, return_exceptions=True)
 
-        # 3. 合并去重（按内容哈希去重）
+        # 3. 合并去重：v2 uses stable child_id/parent_id; legacy rows use
+        # their explicit identity fields, never md5(str(item)).
         seen, merged = set(), []
         for r in results:
             if isinstance(r, ToolResult) and r.success and isinstance(r.data, list):
                 for item in r.data:
-                    key = hashlib.md5(str(item).encode()).hexdigest()
+                    key = self._result_identity(item)
                     if key not in seen:
                         seen.add(key)
                         merged.append(item)
@@ -349,6 +335,22 @@ class MCPToolManager:
         # 4. 重排：用 LLM 对合并结果按相关性打分，取 Top-K
         reranked = await self._rerank(query, merged, top_k)
         return ToolResult(success=True, data=reranked, tool_name=tool_name, reranked=True)
+
+    @staticmethod
+    def _result_identity(item: Any) -> Tuple[str, ...]:
+        if isinstance(item, dict):
+            if item.get("child_id"):
+                return ("child", str(item["child_id"]))
+            if item.get("parent_id"):
+                return ("parent", str(item["parent_id"]))
+            if item.get("id"):
+                return ("id", str(item["id"]))
+            return (
+                "legacy",
+                str(item.get("title", "")),
+                str(item.get("content", "")),
+            )
+        return ("value", repr(item))
 
     # ── 结果重排（解决召回不好）──────────────────────────────────────────────
 

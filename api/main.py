@@ -46,6 +46,7 @@ BANNER = r"""
 _orchestrator = None
 _memory       = None
 _tool_manager = None
+_rag_pipeline = None
 _monitor      = None
 _evaluator    = None
 _skill_manager = None
@@ -66,18 +67,19 @@ def _anthropic_cfg() -> Dict[str, Any]:
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    global _orchestrator, _memory, _tool_manager, _monitor, _evaluator, _skill_manager
+    global _orchestrator, _memory, _tool_manager, _rag_pipeline, _monitor, _evaluator, _skill_manager
 
     print(BANNER, flush=True)
 
     from agents.agent_orchestrator import AgentOrchestrator, Request
     from core.intent_recognizer import IntentRecognizer
     from evaluation.evaluator import EndToEndEvaluator
-    from mcp.knowledge_base import KnowledgeBase
     from mcp.tool_manager import MCPToolManager, Tool
     from memory.conversation_memory import MemoryManager
     from monitor.performance_monitor import PerformanceMonitor
     from core.skill_loader import SkillManager
+    from rag.config import load_rag_config
+    from rag.pipeline import RAGPipeline
 
     cfg = _anthropic_cfg()
     logger.info(f"模型: {cfg['model']}  base_url: {cfg.get('base_url', '(官方)')}")
@@ -116,33 +118,30 @@ async def lifespan(app: FastAPI):
         model=cfg["model"],
     )
 
-    # MCP 工具管理器 + RAG 知识库（基于 ChromaDB 的真实检索）
+    # MCP 工具治理 remains the compatibility boundary; RAG algorithms live
+    # in rag.pipeline and load only an explicitly rebuilt v2 index.
     _tool_manager = MCPToolManager(
         api_key=cfg["api_key"],
         base_url=cfg.get("base_url"),
         model=cfg["model"],
     )
-    kb = KnowledgeBase(
-        chroma_host=os.getenv("CHROMA_HOST", "chromadb"),
-        chroma_port=int(os.getenv("CHROMA_PORT", "8000")),
-        chroma_path=os.getenv("CHROMA_PERSIST_DIRECTORY", "/app/data/chroma"),
+    rag_config = load_rag_config(os.getenv("RAG_CONFIG_PATH") or None)
+    _rag_pipeline = RAGPipeline.from_index(
+        rag_config,
+        rewrite_client=_tool_manager._client,
+        rewrite_model=cfg["model"],
     )
-    logger.info(f"知识库已加载: {await kb.doc_count_async()} 个文档片段")
+    logger.info("RAG v2 index status: %s", _rag_pipeline.index_status)
 
     def knowledge_fallback(params: Dict[str, Any], context: Optional[Dict[str, Any]], error: str):
         query = params.get("query", "")
-        return [{
-            "title": "知识库降级结果",
-            "content": f"知识库暂时不可用，未能完成对“{query}”的语义检索。请稍后重试，或转人工客服确认。",
-            "score": 0.0,
-            "fallback": True,
-            "error": error,
-        }]
+        logger.warning("knowledge_search fallback: %s", error)
+        return []
 
     _tool_manager.register(Tool(
         name="knowledge_search",
-        description="搜索知识库（基于 ChromaDB 向量检索）",
-        handler=kb.search_handler,
+        description="搜索知识库（Parent-Child Hybrid RAG v2）",
+        handler=_rag_pipeline.search_handler,
         schema={
             "type": "object",
             "properties": {
@@ -183,6 +182,7 @@ async def lifespan(app: FastAPI):
     await _monitor.stop()
     if _memory is not None:
         await _memory.close()
+    _rag_pipeline = None
     logger.info("EchoMind 已关闭")
 
 
@@ -338,32 +338,15 @@ async def _build_knowledge_context(message: str, intent=None, top_k: int = 3) ->
 
     这里复用 MCPToolManager 的查询改写、并行召回、重排、fallback 能力。
     """
-    if _tool_manager is None:
+    if _rag_pipeline is None:
         return "", False
     if not _should_use_knowledge(message, intent=intent):
         return "", False
     try:
-        result = await _tool_manager.search_with_rewrite("knowledge_search", message, top_k=top_k)
-        if not result.success or not isinstance(result.data, list) or not result.data:
+        result = await _rag_pipeline.retrieve(message, top_k=top_k)
+        if not result.has_context:
             return "", False
-
-        parts = ["[知识库检索结果]"]
-        used = False
-        for i, item in enumerate(result.data[:top_k], start=1):
-            if not isinstance(item, dict):
-                continue
-            title = str(item.get("title", "未命名文档"))
-            content = str(item.get("content", "")).strip()
-            score = item.get("score", "")
-            if not content:
-                continue
-            used = True
-            parts.append(f"{i}. 标题: {title}\n   相关度: {score}\n   内容: {content[:600]}")
-
-        if not used:
-            return "", False
-        parts.append("请优先依据以上知识库内容回答；如果知识库内容不足，再结合通用客服能力说明。")
-        return "\n".join(parts), True
+        return result.context_text, True
     except Exception as ex:
         logger.warning(f"构建知识库上下文失败: {ex}")
         return "", False
@@ -371,27 +354,8 @@ async def _build_knowledge_context(message: str, intent=None, top_k: int = 3) ->
 
 def _should_use_knowledge(message: str, intent=None) -> bool:
     """跳过纯寒暄，业务类问题才检索知识库，避免无关 RAG 干扰回复。"""
-    msg = (message or "").strip().lower()
-    if not msg:
-        return False
-    intent_value = getattr(intent, "value", intent)
-    if intent_value in {"greeting", "feedback", "escalation", "human_handoff", "other"}:
-        return False
-    if intent_value in {
-        "query", "request", "technical", "billing", "account", "complaint",
-        "order_status", "logistics", "refund", "invoice", "payment_issue",
-        "account_security", "technical_login", "technical_crash",
-    }:
-        return True
-    greetings = {"你好", "您好", "嗨", "hi", "hello", "hey", "早上好", "晚上好"}
-    if msg in greetings:
-        return False
-    business_keywords = [
-        "退款", "订单", "物流", "配送", "发票", "扣款", "支付", "账单", "订阅",
-        "登录", "报错", "错误", "崩溃", "会员", "积分", "账户", "密码", "地址",
-        "refund", "order", "invoice", "payment", "error", "login",
-    ]
-    return len(msg) >= 4 or any(kw in msg for kw in business_keywords)
+    from rag.gate import should_use_knowledge
+    return should_use_knowledge(message, intent)
 
 
 @app.get("/monitor")
@@ -414,10 +378,16 @@ async def search(query: str, top_k: int = 5):
     演示检索优化链路：查询改写 → 并行召回 → 重排 → Top-K。
     展示 MCP 工具调用的核心亮点。
     """
-    if _tool_manager is None:
+    if _rag_pipeline is None:
         raise HTTPException(503, "服务未就绪")
-    result = await _tool_manager.search_with_rewrite("knowledge_search", query, top_k=top_k)
-    return {"query": query, "results": result.data, "reranked": result.reranked}
+    result = await _rag_pipeline.retrieve(query, top_k=top_k)
+    return {
+        "query": query,
+        "results": result.to_dict()["retrieved_children"],
+        "reranked": result.reranker_status == "ok",
+        "timing": result.timing.to_dict(),
+        "fallbacks": result.fallbacks,
+    }
 
 
 class DocInput(BaseModel):
@@ -429,6 +399,15 @@ class DocInput(BaseModel):
 class BatchDocInput(BaseModel):
     """批量文档导入请求体。"""
     documents: List[DocInput]
+
+
+class RAGDebugInput(BaseModel):
+    query: str = Field(min_length=1)
+
+
+class KnowledgeRebuildInput(BaseModel):
+    child_size: Optional[int] = Field(default=None, ge=50, le=2000)
+    overlap: Optional[int] = Field(default=None, ge=0, le=500)
 
 
 class EvalIntentInput(BaseModel):
@@ -454,28 +433,18 @@ class EvalRunInput(BaseModel):
 
 @app.post("/knowledge/add", tags=["知识库"])
 async def add_knowledge(body: BatchDocInput):
-    """
-    批量导入文档到知识库。
-
-    文档会自动切片（每片 500 字）并存入 ChromaDB，ChromaDB 内置 Embedding 模型自动向量化。
-
-    示例请求体：
-    ```json
-    {
-      "documents": [
-        {"title": "退款政策", "content": "用户在购买后 7 天内可以申请无理由退款..."},
-        {"title": "配送说明", "content": "标准配送 3-5 个工作日..."}
-      ]
-    }
-    ```
-    """
-    tool = _tool_manager._tools.get("knowledge_search") if _tool_manager else None
-    if tool is None:
+    """保存到受控 v2 source 目录；不会隐式修改索引。"""
+    if _rag_pipeline is None:
         raise HTTPException(503, "知识库未初始化")
-    kb = tool.handler.__self__
-    count = await kb.add_documents_async([{"title": d.title, "content": d.content} for d in body.documents])
-    total = await kb.doc_count_async()
-    return {"message": f"成功导入 {count} 个文档片段", "added_chunks": count, "total_chunks": total}
+    source_dir = pathlib.Path(_rag_pipeline.config.corpus.source_dir)
+    source_dir.mkdir(parents=True, exist_ok=True)
+    saved = []
+    for index, document in enumerate(body.documents, start=1):
+        safe_title = "".join(ch for ch in document.title if ch.isalnum() or ch in "-_ ").strip() or f"uploaded_{index}"
+        path = source_dir / f"uploaded_{safe_title}.md"
+        path.write_text(f"# {document.title}\n\n{document.content.strip()}\n", encoding="utf-8")
+        saved.append(path.name)
+    return {"message": "source 已保存，请显式调用 /knowledge/rebuild", "saved_sources": saved, "requires_rebuild": True}
 
 
 @app.post("/knowledge/upload", tags=["知识库"])
@@ -489,10 +458,8 @@ async def upload_knowledge(file: UploadFile = File(...)):
 
     文件大小限制：10MB
     """
-    tool = _tool_manager._tools.get("knowledge_search") if _tool_manager else None
-    if tool is None:
+    if _rag_pipeline is None:
         raise HTTPException(503, "知识库未初始化")
-    kb = tool.handler.__self__
 
     content = await file.read()
     if len(content) > 10 * 1024 * 1024:
@@ -501,36 +468,87 @@ async def upload_knowledge(file: UploadFile = File(...)):
     text = content.decode("utf-8", errors="ignore")
     filename = file.filename or "unknown"
 
-    if filename.endswith(".json"):
-        import json as _json
-        try:
-            docs = _json.loads(text)
-            if not isinstance(docs, list):
-                raise HTTPException(400, "JSON 文件应为数组格式: [{title, content}, ...]")
-        except _json.JSONDecodeError as e:
-            raise HTTPException(400, f"JSON 解析失败: {e}")
-    else:
-        # txt / md：整个文件作为一篇文档
-        title = filename.rsplit(".", 1)[0] if "." in filename else filename
-        docs = [{"title": title, "content": text}]
-
-    count = await kb.add_documents_async(docs)
-    total = await kb.doc_count_async()
+    if not filename.lower().endswith(".md"):
+        raise HTTPException(400, "v2 知识库上传只接受 .md；保存 source 后请显式 rebuild")
+    safe_name = "".join(ch for ch in filename if ch.isalnum() or ch in "-_. ").strip() or "uploaded.md"
+    path = pathlib.Path(_rag_pipeline.config.corpus.source_dir) / safe_name
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(text, encoding="utf-8")
     return {
-        "message": f"文件 {filename} 导入成功",
-        "added_chunks": count,
-        "total_chunks": total,
+        "message": f"文件 {filename} 已保存为 source，请显式调用 /knowledge/rebuild",
+        "source": path.name,
+        "requires_rebuild": True,
     }
 
 
 @app.get("/knowledge/stats", tags=["知识库"])
 async def knowledge_stats():
-    """查看知识库统计信息（文档片段总数）。"""
-    tool = _tool_manager._tools.get("knowledge_search") if _tool_manager else None
-    if tool is None:
+    """查看 v2 source/index 统计，不触发重建。"""
+    if _rag_pipeline is None:
         raise HTTPException(503, "知识库未初始化")
-    kb = tool.handler.__self__
-    return {"total_chunks": await kb.doc_count_async()}
+    from rag.indexing import index_stats
+    return index_stats(_rag_pipeline.config) | {
+        "chunk_strategy": _rag_pipeline.config.chunking.strategy,
+        "child_size": _rag_pipeline.config.chunking.target_child_chars,
+        "overlap": _rag_pipeline.config.chunking.child_overlap_chars,
+        "dense_model": _rag_pipeline.config.dense.model,
+        "dense_collection": _rag_pipeline.config.dense.collection,
+        "bm25_docs": len(_rag_pipeline.bm25.children) if _rag_pipeline.bm25 else 0,
+        "reranker_model": _rag_pipeline.config.reranker.model,
+        "reranker_device": _rag_pipeline.config.reranker.device,
+    }
+
+
+@app.post("/knowledge/rebuild", tags=["知识库"])
+async def rebuild_knowledge(body: Optional[KnowledgeRebuildInput] = None):
+    """显式重建 v2 Parent–Child index；路径不可由请求方指定。"""
+    global _rag_pipeline
+    if _rag_pipeline is None:
+        raise HTTPException(503, "知识库未初始化")
+    from rag.indexing import rebuild_index
+    config = _rag_pipeline.config
+    body = body or KnowledgeRebuildInput()
+    if body.child_size is not None:
+        config.chunking.target_child_chars = body.child_size
+    if body.overlap is not None:
+        config.chunking.child_overlap_chars = body.overlap
+    if config.chunking.child_overlap_chars >= config.chunking.target_child_chars:
+        raise HTTPException(400, "overlap must be smaller than child_size")
+    try:
+        manifest = await asyncio.to_thread(rebuild_index, config)
+        from rag.pipeline import RAGPipeline
+        _rag_pipeline = RAGPipeline.from_index(
+            config,
+            rewrite_client=_tool_manager._client if _tool_manager else None,
+            rewrite_model=os.getenv("ANTHROPIC_MODEL", ""),
+        )
+        return {"message": "RAG v2 index rebuilt", "manifest": manifest}
+    except Exception as exc:
+        logger.exception("RAG v2 rebuild failed")
+        raise HTTPException(500, f"RAG v2 rebuild failed: {exc}")
+
+
+@app.post("/rag/debug", tags=["RAG"])
+async def rag_debug(body: RAGDebugInput):
+    if _rag_pipeline is None:
+        raise HTTPException(503, "RAG 未初始化")
+    result = await _rag_pipeline.retrieve(body.query)
+    payload = result.to_dict()
+    return {
+        "query": payload["query"],
+        "intent": None,
+        "rewritten_queries": payload["rewritten_queries"],
+        "dense_results": payload["dense_results"],
+        "bm25_results": payload["bm25_results"],
+        "rrf_results": payload["rrf_hits"],
+        "reranked_results": payload["reranked_hits"],
+        "selected_parents": payload["selected_parents"],
+        "context_preview": payload["context_text"],
+        "timing": payload["timing"],
+        "fallbacks": payload["fallbacks"],
+        "reranker_status": payload["reranker_status"],
+        "index_status": payload["index_status"],
+    }
 
 
 @app.post("/eval/run")
