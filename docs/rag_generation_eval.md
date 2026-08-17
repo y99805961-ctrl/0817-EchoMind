@@ -35,3 +35,31 @@ serial run was observed at approximately 1,468 seconds, but it is not a valid
 speedup comparison because the current run stopped receiving paid generation
 responses. Historical serial rewrite latency remains in
 `data/eval/results/rag/generation_eval.json`.
+
+## Phase 2.2 judge-only run
+
+Phase 2.2 reused the 60 historical answers from
+`data/eval/results/rag/generation_eval.json` by case ID. Those answers came
+from the prior real DeepSeek generation run; this phase did not regenerate
+answers and did not change the historical file or its old scores. Qwen3.7-Plus
+was used only as an independent LLM-as-Judge through the current
+Anthropic-compatible endpoint.
+
+The judge-only command made 60 Judge calls with 60/60 successes and valid
+scores. It made zero Generation calls and zero remote Rewrite calls. Because
+the historical artifact does not carry retrieved context, each case used a
+local production retrieval replay with `rewrite=False`; this replay made 60
+local retrieval calls and did not invoke a Rewrite model.
+
+| Metric | Phase 2.2 value |
+|---|---:|
+| Correctness | 0.9317 |
+| Completeness | 0.8917 |
+| Relevance | 0.9667 |
+| Faithfulness | 0.9583 |
+| Abstention accuracy | 0.7500 |
+| Judge success / valid | 60 / 60 |
+| Judge latency mean / P95 | 1,558.100 / 2,113.217 ms |
+
+The full result is `data/eval/results/rag/generation_judge_qwen.json`; the
+3-case smoke result is `data/eval/results/rag/generation_judge_qwen_smoke.json`.

@@ -1,0 +1,155 @@
+{
+  "evaluation_mode": "judge_only",
+  "answer_source": "data\\eval\\results\\rag\\generation_eval.json",
+  "answer_generator": "historical_deepseek",
+  "judge_provider": "qwen_anthropic_compatible",
+  "judge_model": "qwen3.7-plus",
+  "benchmark": "rag_benchmark_60.json",
+  "benchmark_total_cases": 60,
+  "cases_evaluated": 3,
+  "historical_answers_loaded": 3,
+  "generation_calls": 0,
+  "rewrite_llm_calls": 0,
+  "local_retrieval_calls": 3,
+  "judge_attempted": 3,
+  "judge_successes": 3,
+  "judge_failures": 0,
+  "valid_judged_cases": 3,
+  "judge_success_rate": 1.0,
+  "judge_latency": {
+    "mean_ms": 1525.519,
+    "p50_ms": 1546.571,
+    "p95_ms": 1664.222
+  },
+  "metrics": {
+    "correctness": 1.0,
+    "completeness": 1.0,
+    "relevance": 1.0,
+    "faithfulness": 1.0,
+    "abstention_accuracy": 0.3333
+  },
+  "stopped_early": false,
+  "stop_reason": null,
+  "judge_stats": {
+    "successes": 3,
+    "failures": 0,
+    "retries": 0,
+    "max_tokens": 512,
+    "max_tokens_cap": 1024,
+    "disable_thinking": true,
+    "failure_rate": 0.0,
+    "failure_types": {}
+  },
+  "runtime": {
+    "model": "qwen3.7-plus",
+    "base_url": "https://ws-029h1n8s7s03avh6.cn-beijing.maas.aliyuncs.com/apps/anthropic",
+    "judge_max_retries": 1,
+    "judge_max_tokens": 512,
+    "judge_disable_thinking": true,
+    "dense_model_device": "cuda:0",
+    "reranker_model_device": "cuda:0",
+    "collection": "knowledge_base_v2_children",
+    "index_status": "ready"
+  },
+  "cases": [
+    {
+      "id": "rag_001",
+      "answer": "订单显示“已发货”表示：**至少一个包裹已经生成有效物流单号，并已交由承运方处理**。\n\n但需要注意，订单状态与物流状态不是同一概念。即使订单显示“已发货”，承运商页面可能暂时还没有揽收或运输更新；如果只是刚创建运单、承运商尚未完成首个扫描，短时间内属于常见情况，超过 24 小时仍无揽收信息再进一步核查。",
+      "scores": {
+        "correctness": 1.0,
+        "completeness": 1.0,
+        "relevance": 1.0,
+        "faithfulness": 1.0,
+        "abstention_accuracy": 0.0
+      },
+      "judge_status": "ok",
+      "judge_error_type": null,
+      "judge_error_message": null,
+      "judge_raw_output": "{\n  \"correctness\": 1.0,\n  \"completeness\": 1.0,\n  \"relevance\": 1.0,\n  \"faithfulness\": 1.0,\n  \"abstention_accuracy\": 0.0\n}",
+      "judge_latency_ms": 1546.571,
+      "judge_retried": false,
+      "judge_retry_count": 0,
+      "context_source": "local_retrieval_replay",
+      "retrieval_fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback"
+      ],
+      "retrieval_timing": {
+        "rewrite_ms": 0.002,
+        "dense_ms": 48.71,
+        "bm25_ms": 2.739,
+        "rrf_ms": 0.052,
+        "rerank_ms": 3683.225,
+        "parent_expand_ms": 0.024,
+        "context_pack_ms": 0.017,
+        "total_ms": 3732.175,
+        "cold_start_ms": 3209.947
+      }
+    },
+    {
+      "id": "rag_002",
+      "answer": "根据知识库，现货商品通常在支付成功后 **1-2 个工作日**内完成仓库处理并交接承运商。大促、节假日、极端天气、库存调拨或高峰期可能延长。",
+      "scores": {
+        "correctness": 1.0,
+        "completeness": 1.0,
+        "relevance": 1.0,
+        "faithfulness": 1.0,
+        "abstention_accuracy": 0.0
+      },
+      "judge_status": "ok",
+      "judge_error_type": null,
+      "judge_error_message": null,
+      "judge_raw_output": "{\n  \"correctness\": 1,\n  \"completeness\": 1,\n  \"relevance\": 1,\n  \"faithfulness\": 1,\n  \"abstention_accuracy\": 0\n}",
+      "judge_latency_ms": 1664.222,
+      "judge_retried": false,
+      "judge_retry_count": 0,
+      "context_source": "local_retrieval_replay",
+      "retrieval_fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback"
+      ],
+      "retrieval_timing": {
+        "rewrite_ms": 0.001,
+        "dense_ms": 5.559,
+        "bm25_ms": 2.607,
+        "rrf_ms": 0.048,
+        "rerank_ms": 391.047,
+        "parent_expand_ms": 0.022,
+        "context_pack_ms": 0.03,
+        "total_ms": 396.8,
+        "cold_start_ms": 3209.947
+      }
+    },
+    {
+      "id": "rag_003",
+      "answer": "可以。根据知识库：在不影响二次销售且商品属于可退范围时，用户可自签收次日起 **7 个自然日**内申请无理由退货。是否支持以商品页、订单页和售后页面展示为准。",
+      "scores": {
+        "correctness": 1.0,
+        "completeness": 1.0,
+        "relevance": 1.0,
+        "faithfulness": 1.0,
+        "abstention_accuracy": 1.0
+      },
+      "judge_status": "ok",
+      "judge_error_type": null,
+      "judge_error_message": null,
+      "judge_raw_output": "{\n  \"correctness\": 1.0,\n  \"completeness\": 1.0,\n  \"relevance\": 1.0,\n  \"faithfulness\": 1.0,\n  \"abstention_accuracy\": 1.0\n}",
+      "judge_latency_ms": 1365.763,
+      "judge_retried": false,
+      "judge_retry_count": 0,
+      "context_source": "local_retrieval_replay",
+      "retrieval_fallbacks": [
+        "chroma_endpoint_unavailable_local_fallback"
+      ],
+      "retrieval_timing": {
+        "rewrite_ms": 0.001,
+        "dense_ms": 5.79,
+        "bm25_ms": 2.823,
+        "rrf_ms": 0.049,
+        "rerank_ms": 311.677,
+        "parent_expand_ms": 0.02,
+        "context_pack_ms": 0.022,
+        "total_ms": 317.665,
+        "cold_start_ms": 3209.947
+      }
+    }
+  ]
+}

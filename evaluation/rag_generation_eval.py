@@ -459,12 +459,183 @@ async def _main(args) -> int:
     return 0
 
 
+def _judge_latency_summary(values: Sequence[float]) -> Dict[str, Optional[float]]:
+    if not values:
+        return {"mean_ms": None, "p50_ms": None, "p95_ms": None}
+    ordered = sorted(float(value) for value in values)
+
+    def percentile(q: float) -> float:
+        index = min(len(ordered) - 1, max(0, int(round((len(ordered) - 1) * q))))
+        return round(ordered[index], 3)
+
+    return {
+        "mean_ms": round(statistics.mean(ordered), 3),
+        "p50_ms": percentile(0.50),
+        "p95_ms": percentile(0.95),
+    }
+
+
+def _is_provider_level_judge_failure(outcome: Dict[str, Any]) -> bool:
+    error_type = str(outcome.get("judge_error_type") or "").lower()
+    message = str(outcome.get("judge_error_message") or "").lower()
+    return error_type in {"apistatuserror", "apiconnectionerror", "apitimeouterror", "timeout", "connectionerror"} or any(
+        token in message for token in ("401", "402", "403", "429", "5xx", "insufficient balance", "provider unavailable")
+    )
+
+
+async def _judge_only_main(args) -> int:
+    """Judge historical answers only; never invokes Rewrite or Generation."""
+    from dotenv import load_dotenv
+
+    load_dotenv()
+    if not args.input:
+        raise ValueError("--input is required with --judge-only")
+    input_path = Path(args.input)
+    history = json.loads(input_path.read_text(encoding="utf-8"))
+    historical_rows = history.get("cases", history) if isinstance(history, dict) else history
+    if not isinstance(historical_rows, list):
+        raise ValueError("historical generation input must contain a cases list")
+    historical_by_id = {str(row.get("id")): row for row in historical_rows if row.get("id") is not None and "answer" in row}
+
+    benchmark = load_benchmark(args.benchmark)
+    if args.limit is not None:
+        if args.limit < 1 or args.limit > len(benchmark):
+            raise ValueError(f"--limit must be between 1 and {len(benchmark)}")
+        benchmark = benchmark[:args.limit]
+    selected = []
+    for case in benchmark:
+        historical = historical_by_id.get(str(case["id"]))
+        if historical is None:
+            raise ValueError(f"historical answer missing for benchmark case {case['id']}")
+        selected.append((case, str(historical.get("answer", ""))))
+
+    api_key = os.getenv("ANTHROPIC_API_KEY", "").strip()
+    if not api_key:
+        raise RuntimeError("ANTHROPIC_API_KEY is required for --judge-only")
+    from anthropic import AsyncAnthropic
+
+    kwargs = {"api_key": api_key}
+    if os.getenv("ANTHROPIC_BASE_URL"):
+        kwargs["base_url"] = os.getenv("ANTHROPIC_BASE_URL")
+    model = os.getenv("ANTHROPIC_MODEL", "qwen3.7-plus")
+    client = AsyncAnthropic(**kwargs)
+
+    # Judge-only defaults from the Phase 2.2 runbook. Existing explicit env
+    # values still win, and no credential is written into the result.
+    os.environ.setdefault("RAG_JUDGE_DISABLE_THINKING", "true")
+    os.environ.setdefault("RAG_JUDGE_MAX_TOKENS", "512")
+    os.environ.setdefault("RAG_JUDGE_MAX_TOKENS_CAP", "1024")
+    os.environ.setdefault("RAG_JUDGE_MAX_RETRIES", "1")
+    os.environ.setdefault("RAG_JUDGE_RETRY_BASE_SECONDS", "0.5")
+    judge = AnthropicRAGJudge(client, model)
+
+    # Explicitly force local-only model loading. Retrieval is allowed solely
+    # to reconstruct missing historical context, with Rewrite disabled.
+    os.environ.setdefault("RAG_LOCAL_FILES_ONLY", "1")
+    os.environ.setdefault("HF_HUB_OFFLINE", "1")
+    pipeline = RAGPipeline.from_index(load_rag_config(args.config), rewrite_client=None, rewrite_model="")
+    queries = [case["query"] for case, _ in selected]
+    if pipeline.dense is not None:
+        await asyncio.to_thread(pipeline.dense.precompute_query_embeddings, queries)
+
+    rows: List[Dict[str, Any]] = []
+    judge_latencies: List[float] = []
+    provider_error_streak = 0
+    stopped_early = False
+    stop_reason = None
+    for case, answer in selected:
+        retrieval = await pipeline.retrieve(case["query"], rewrite=False)
+        outcome = await judge(case, retrieval.context_text, answer)
+        judge_latencies.append(float(outcome.get("judge_latency_ms") or 0.0))
+        if outcome.get("judge_status") == "ok":
+            provider_error_streak = 0
+        elif _is_provider_level_judge_failure(outcome):
+            provider_error_streak += 1
+        else:
+            provider_error_streak = 0
+        rows.append({
+            "id": case["id"],
+            "answer": answer,
+            "scores": outcome["scores"],
+            "judge_status": outcome.get("judge_status"),
+            "judge_error_type": outcome.get("judge_error_type"),
+            "judge_error_message": outcome.get("judge_error_message"),
+            "judge_raw_output": outcome.get("judge_raw_output", ""),
+            "judge_latency_ms": outcome.get("judge_latency_ms"),
+            "judge_retried": outcome.get("judge_retried", False),
+            "judge_retry_count": outcome.get("judge_retry_count", 0),
+            "context_source": "local_retrieval_replay",
+            "retrieval_fallbacks": retrieval.fallbacks,
+            "retrieval_timing": retrieval.timing.to_dict(),
+        })
+        if provider_error_streak >= 3:
+            stopped_early = True
+            stop_reason = "three_consecutive_provider_errors"
+            break
+
+    valid_rows = [
+        row for row in rows
+        if row.get("judge_status") == "ok" and all(row["scores"].get(key) is not None for key in SCORE_KEYS)
+    ]
+    metrics = {
+        key: round(statistics.mean([float(row["scores"][key]) for row in valid_rows]), 4) if valid_rows else None
+        for key in SCORE_KEYS
+    }
+    successes = sum(row.get("judge_status") == "ok" for row in rows)
+    failures = sum(row.get("judge_status") == "judge_failed" for row in rows)
+    result = {
+        "evaluation_mode": "judge_only",
+        "answer_source": str(input_path),
+        "answer_generator": "historical_deepseek",
+        "judge_provider": "qwen_anthropic_compatible",
+        "judge_model": model,
+        "benchmark": "rag_benchmark_60.json",
+        "benchmark_total_cases": 60,
+        "cases_evaluated": len(rows),
+        "historical_answers_loaded": len(rows),
+        "generation_calls": 0,
+        "rewrite_llm_calls": 0,
+        "local_retrieval_calls": len(rows),
+        "judge_attempted": len(rows),
+        "judge_successes": successes,
+        "judge_failures": failures,
+        "valid_judged_cases": len(valid_rows),
+        "judge_success_rate": round(successes / len(rows), 6) if rows else 0.0,
+        "judge_latency": _judge_latency_summary(judge_latencies),
+        "metrics": metrics,
+        "stopped_early": stopped_early,
+        "stop_reason": stop_reason,
+        "judge_stats": judge.stats,
+        "runtime": {
+            "model": model,
+            "base_url": _redact_url(os.getenv("ANTHROPIC_BASE_URL")),
+            "judge_max_retries": judge.max_retries,
+            "judge_max_tokens": judge.max_tokens,
+            "judge_disable_thinking": judge.disable_thinking,
+            "dense_model_device": str(getattr(getattr(getattr(pipeline.dense, "embedding_service", None), "_model", None), "device", "")),
+            "reranker_model_device": str(getattr(getattr(pipeline.reranker, "_model", None), "device", "")),
+            "collection": load_rag_config(args.config).dense.collection,
+            "index_status": pipeline.index_status,
+        },
+        "cases": rows,
+    }
+    output = Path(args.output or Path(__file__).parents[1] / "data" / "eval" / "results" / "rag" / "generation_judge_qwen.json")
+    output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
+    print(json.dumps({key: result[key] for key in ("evaluation_mode", "cases_evaluated", "historical_answers_loaded", "generation_calls", "rewrite_llm_calls", "judge_attempted", "judge_successes", "judge_failures", "valid_judged_cases", "judge_success_rate", "judge_latency", "stopped_early", "stop_reason", "metrics")}, ensure_ascii=False, indent=2))
+    return 0
+
+
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description="Evaluate grounded RAG generation")
     parser.add_argument("--config")
     parser.add_argument("--benchmark", default=str(DEFAULT_BENCHMARK))
     parser.add_argument("--output")
-    return asyncio.run(_main(parser.parse_args(argv)))
+    parser.add_argument("--judge-only", action="store_true", help="Judge historical answers without Rewrite or Generation")
+    parser.add_argument("--input", help="Historical generation_eval.json for --judge-only")
+    parser.add_argument("--limit", type=int, help="Evaluate only the first N benchmark cases")
+    args = parser.parse_args(argv)
+    return asyncio.run(_judge_only_main(args) if args.judge_only else _main(args))
 
 
 if __name__ == "__main__":

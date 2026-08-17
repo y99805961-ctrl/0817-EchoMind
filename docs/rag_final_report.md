@@ -83,6 +83,32 @@ observed at approximately 1,468 seconds, but no speedup claim is made because
 the provider did not execute the current generation workload. The prior real
 answers remain in `data/eval/results/rag/generation_eval.json`.
 
+## Phase 2.2 Judge-only validation
+
+Phase 2.2 reused the 60 historical answers in
+`data/eval/results/rag/generation_eval.json` by frozen benchmark ID. The
+answers came from the prior real DeepSeek generation run. No answers were
+regenerated, and the old generation scores were ignored. Qwen3.7-Plus was
+used only as an independent LLM-as-Judge.
+
+The judge-only run completed 60/60 cases successfully. It made zero
+Generation calls and zero remote Rewrite calls. To supply context without
+rerunning Rewrite, each case used a local production retrieval replay with
+`rewrite=False` (60 local retrieval calls). The resulting quality metrics are:
+
+| Metric | Phase 2.2 value |
+|---|---:|
+| Correctness | 0.9317 |
+| Completeness | 0.8917 |
+| Relevance | 0.9667 |
+| Faithfulness | 0.9583 |
+| Abstention accuracy | 0.7500 |
+| Judge success / valid | 60 / 60 |
+| Judge latency mean / P95 | 1,558.100 / 2,113.217 ms |
+
+The complete artifact is `data/eval/results/rag/generation_judge_qwen.json`;
+the smoke artifact is `data/eval/results/rag/generation_judge_qwen_smoke.json`.
+
 ## Regression and tests
 
 ```text
@@ -110,9 +136,10 @@ unavailable reruns are `rag_v2_intent_phase21.json` and
 - The configured Docker Chroma hostname is unavailable in the Windows run;
   local persistent Chroma fallback is explicit and tested.
 - Chroma emits a non-blocking PostHog telemetry compatibility warning.
-- Long-form external judge calls need better error/status instrumentation before
-  generation quality scores can be used; the instrumentation is now in place,
-  but the configured DeepSeek account currently has insufficient balance.
+- Phase 2.1 generation quality remains unavailable because the configured
+  DeepSeek account returned insufficient balance. Phase 2.2 provides an
+  independent Qwen Judge score for the historical answers, but it is not a
+  new generation-quality run and should not be described as Qwen generation.
 - The Phase 2.1 provider-unavailable rerun cannot establish a valid generation
   quality score or successful Rewrite latency improvement.
 
