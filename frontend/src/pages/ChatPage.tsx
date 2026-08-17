@@ -18,7 +18,7 @@ function messageId(): string {
 }
 
 function errorMessage(error: unknown): string {
-  return error instanceof Error ? error.message : "Echo 暂时没有响应";
+  return error instanceof Error ? error.message : "本次协同暂未完成";
 }
 
 export function ChatPage() {
@@ -49,7 +49,7 @@ export function ChatPage() {
     if (!conversation || loading) return;
     const convId = conversation.id;
     if (retryMessageId) {
-      updateMessage(convId, retryMessageId, { status: "sending", content: "Echo 正在整理…", error: undefined });
+      updateMessage(convId, retryMessageId, { status: "sending", content: "正在协调专业 Agent…", error: undefined });
     } else {
       appendMessage(convId, {
         id: messageId(),
@@ -78,12 +78,12 @@ export function ChatPage() {
     } catch (error) {
       const detail = errorMessage(error);
       if (retryMessageId) {
-        updateMessage(convId, retryMessageId, { status: "error", content: "Echo 暂时没有响应", error: detail });
+        updateMessage(convId, retryMessageId, { status: "error", content: "本次协同暂未完成", error: detail });
       } else {
         appendMessage(convId, {
           id: messageId(),
           role: "assistant",
-          content: "Echo 暂时没有响应",
+          content: "本次协同暂未完成",
           createdAt: new Date().toISOString(),
           status: "error",
           error: detail,
@@ -109,15 +109,15 @@ export function ChatPage() {
     <div className="chat-page" data-testid="chat-page">
       <div className="mobile-toolbar">
         <Button icon={<MenuUnfoldOutlined />} onClick={() => setMobileDrawer("conversations")} aria-label="打开会话列表" />
-        <span>Chat workspace</span>
-        <Button icon={<SettingOutlined />} onClick={() => setMobileDrawer("diagnostics")} aria-label="打开诊断面板" />
+        <span>协同工作台</span>
+        <Button icon={<SettingOutlined />} onClick={() => setMobileDrawer("diagnostics")} aria-label="打开协同轨迹" />
       </div>
       <div className="chat-workspace">
         <ConversationSidebar conversations={conversations} activeId={activeConversation?.id ?? ""} onNew={newChat} onSelect={selectChat} />
         <section className="chat-column">
           <div className="chat-heading">
-            <div><span className="eyebrow">ECHO WORKSPACE</span><h1>Ask Echo anything</h1></div>
-            <span className="chat-heading-note">Memory-aware · grounded when useful</span>
+            <div><span className="eyebrow">OPERATIONS WORKSPACE</span><h1>协同工作台</h1><p>理解业务请求，并协调知识与专业 Agent 完成处理。</p></div>
+            <span className="chat-heading-note">Request → Understand → Coordinate</span>
           </div>
           <div className="message-list" aria-live="polite">
             {!activeConversation?.messages.length ? <EmptyState onSuggestion={(value) => void sendMessage(value)} /> : activeConversation.messages.map((message) => (
@@ -132,10 +132,10 @@ export function ChatPage() {
         </section>
         <DiagnosticsPanel diagnostics={latestDiagnostics} />
       </div>
-      <Drawer title="Conversations" placement="left" open={mobileDrawer === "conversations"} onClose={() => setMobileDrawer(null)} width={300}>
+      <Drawer title="业务请求" placement="left" open={mobileDrawer === "conversations"} onClose={() => setMobileDrawer(null)} width={300}>
         <ConversationSidebar conversations={conversations} activeId={activeConversation?.id ?? ""} onNew={newChat} onSelect={selectChat} />
       </Drawer>
-      <Drawer title="Diagnostics" placement="right" open={mobileDrawer === "diagnostics"} onClose={() => setMobileDrawer(null)} width={340}>
+      <Drawer title="协同轨迹" placement="right" open={mobileDrawer === "diagnostics"} onClose={() => setMobileDrawer(null)} width={340}>
         <DiagnosticsPanel diagnostics={latestDiagnostics} />
       </Drawer>
     </div>

@@ -5,7 +5,7 @@ async function freshChat(page: Page) {
   await page.evaluate(() => localStorage.clear());
   await page.reload();
   await expect(page.getByTestId("chat-page")).toBeVisible();
-  await expect(page.getByTestId("health-indicator")).toContainText("Online");
+  await expect(page.getByTestId("health-indicator")).toContainText("系统运行正常");
 }
 
 async function send(page: Page, text: string) {
@@ -22,7 +22,7 @@ test.describe.serial("Core deterministic E2E", () => {
     page.on("console", (message) => { if (message.type() === "error") consoleErrors.push(message.text()); });
     page.on("pageerror", (error) => consoleErrors.push(error.message));
     await freshChat(page);
-    await expect(page.getByText("EchoMind").first()).toBeVisible();
+    await expect(page.getByText("NexusOps").first()).toBeVisible();
     await expect(page.getByTestId("chat-composer")).toBeVisible();
     expect(consoleErrors).toEqual([]);
   });
@@ -41,53 +41,53 @@ test.describe.serial("Core deterministic E2E", () => {
   test("E2E-003 Greeting", async ({ page }) => {
     await freshChat(page);
     await send(page, "你好");
-    await expect(page.getByTestId("intent-badge")).toHaveText("greeting");
-    await expect(page.getByTestId("primary-agent-badge")).toContainText("General");
+    await expect(page.getByTestId("intent-badge")).toHaveText("通用咨询");
+    await expect(page.getByTestId("primary-agent-badge")).toContainText("运营协调 Agent");
     await expect(page.getByTestId("diagnostics-panel")).toBeVisible();
   });
 
   test("E2E-004 Refund", async ({ page }) => {
     await freshChat(page);
     await send(page, "我刚买的商品想退款");
-    await expect(page.getByTestId("intent-badge")).toHaveText("refund");
-    await expect(page.getByTestId("primary-agent-badge")).toContainText("Billing");
+    await expect(page.getByTestId("intent-badge")).toHaveText("退款处理");
+    await expect(page.getByTestId("primary-agent-badge")).toContainText("收入与合规 Agent");
     await expect(page.getByTestId("assistant-message").last()).not.toBeEmpty();
   });
 
   test("E2E-005 Technical Login", async ({ page }) => {
     await freshChat(page);
     await send(page, "我一直登录不上，提示 401");
-    await expect(page.getByTestId("intent-badge")).toHaveText("technical_login");
-    await expect(page.getByTestId("primary-agent-badge")).toContainText("Technical");
+    await expect(page.getByTestId("intent-badge")).toHaveText("登录异常");
+    await expect(page.getByTestId("primary-agent-badge")).toContainText("技术可靠性 Agent");
   });
 
   test("E2E-006 Human Handoff", async ({ page }) => {
     await freshChat(page);
     await send(page, "我要转人工客服");
-    await expect(page.getByTestId("intent-badge")).toHaveText("human_handoff");
-    await expect(page.getByTestId("diagnostics-panel")).toContainText("Escalation");
+    await expect(page.getByTestId("intent-badge")).toHaveText("人工升级");
+    await expect(page.getByTestId("diagnostics-panel")).toContainText("运营升级通道");
   });
 
   test("E2E-007 RAG Knowledge", async ({ page }) => {
     await freshChat(page);
     await send(page, "订单显示已发货是什么意思？");
-    await expect(page.getByTestId("knowledge-used-badge")).toContainText("Knowledge Used");
+    await expect(page.getByTestId("knowledge-used-badge")).toContainText("已使用企业知识");
     await expect(page.getByTestId("assistant-message").last()).not.toBeEmpty();
   });
 
   test("E2E-008 No RAG Greeting", async ({ page }) => {
     await freshChat(page);
     await send(page, "你好呀");
-    await expect(page.getByTestId("knowledge-used-badge")).toContainText("Direct Answer");
+    await expect(page.getByTestId("knowledge-used-badge")).toContainText("直接处理");
   });
 
   test("E2E-009 Compound Routing", async ({ page }) => {
     await freshChat(page);
     await send(page, "我登录不上，而且信用卡好像被重复扣款了");
     const diagnostics = page.getByTestId("diagnostics-panel");
-    await expect(diagnostics).toContainText("Technical");
-    await expect(diagnostics).toContainText("Billing");
-    await expect(diagnostics.getByText("Supporting")).toBeVisible();
+    await expect(diagnostics).toContainText("技术可靠性");
+    await expect(diagnostics).toContainText("收入与合规");
+    await expect(diagnostics.getByText("协同角色")).toBeVisible();
   });
 
   test("E2E-010 Multi-turn Conversation", async ({ page }) => {
@@ -126,17 +126,17 @@ test.describe.serial("Core deterministic E2E", () => {
     await page.getByTestId("knowledge-search-input").fill("退款多久到账");
     await page.getByTestId("knowledge-search-button").click();
     await expect(page.getByTestId("search-results")).toBeVisible();
-    await expect(page.getByTestId("search-results")).toContainText("Timing");
-    await expect(page.getByTestId("search-results")).toContainText("Fallback");
+    await expect(page.getByTestId("search-results")).toContainText("检索耗时");
+    await expect(page.getByTestId("search-results")).toContainText("回退路径");
   });
 
   test("E2E-013 Knowledge Stats", async ({ page }) => {
     await page.goto("/knowledge");
     const knowledge = page.getByTestId("knowledge-page");
     await expect(knowledge).toBeVisible();
-    await expect(knowledge.getByText("Dense model")).toBeVisible();
-    await expect(knowledge.getByText("Reranker", { exact: true })).toBeVisible();
-    await expect(knowledge.getByText("Index Status")).toBeVisible();
+    await expect(knowledge.getByText("向量模型")).toBeVisible();
+    await expect(knowledge.getByText("重排模型")).toBeVisible();
+    await expect(knowledge.getByText("知识库状态")).toBeVisible();
   });
 
   test("E2E-014 Backend Failure UX", async ({ page }) => {
@@ -145,7 +145,7 @@ test.describe.serial("Core deterministic E2E", () => {
     expect(armed.ok()).toBeTruthy();
     await send(page, "请帮我查询订单状态");
     await expect(page.getByTestId("user-message").last()).toContainText("请帮我查询订单状态");
-    await expect(page.getByTestId("assistant-message").last()).toContainText("Echo 暂时没有响应");
-    await expect(page.getByRole("button", { name: "Retry" })).toBeVisible();
+    await expect(page.getByTestId("assistant-message").last()).toContainText("本次协同暂未完成");
+    await expect(page.getByRole("button", { name: "重试" })).toBeVisible();
   });
 });

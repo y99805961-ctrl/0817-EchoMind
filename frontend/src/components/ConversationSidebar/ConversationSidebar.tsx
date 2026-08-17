@@ -1,4 +1,4 @@
-import { MessageOutlined, PlusOutlined } from "@ant-design/icons";
+import { FileTextOutlined, PlusOutlined } from "@ant-design/icons";
 import { Button } from "antd";
 import type { Conversation } from "../../stores/chatStore";
 
@@ -25,7 +25,7 @@ export function ConversationSidebar({ conversations, activeId, onNew, onSelect }
           type="button"
           onClick={() => onSelect(conversation.id)}
         >
-          <MessageOutlined />
+          <FileTextOutlined />
           <span>{conversation.title}</span>
         </button>
       ))}
@@ -33,11 +33,12 @@ export function ConversationSidebar({ conversations, activeId, onNew, onSelect }
   );
 
   return (
-    <aside className="conversation-sidebar" aria-label="Conversation sidebar">
-      <Button className="new-chat-button" icon={<PlusOutlined />} onClick={onNew} data-testid="new-chat-button">New Chat</Button>
+    <aside className="conversation-sidebar" aria-label="业务请求">
+      <div className="sidebar-heading"><span className="eyebrow">REQUEST HISTORY</span><h2>业务请求</h2><p>保留每一次协同上下文</p></div>
+      <Button className="new-chat-button" icon={<PlusOutlined />} onClick={onNew} data-testid="new-chat-button">新建协同</Button>
       <div className="conversation-list">
-        {group("Today", todayItems)}
-        {group("Earlier", earlierItems)}
+        {group("今天", todayItems)}
+        {group("更早", earlierItems)}
       </div>
     </aside>
   );

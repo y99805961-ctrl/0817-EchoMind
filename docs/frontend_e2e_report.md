@@ -1,4 +1,4 @@
-# EchoMind Phase 3 Frontend / E2E / Deployment Report
+# NexusOps Frontend / E2E / Deployment Report
 
 Date: 2026-08-17  
 Branch: `feat/frontend-e2e`
@@ -6,18 +6,23 @@ Branch: `feat/frontend-e2e`
 ## Frontend Architecture
 
 - React 18 + TypeScript + Vite, with Ant Design for primitives, Zustand for persisted client state, React Router for the three product routes, `fetch` for API calls, and `react-markdown` for assistant output.
-- `AppShell` owns the global header, Chat/Knowledge/Monitor navigation, health indicator, responsive rail and mobile drawers.
+- `AppShell` owns the global header, NexusOps navigation, health indicator and mobile drawers; the duplicate route rail has been removed.
 - `chatStore` persists conversations, stable `userId`, active `conv_id`, messages and diagnostics in `localStorage`; the backend remains the source of truth for answers and routing traces.
 - `client.ts` centralizes `/api` requests and normalized error handling. Chat, knowledge search/stats/upload/rebuild/trace, health and monitor data are all loaded from real backend endpoints.
 - Chat supports Enter-to-send, Shift+Enter newline, loading state, Markdown rendering, backend failure copy and retry. Diagnostics show intent/confidence, primary/supporting agents, knowledge usage, latency, entities, source scores and routing reason.
 
+## Product Presentation
+
+NexusOps 是现有 Agent Runtime 在企业运营协同场景下的产品化表达。底层 Intent、RAG、Memory、Routing 与 Evaluation 实现保持不变，前端通过 Presentation Mapping 将内部角色映射为运营协调、技术可靠性、收入与合规和运营升级通道。
+
 ## Visual Design
 
-The UI uses a light Morandi palette: warm off-white canvas, muted sage/blue/rose status tones, restrained borders, rounded cards and compact typography. The Chat page is a three-column workspace on desktop and collapses to drawers on narrow screens. Knowledge and Monitor use the same card and status language. The 1440x900 QA screenshots are:
+The UI uses a Fresh Botanical palette: warm white canvas, clear green/blue/apricot/coral accents, restrained borders, rounded surfaces and generous whitespace. The Chat page is a request-history / workspace / collaboration-trace layout on desktop and collapses to drawers on narrow screens. Knowledge and Monitor use the same product language. The 1440x900 QA screenshots are:
 
-- `data/eval/results/e2e/screenshots/chat-empty.png`
-- `data/eval/results/e2e/screenshots/chat-answered-diagnostics.png`
-- `data/eval/results/e2e/screenshots/knowledge.png`
+- `data/eval/results/e2e/screenshots/nexusops-workspace-empty.png`
+- `data/eval/results/e2e/screenshots/nexusops-workspace-result.png`
+- `data/eval/results/e2e/screenshots/nexusops-knowledge.png`
+- `data/eval/results/e2e/screenshots/nexusops-monitor.png`
 
 ## API Contract
 
@@ -98,7 +103,7 @@ Live result: **3/3 passed (100%)**. These checks only assert response presence a
 | Live smoke | 3/3, 100% |
 | Core case duration mean / nearest-rank P95 | 4,054 ms / 38,779 ms |
 | Live case duration mean / nearest-rank P95 | 36,701 ms / 45,920 ms |
-| Visual QA | 1 Playwright test passed; 3 screenshots emitted |
+| Visual QA | 1 Playwright test passed; 4 screenshots emitted |
 
 The Core P95 is a small-sample nearest-rank statistic and includes the first real local embedding/reranker initialization. Subsequent deterministic cases are materially shorter.
 

@@ -1,13 +1,14 @@
-import { HeartFilled, MessageOutlined, MonitorOutlined, ReadOutlined } from "@ant-design/icons";
-import { Layout, Menu, Tag } from "antd";
+import { SafetyCertificateOutlined } from "@ant-design/icons";
+import { Layout, Tag } from "antd";
 import { useEffect } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { useAppStore } from "../../stores/appStore";
+import { NexusMark } from "../NexusMark/NexusMark";
 
 const navItems = [
-  { key: "/", icon: <MessageOutlined />, label: <Link to="/">Chat</Link> },
-  { key: "/knowledge", icon: <ReadOutlined />, label: <Link to="/knowledge">Knowledge</Link> },
-  { key: "/monitor", icon: <MonitorOutlined />, label: <Link to="/monitor">Monitor</Link> },
+  { key: "/", label: "协同工作台", english: "Workspace" },
+  { key: "/knowledge", label: "企业知识", english: "Knowledge" },
+  { key: "/monitor", label: "运行观测", english: "Observability" },
 ];
 
 export function AppShell() {
@@ -24,22 +25,23 @@ export function AppShell() {
   return (
     <Layout className="app-shell">
       <header className="topbar">
-        <Link to="/" className="brand-lockup" aria-label="EchoMind Chat">
-          <span className="brand-bear">ʕ</span>
-          <span><strong>EchoMind</strong><small>智能客服 Agent</small></span>
+        <Link to="/" className="brand-lockup" aria-label="NexusOps 协同工作台">
+          <NexusMark />
+          <span className="brand-copy"><strong>NexusOps</strong><small>企业智能运营协同中枢</small></span>
         </Link>
-        <nav className="top-nav" aria-label="Primary navigation">
-          {navItems.map((item) => <Link className={location.pathname === item.key ? "active" : ""} key={item.key} to={item.key}>{item.key === "/" ? "Chat" : item.key.slice(1).replace(/^./, (value) => value.toUpperCase())}</Link>)}
+        <nav className="top-nav" aria-label="一级导航">
+          {navItems.map((item) => (
+            <Link className={location.pathname === item.key ? "active" : ""} key={item.key} to={item.key}>
+              <span>{item.label}</span><small>{item.english}</small>
+            </Link>
+          ))}
         </nav>
         <Tag className={`health-indicator ${online ? "online" : "offline"}`} data-testid="health-indicator">
-          <HeartFilled /> {healthLoading ? "Checking…" : online ? "Online" : "Offline"}
+          <SafetyCertificateOutlined /> {healthLoading ? "正在检查" : online ? "系统运行正常" : "需要关注"}
         </Tag>
-        {healthError && <span className="health-error" title={healthError}>API unavailable</span>}
+        {healthError && <span className="health-error" title={healthError}>服务暂不可用</span>}
       </header>
       <Layout className="content-layout">
-        <aside className="route-rail" aria-label="Workspace navigation">
-          <Menu mode="inline" selectedKeys={[location.pathname]} items={navItems} />
-        </aside>
         <main className="page-content"><Outlet /></main>
       </Layout>
     </Layout>
