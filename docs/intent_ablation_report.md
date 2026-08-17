@@ -54,6 +54,49 @@ was executed against the real BGE-M3-only path and is saved in
 separate development split was provided, threshold search is explicitly
 `exploratory only`; no test-set-tuned final claim is made.
 
+## Semantic score calibration
+
+The separate calibration experiment is saved in
+`data/eval/results/intent/semantic_calibration.json`. It reads the same 76
+cases and the same 132 templates; no benchmark query was added to the
+templates. The production three-way weights remain `0.45 / 0.35 / 0.20`.
+
+`other_rejection_count` is the number of final predictions returned as
+`other`; `gate_rejection_count` is the subset whose ungated Top1 was a
+non-`other` intent but failed the confidence/margin gate. `ungated_top1_accuracy`
+and `top1_ranking_accuracy` intentionally ignore that gate.
+
+| Calibration | Accuracy | Macro-F1 | Other rejection | Gate rejection | Ungated Top1 accuracy |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Current `(cosine + 1) / 2` | 0.328947 | 0.371850 | 53 | 53 | 0.855263 |
+| Raw cosine margin | 0.631579 | 0.676504 | 30 | 30 | 0.855263 |
+| Temperature softmax | 0.500000 | 0.541581 | 40 | 40 | 0.855263 |
+
+The raw cosine run uses confidence `0.0` (the affine-equivalent boundary to
+normalized confidence `0.50`) and raw margin `0.05`. The temperature run uses
+`softmax(raw cosine / 0.05)`, confidence `0.50`, and probability margin `0.05`.
+These raw-margin and temperature values are explicitly exploratory; they are
+not selected as production defaults. The identical `0.855263` ungated Top1
+score across all three rows shows that the ranking itself is unchanged. The
+current default loses accuracy mainly when the normalized margin gate rejects
+an otherwise correct Top1 candidate.
+
+The evaluator warms BGE-M3 and all template embeddings before collecting the
+online samples. The measured latency is query encoding plus template cosine
+scoring, excluding model/template initialization:
+
+```text
+cold_start_ms: 12843.1512
+warm_mean_ms:  52.634287
+warm_p50_ms:   50.475900
+warm_p95_ms:   60.173800
+samples:       76
+```
+
+Every calibration case also stores `raw_cosine_scores` and the selected raw
+template matches for diagnosis. No final three-way weight was changed pending
+the LLM credential fix.
+
 ## Routing benchmark
 
 The final three-way routing benchmark is `NOT_RUN` because the LLM smoke test

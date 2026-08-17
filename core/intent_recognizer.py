@@ -374,38 +374,80 @@ class IntentRecognizer:
 
     async def _embedding_recognize(self, message: str) -> Dict[str, Any]:
         if self._embedding_service is None:
-            return {"status": "failed", "scores": {}, "top_templates": [], "failed": True}
+            return {
+                "status": "failed",
+                "scores": {},
+                "raw_cosine_scores": {},
+                "top_templates": [],
+                "raw_top_templates": [],
+                "failed": True,
+            }
         try:
             await self._load_template_embeddings()
             query_vector = await self._encode_query(message)
             scores: Dict[str, float] = {}
+            raw_cosine_scores: Dict[str, float] = {}
             top_templates: List[Dict[str, Any]] = []
+            raw_top_templates: List[Dict[str, Any]] = []
             for label, vectors in self._tpl_embeddings.items():
                 ranked = sorted(
                     (
-                        normalize_embedding_score(_cosine(query_vector, vector)),
+                        _cosine(query_vector, vector),
                         template,
                     )
                     for template, vector in zip(self._templates[label], vectors)
                 )
                 selected = ranked[-self.embedding_top_n :]
-                scores[label] = sum(score for score, _ in selected) / len(selected)
+                raw_cosine_scores[label] = sum(score for score, _ in selected) / len(selected)
+                scores[label] = normalize_embedding_score(raw_cosine_scores[label])
                 top_templates.extend(
-                    {"intent": label, "template": template, "score": round(score, 6)}
+                    {
+                        "intent": label,
+                        "template": template,
+                        "score": round(normalize_embedding_score(score), 6),
+                        "raw_cosine": round(score, 6),
+                    }
+                    for score, template in selected
+                )
+                raw_top_templates.extend(
+                    {
+                        "intent": label,
+                        "template": template,
+                        "raw_cosine": round(score, 6),
+                    }
                     for score, template in selected
                 )
             top_templates.sort(key=lambda item: item["score"], reverse=True)
+            raw_top_templates.sort(key=lambda item: item["raw_cosine"], reverse=True)
             return {
                 "status": "ok",
                 "scores": scores,
+                "raw_cosine_scores": {
+                    label: round(score, 6) for label, score in raw_cosine_scores.items()
+                },
                 "top_templates": top_templates[:10],
+                "raw_top_templates": raw_top_templates[:10],
             }
         except EmbeddingServiceError as exc:
             logger.warning("Embedding recognition unavailable: %s", exc)
-            return {"status": "failed", "scores": {}, "top_templates": [], "failed": True}
+            return {
+                "status": "failed",
+                "scores": {},
+                "raw_cosine_scores": {},
+                "top_templates": [],
+                "raw_top_templates": [],
+                "failed": True,
+            }
         except Exception as exc:
             logger.warning("Embedding recognition failed: %s", exc)
-            return {"status": "failed", "scores": {}, "top_templates": [], "failed": True}
+            return {
+                "status": "failed",
+                "scores": {},
+                "raw_cosine_scores": {},
+                "top_templates": [],
+                "raw_top_templates": [],
+                "failed": True,
+            }
 
     async def _load_template_embeddings(self) -> None:
         missing = [label for label in self._templates if label not in self._tpl_embeddings]
@@ -498,7 +540,9 @@ class IntentRecognizer:
             },
             "embedding": {
                 "intent_scores": embedding.get("scores", {}),
+                "raw_cosine_scores": embedding.get("raw_cosine_scores", {}),
                 "top_templates": embedding.get("top_templates", []),
+                "raw_top_templates": embedding.get("raw_top_templates", []),
                 "status": embedding.get("status", "disabled"),
             },
             "rules": {
