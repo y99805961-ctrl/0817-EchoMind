@@ -9,24 +9,22 @@
       "accuracy": 0.486842,
       "macro_f1": 0.506536,
       "entity_f1": 0.941176,
-      "mean_latency_ms": 0.072068,
-      "p95_latency_ms": 0.0595,
+      "mean_latency_ms": 0.064459,
+      "p95_latency_ms": 0.058,
       "reason": null,
       "unavailable_sources": {}
     },
     {
       "method": "embedding_only",
       "label": "BGE-M3 Only",
-      "status": "NOT_RUN",
-      "accuracy": "NOT_RUN",
-      "macro_f1": "NOT_RUN",
-      "entity_f1": "NOT_RUN",
-      "mean_latency_ms": "NOT_RUN",
-      "p95_latency_ms": "NOT_RUN",
-      "reason": "required source unavailable or failed",
-      "unavailable_sources": {
-        "embedding:failed": 76
-      }
+      "status": "OK",
+      "accuracy": 0.328947,
+      "macro_f1": 0.37185,
+      "entity_f1": 0.941176,
+      "mean_latency_ms": 210.832989,
+      "p95_latency_ms": 59.2825,
+      "reason": null,
+      "unavailable_sources": {}
     },
     {
       "method": "llm_only",
@@ -37,10 +35,8 @@
       "entity_f1": "NOT_RUN",
       "mean_latency_ms": "NOT_RUN",
       "p95_latency_ms": "NOT_RUN",
-      "reason": "required source unavailable or failed",
-      "unavailable_sources": {
-        "llm:failed": 76
-      }
+      "reason": "LLM smoke test returned HTTP 401; skipped to avoid repeated unauthenticated requests.",
+      "unavailable_sources": {}
     },
     {
       "method": "llm_embedding",
@@ -51,11 +47,8 @@
       "entity_f1": "NOT_RUN",
       "mean_latency_ms": "NOT_RUN",
       "p95_latency_ms": "NOT_RUN",
-      "reason": "required source unavailable or failed",
-      "unavailable_sources": {
-        "llm:failed": 76,
-        "embedding:failed": 76
-      }
+      "reason": "LLM smoke test returned HTTP 401; skipped to avoid repeated unauthenticated requests.",
+      "unavailable_sources": {}
     },
     {
       "method": "llm_embedding_rules",
@@ -66,11 +59,8 @@
       "entity_f1": "NOT_RUN",
       "mean_latency_ms": "NOT_RUN",
       "p95_latency_ms": "NOT_RUN",
-      "reason": "required source unavailable or failed",
-      "unavailable_sources": {
-        "llm:failed": 76,
-        "embedding:failed": 76
-      }
+      "reason": "LLM smoke test returned HTTP 401; skipped to avoid repeated unauthenticated requests.",
+      "unavailable_sources": {}
     }
   ]
 }

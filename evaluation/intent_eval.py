@@ -199,17 +199,23 @@ async def evaluate_intent(
     }
 
 
-def _make_recognizer(mode: str) -> IntentRecognizer:
+def _make_recognizer(
+    mode: str,
+    confidence_threshold: Optional[float] = None,
+    margin_threshold: Optional[float] = None,
+) -> IntentRecognizer:
     load_dotenv(ROOT / ".env")
     return IntentRecognizer(
         api_key=os.getenv("ANTHROPIC_API_KEY", ""),
         base_url=os.getenv("ANTHROPIC_BASE_URL") or None,
         model=os.getenv("ANTHROPIC_MODEL", "claude-3-5-sonnet-20241022"),
+        confidence_threshold=confidence_threshold,
+        margin_threshold=margin_threshold,
         mode=mode,
     )
 
 
-async def run_ablation(output_path: Path) -> Dict[str, Any]:
+async def run_ablation(output_path: Path, skip_llm: bool = False) -> Dict[str, Any]:
     methods = [
         ("rules_only", "Rules Only"),
         ("embedding_only", "BGE-M3 Only"),
@@ -219,7 +225,13 @@ async def run_ablation(output_path: Path) -> Dict[str, Any]:
     ]
     results = []
     for mode, label in methods:
-        metrics = await evaluate_intent(_make_recognizer(mode))
+        if skip_llm and "llm" in mode:
+            metrics = {
+                "status": "NOT_RUN",
+                "reason": "LLM smoke test returned HTTP 401; skipped to avoid repeated unauthenticated requests.",
+            }
+        else:
+            metrics = await evaluate_intent(_make_recognizer(mode))
         row = {
             "method": mode,
             "label": label,
@@ -234,6 +246,42 @@ async def run_ablation(output_path: Path) -> Dict[str, Any]:
         }
         results.append(row)
     payload = {"status": "OK", "benchmark": str(INTENT_BENCHMARK), "results": results}
+    _write_json(output_path, payload)
+    return payload
+
+
+async def run_threshold_search(
+    output_path: Path,
+    mode: str = "embedding_only",
+) -> Dict[str, Any]:
+    """Run the requested confidence/margin grid without claiming test optimality."""
+    rows = []
+    for confidence in (0.40, 0.50, 0.60):
+        for margin in (0.03, 0.05, 0.10):
+            metrics = await evaluate_intent(
+                _make_recognizer(
+                    mode,
+                    confidence_threshold=confidence,
+                    margin_threshold=margin,
+                )
+            )
+            rows.append({
+                "confidence_threshold": confidence,
+                "margin_threshold": margin,
+                "status": metrics.get("status"),
+                "accuracy": metrics.get("accuracy", "NOT_RUN"),
+                "macro_f1": metrics.get("macro_f1", "NOT_RUN"),
+                "entity_f1": metrics.get("entity_f1", "NOT_RUN"),
+                "p95_latency_ms": metrics.get("latency", {}).get("p95_ms", "NOT_RUN"),
+                "reason": metrics.get("reason"),
+            })
+    payload = {
+        "status": "OK",
+        "mode": mode,
+        "exploratory_only": True,
+        "note": "No development split was provided; do not treat this grid as test-optimal tuning.",
+        "results": rows,
+    }
     _write_json(output_path, payload)
     return payload
 
@@ -296,7 +344,15 @@ def _write_json(path: Path, payload: Dict[str, Any]) -> None:
 
 async def main_async(args: argparse.Namespace) -> None:
     if args.ablation:
-        payload = await run_ablation(Path(args.output or RESULT_DIR / "ablation.json"))
+        payload = await run_ablation(
+            Path(args.output or RESULT_DIR / "ablation.json"),
+            skip_llm=args.skip_llm,
+        )
+    elif args.threshold_search:
+        payload = await run_threshold_search(
+            Path(args.output or RESULT_DIR / "threshold_search.json"),
+            mode=args.threshold_mode,
+        )
     elif args.routing:
         payload = await evaluate_routing(
             Path(args.output or RESULT_DIR / "routing_benchmark.json"),
@@ -318,6 +374,9 @@ def build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument("--output", help="Output JSON path")
     parser.add_argument("--ablation", action="store_true")
+    parser.add_argument("--skip-llm", action="store_true", help="Skip LLM modes after a failed smoke test")
+    parser.add_argument("--threshold-search", action="store_true")
+    parser.add_argument("--threshold-mode", default="embedding_only", choices=["rules_only", "embedding_only"])
     parser.add_argument("--routing", action="store_true")
     parser.add_argument("--intent-mode", default="rules_only")
     return parser

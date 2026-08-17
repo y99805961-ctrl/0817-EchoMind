@@ -1,0 +1,156 @@
+{
+  "status": "OK",
+  "intent_mode": "embedding_only",
+  "total": 12,
+  "primary_routing_accuracy": 0.166667,
+  "supporting_agent_recall": 0.625,
+  "exact_match": 0.166667,
+  "cases": [
+    {
+      "id": "route_001",
+      "expected_primary": "technical",
+      "predicted_primary": "general",
+      "expected_supporting": [
+        "billing"
+      ],
+      "predicted_supporting": [
+        "billing",
+        "technical"
+      ],
+      "intent": "other",
+      "routing_reason": "intent=other, group=other, primary=general, supporting=billing, technical, scores=[general=0.65, billing=0.51, technical=0.38]"
+    },
+    {
+      "id": "route_002",
+      "expected_primary": "technical",
+      "predicted_primary": "general",
+      "expected_supporting": [
+        "billing"
+      ],
+      "predicted_supporting": [
+        "billing"
+      ],
+      "intent": "other",
+      "routing_reason": "intent=other, group=other, primary=general, supporting=billing, scores=[general=0.65, billing=0.36, technical=0.00]"
+    },
+    {
+      "id": "route_003",
+      "expected_primary": "general",
+      "predicted_primary": "general",
+      "expected_supporting": [],
+      "predicted_supporting": [],
+      "intent": "other",
+      "routing_reason": "intent=other, group=other, primary=general, supporting=none, scores=[general=0.99, technical=0.00, billing=0.00]"
+    },
+    {
+      "id": "route_004",
+      "expected_primary": "technical",
+      "predicted_primary": "general",
+      "expected_supporting": [
+        "billing"
+      ],
+      "predicted_supporting": [
+        "billing",
+        "technical"
+      ],
+      "intent": "other",
+      "routing_reason": "intent=other, group=other, primary=general, supporting=technical, billing, scores=[general=0.77, technical=0.38, billing=0.18]"
+    },
+    {
+      "id": "route_005",
+      "expected_primary": "billing",
+      "predicted_primary": "general",
+      "expected_supporting": [
+        "general"
+      ],
+      "predicted_supporting": [
+        "billing"
+      ],
+      "intent": "other",
+      "routing_reason": "intent=other, group=other, primary=general, supporting=billing, scores=[general=0.87, billing=0.18, technical=0.00]"
+    },
+    {
+      "id": "route_006",
+      "expected_primary": "billing",
+      "predicted_primary": "general",
+      "expected_supporting": [
+        "general"
+      ],
+      "predicted_supporting": [
+        "billing"
+      ],
+      "intent": "other",
+      "routing_reason": "intent=other, group=other, primary=general, supporting=billing, scores=[general=0.89, billing=0.18, technical=0.00]"
+    },
+    {
+      "id": "route_007",
+      "expected_primary": "technical",
+      "predicted_primary": "general",
+      "expected_supporting": [
+        "billing"
+      ],
+      "predicted_supporting": [
+        "billing",
+        "technical"
+      ],
+      "intent": "other",
+      "routing_reason": "intent=other, group=other, primary=general, supporting=technical, billing, scores=[general=0.65, technical=0.18, billing=0.18]"
+    },
+    {
+      "id": "route_008",
+      "expected_primary": "technical",
+      "predicted_primary": "general",
+      "expected_supporting": [
+        "billing"
+      ],
+      "predicted_supporting": [
+        "billing",
+        "technical"
+      ],
+      "intent": "other",
+      "routing_reason": "intent=other, group=other, primary=general, supporting=technical, billing, scores=[general=0.65, technical=0.38, billing=0.18]"
+    },
+    {
+      "id": "route_009",
+      "expected_primary": "billing",
+      "predicted_primary": "general",
+      "expected_supporting": [],
+      "predicted_supporting": [
+        "billing"
+      ],
+      "intent": "other",
+      "routing_reason": "intent=other, group=other, primary=general, supporting=billing, scores=[general=0.65, billing=0.18, technical=0.00]"
+    },
+    {
+      "id": "route_010",
+      "expected_primary": "billing",
+      "predicted_primary": "general",
+      "expected_supporting": [
+        "general"
+      ],
+      "predicted_supporting": [
+        "billing"
+      ],
+      "intent": "other",
+      "routing_reason": "intent=other, group=other, primary=general, supporting=billing, scores=[general=0.77, billing=0.18, technical=0.00]"
+    },
+    {
+      "id": "route_011",
+      "expected_primary": "escalation",
+      "predicted_primary": "billing",
+      "expected_supporting": [],
+      "predicted_supporting": [],
+      "intent": "payment_issue",
+      "routing_reason": "intent=payment_issue, group=billing, primary=billing, supporting=none, scores=[billing=1.11, general=0.10, technical=0.00]"
+    },
+    {
+      "id": "route_012",
+      "expected_primary": "escalation",
+      "predicted_primary": "escalation",
+      "expected_supporting": [],
+      "predicted_supporting": [],
+      "intent": "other",
+      "routing_reason": "紧急度为 CRITICAL，触发升级路由"
+    }
+  ]
+}

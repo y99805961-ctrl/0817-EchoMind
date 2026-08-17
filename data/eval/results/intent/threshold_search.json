@@ -1,0 +1,98 @@
+{
+  "status": "OK",
+  "mode": "embedding_only",
+  "exploratory_only": true,
+  "note": "No development split was provided; do not treat this grid as test-optimal tuning.",
+  "results": [
+    {
+      "confidence_threshold": 0.4,
+      "margin_threshold": 0.03,
+      "status": "OK",
+      "accuracy": 0.578947,
+      "macro_f1": 0.633166,
+      "entity_f1": 0.941176,
+      "p95_latency_ms": 59.2378,
+      "reason": null
+    },
+    {
+      "confidence_threshold": 0.4,
+      "margin_threshold": 0.05,
+      "status": "OK",
+      "accuracy": 0.328947,
+      "macro_f1": 0.37185,
+      "entity_f1": 0.941176,
+      "p95_latency_ms": 59.1733,
+      "reason": null
+    },
+    {
+      "confidence_threshold": 0.4,
+      "margin_threshold": 0.1,
+      "status": "OK",
+      "accuracy": 0.026316,
+      "macro_f1": 0.002699,
+      "entity_f1": 0.941176,
+      "p95_latency_ms": 61.6925,
+      "reason": null
+    },
+    {
+      "confidence_threshold": 0.5,
+      "margin_threshold": 0.03,
+      "status": "OK",
+      "accuracy": 0.578947,
+      "macro_f1": 0.633166,
+      "entity_f1": 0.941176,
+      "p95_latency_ms": 54.5644,
+      "reason": null
+    },
+    {
+      "confidence_threshold": 0.5,
+      "margin_threshold": 0.05,
+      "status": "OK",
+      "accuracy": 0.328947,
+      "macro_f1": 0.37185,
+      "entity_f1": 0.941176,
+      "p95_latency_ms": 59.5979,
+      "reason": null
+    },
+    {
+      "confidence_threshold": 0.5,
+      "margin_threshold": 0.1,
+      "status": "OK",
+      "accuracy": 0.026316,
+      "macro_f1": 0.002699,
+      "entity_f1": 0.941176,
+      "p95_latency_ms": 65.7996,
+      "reason": null
+    },
+    {
+      "confidence_threshold": 0.6,
+      "margin_threshold": 0.03,
+      "status": "OK",
+      "accuracy": 0.578947,
+      "macro_f1": 0.633166,
+      "entity_f1": 0.941176,
+      "p95_latency_ms": 81.3884,
+      "reason": null
+    },
+    {
+      "confidence_threshold": 0.6,
+      "margin_threshold": 0.05,
+      "status": "OK",
+      "accuracy": 0.328947,
+      "macro_f1": 0.37185,
+      "entity_f1": 0.941176,
+      "p95_latency_ms": 70.5804,
+      "reason": null
+    },
+    {
+      "confidence_threshold": 0.6,
+      "margin_threshold": 0.1,
+      "status": "OK",
+      "accuracy": 0.026316,
+      "macro_f1": 0.002699,
+      "entity_f1": 0.941176,
+      "p95_latency_ms": 71.7084,
+      "reason": null
+    }
+  ]
+}

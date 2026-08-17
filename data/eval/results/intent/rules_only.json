@@ -339,9 +339,9 @@
     "fn": 2
   },
   "latency": {
-    "mean_ms": 0.068734,
-    "p50_ms": 0.0344,
-    "p95_ms": 0.054
+    "mean_ms": 0.060605,
+    "p50_ms": 0.034,
+    "p95_ms": 0.0561
   },
   "template_leakage": {
     "exact_match_count": 0,
@@ -420,7 +420,7 @@
         }
       ],
       "margin": 0.0,
-      "latency_ms": 1.9609,
+      "latency_ms": 1.8889,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -501,7 +501,7 @@
         }
       ],
       "margin": 0.0,
-      "latency_ms": 0.0587,
+      "latency_ms": 0.0578,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -582,7 +582,7 @@
         }
       ],
       "margin": 0.0,
-      "latency_ms": 0.047,
+      "latency_ms": 0.0478,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -663,7 +663,7 @@
         }
       ],
       "margin": 0.65,
-      "latency_ms": 0.0564,
+      "latency_ms": 0.0561,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -745,7 +745,7 @@
         }
       ],
       "margin": 0.0,
-      "latency_ms": 0.0475,
+      "latency_ms": 0.0472,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -820,7 +820,7 @@
         }
       ],
       "margin": 0.65,
-      "latency_ms": 0.0432,
+      "latency_ms": 0.0446,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -908,7 +908,7 @@
         }
       ],
       "margin": 0.65,
-      "latency_ms": 0.0399,
+      "latency_ms": 0.0427,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -990,7 +990,7 @@
         }
       ],
       "margin": 0.65,
-      "latency_ms": 0.0436,
+      "latency_ms": 0.0467,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -1154,7 +1154,7 @@
         }
       ],
       "margin": 0.65,
-      "latency_ms": 0.0378,
+      "latency_ms": 0.0805,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -1236,7 +1236,7 @@
         }
       ],
       "margin": 0.65,
-      "latency_ms": 0.0352,
+      "latency_ms": 0.0389,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -1318,7 +1318,7 @@
         }
       ],
       "margin": 0.75,
-      "latency_ms": 0.0389,
+      "latency_ms": 0.043,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -1406,7 +1406,7 @@
         }
       ],
       "margin": 0.1,
-      "latency_ms": 0.0419,
+      "latency_ms": 0.0409,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -1493,7 +1493,7 @@
         }
       ],
       "margin": 0.0,
-      "latency_ms": 0.0318,
+      "latency_ms": 0.0333,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -1568,7 +1568,7 @@
         }
       ],
       "margin": 0.1,
-      "latency_ms": 0.0384,
+      "latency_ms": 0.0386,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -1661,7 +1661,7 @@
         }
       ],
       "margin": 0.1,
-      "latency_ms": 0.0362,
+      "latency_ms": 0.0363,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -1748,7 +1748,7 @@
         }
       ],
       "margin": 0.1,
-      "latency_ms": 0.054,
+      "latency_ms": 0.0353,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -1835,7 +1835,7 @@
         }
       ],
       "margin": 0.75,
-      "latency_ms": 0.0346,
+      "latency_ms": 0.0341,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -1917,7 +1917,7 @@
         }
       ],
       "margin": 0.1,
-      "latency_ms": 0.0359,
+      "latency_ms": 0.0357,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -2010,7 +2010,7 @@
         }
       ],
       "margin": 0.1,
-      "latency_ms": 0.038,
+      "latency_ms": 0.0376,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -2103,7 +2103,7 @@
         }
       ],
       "margin": 0.65,
-      "latency_ms": 0.036,
+      "latency_ms": 0.0347,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -2185,7 +2185,7 @@
         }
       ],
       "margin": 0.0,
-      "latency_ms": 0.0328,
+      "latency_ms": 0.0305,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -2260,7 +2260,7 @@
         }
       ],
       "margin": 0.0,
-      "latency_ms": 0.0293,
+      "latency_ms": 0.0286,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -2339,7 +2339,7 @@
         }
       ],
       "margin": 0.65,
-      "latency_ms": 0.0404,
+      "latency_ms": 0.0353,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -2509,7 +2509,7 @@
         }
       ],
       "margin": 0.0,
-      "latency_ms": 0.0372,
+      "latency_ms": 0.0361,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -2584,7 +2584,7 @@
         }
       ],
       "margin": 0.0,
-      "latency_ms": 0.0296,
+      "latency_ms": 0.0303,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -2659,7 +2659,7 @@
         }
       ],
       "margin": 0.1,
-      "latency_ms": 0.0362,
+      "latency_ms": 0.0349,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -2746,7 +2746,7 @@
         }
       ],
       "margin": 0.1,
-      "latency_ms": 0.0349,
+      "latency_ms": 0.0361,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -2833,7 +2833,7 @@
         }
       ],
       "margin": 0.0,
-      "latency_ms": 0.0302,
+      "latency_ms": 0.0301,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -2908,7 +2908,7 @@
         }
       ],
       "margin": 0.75,
-      "latency_ms": 0.0345,
+      "latency_ms": 0.0333,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -2996,7 +2996,7 @@
         }
       ],
       "margin": 0.8,
-      "latency_ms": 0.0345,
+      "latency_ms": 0.0324,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -3078,7 +3078,7 @@
         }
       ],
       "margin": 0.0,
-      "latency_ms": 0.0337,
+      "latency_ms": 0.0309,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -3153,7 +3153,7 @@
         }
       ],
       "margin": 0.8,
-      "latency_ms": 0.0334,
+      "latency_ms": 0.0327,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -3239,7 +3239,7 @@
         }
       ],
       "margin": 0.0,
-      "latency_ms": 0.0359,
+      "latency_ms": 0.034,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -3314,7 +3314,7 @@
         }
       ],
       "margin": 0.0,
-      "latency_ms": 0.03,
+      "latency_ms": 0.0333,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -3389,7 +3389,7 @@
         }
       ],
       "margin": 0.0,
-      "latency_ms": 0.0344,
+      "latency_ms": 0.035,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -3464,7 +3464,7 @@
         }
       ],
       "margin": 0.8,
-      "latency_ms": 0.0325,
+      "latency_ms": 0.0442,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -3552,7 +3552,7 @@
         }
       ],
       "margin": 0.8,
-      "latency_ms": 0.0334,
+      "latency_ms": 0.0335,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -3634,7 +3634,7 @@
         }
       ],
       "margin": 0.0,
-      "latency_ms": 0.0307,
+      "latency_ms": 0.0295,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -3715,7 +3715,7 @@
         }
       ],
       "margin": 0.0,
-      "latency_ms": 0.0307,
+      "latency_ms": 0.0317,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -3796,7 +3796,7 @@
         }
       ],
       "margin": 0.8,
-      "latency_ms": 0.0383,
+      "latency_ms": 0.0317,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -3878,7 +3878,7 @@
         }
       ],
       "margin": 0.8,
-      "latency_ms": 0.0342,
+      "latency_ms": 0.0325,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -3960,7 +3960,7 @@
         }
       ],
       "margin": 0.0,
-      "latency_ms": 0.0408,
+      "latency_ms": 0.0278,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -4035,7 +4035,7 @@
         }
       ],
       "margin": 0.0,
-      "latency_ms": 0.032,
+      "latency_ms": 0.0299,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -4110,7 +4110,7 @@
         }
       ],
       "margin": 0.15,
-      "latency_ms": 0.0343,
+      "latency_ms": 0.0338,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -4197,7 +4197,7 @@
         }
       ],
       "margin": 0.0,
-      "latency_ms": 0.0293,
+      "latency_ms": 0.0299,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -4272,7 +4272,7 @@
         }
       ],
       "margin": 0.0,
-      "latency_ms": 0.0282,
+      "latency_ms": 0.0283,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -4347,7 +4347,7 @@
         }
       ],
       "margin": 0.0,
-      "latency_ms": 0.028,
+      "latency_ms": 0.0261,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -4422,7 +4422,7 @@
         }
       ],
       "margin": 0.0,
-      "latency_ms": 0.0288,
+      "latency_ms": 0.0276,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -4497,7 +4497,7 @@
         }
       ],
       "margin": 0.65,
-      "latency_ms": 0.0341,
+      "latency_ms": 0.0326,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -4579,7 +4579,7 @@
         }
       ],
       "margin": 0.65,
-      "latency_ms": 0.0345,
+      "latency_ms": 0.0332,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -4661,7 +4661,7 @@
         }
       ],
       "margin": 0.0,
-      "latency_ms": 0.0274,
+      "latency_ms": 0.0289,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -4736,7 +4736,7 @@
         }
       ],
       "margin": 0.15,
-      "latency_ms": 0.0432,
+      "latency_ms": 0.0376,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -4828,7 +4828,7 @@
         }
       ],
       "margin": 0.65,
-      "latency_ms": 0.0333,
+      "latency_ms": 0.0313,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -4910,7 +4910,7 @@
         }
       ],
       "margin": 0.65,
-      "latency_ms": 0.0303,
+      "latency_ms": 0.0324,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -4992,7 +4992,7 @@
         }
       ],
       "margin": 0.65,
-      "latency_ms": 0.0305,
+      "latency_ms": 0.0315,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -5074,7 +5074,7 @@
         }
       ],
       "margin": 0.65,
-      "latency_ms": 0.0306,
+      "latency_ms": 0.0315,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -5156,7 +5156,7 @@
         }
       ],
       "margin": 0.65,
-      "latency_ms": 0.0301,
+      "latency_ms": 0.0291,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -5238,7 +5238,7 @@
         }
       ],
       "margin": 0.65,
-      "latency_ms": 0.0298,
+      "latency_ms": 0.0584,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -5320,7 +5320,7 @@
         }
       ],
       "margin": 0.65,
-      "latency_ms": 0.0288,
+      "latency_ms": 0.0327,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -5402,7 +5402,7 @@
         }
       ],
       "margin": 0.65,
-      "latency_ms": 0.0322,
+      "latency_ms": 0.0528,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -5484,7 +5484,7 @@
         }
       ],
       "margin": 0.65,
-      "latency_ms": 0.0309,
+      "latency_ms": 0.0352,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -5566,7 +5566,7 @@
         }
       ],
       "margin": 0.0,
-      "latency_ms": 0.0314,
+      "latency_ms": 0.032,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -5641,7 +5641,7 @@
         }
       ],
       "margin": 0.65,
-      "latency_ms": 0.0313,
+      "latency_ms": 0.0465,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -5723,7 +5723,7 @@
         }
       ],
       "margin": 0.65,
-      "latency_ms": 0.0309,
+      "latency_ms": 0.0363,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -5805,7 +5805,7 @@
         }
       ],
       "margin": 0.0,
-      "latency_ms": 0.0285,
+      "latency_ms": 0.0319,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -5880,7 +5880,7 @@
         }
       ],
       "margin": 0.0,
-      "latency_ms": 0.0277,
+      "latency_ms": 0.0288,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -5955,7 +5955,7 @@
         }
       ],
       "margin": 0.65,
-      "latency_ms": 0.0322,
+      "latency_ms": 0.0343,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -6037,7 +6037,7 @@
         }
       ],
       "margin": 0.0,
-      "latency_ms": 0.0274,
+      "latency_ms": 0.0284,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -6112,7 +6112,7 @@
         }
       ],
       "margin": 0.0,
-      "latency_ms": 0.6359,
+      "latency_ms": 0.0271,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -6187,7 +6187,7 @@
         }
       ],
       "margin": 0.65,
-      "latency_ms": 0.0527,
+      "latency_ms": 0.0335,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -6269,7 +6269,7 @@
         }
       ],
       "margin": 0.65,
-      "latency_ms": 0.0416,
+      "latency_ms": 0.0346,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -6351,7 +6351,7 @@
         }
       ],
       "margin": 0.0,
-      "latency_ms": 0.0362,
+      "latency_ms": 0.0351,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -6426,7 +6426,7 @@
         }
       ],
       "margin": 0.0,
-      "latency_ms": 0.0415,
+      "latency_ms": 0.0411,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -6518,7 +6518,7 @@
         }
       ],
       "margin": 0.0,
-      "latency_ms": 0.0365,
+      "latency_ms": 0.0383,
       "source_scores": {
         "llm": {
           "intent": null,
