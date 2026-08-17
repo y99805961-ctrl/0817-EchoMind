@@ -1,0 +1,21 @@
+:root {
+  --bg-main: #f7f5f2;
+  --bg-panel: #fcfbf9;
+  --bg-soft: #f0eeea;
+  --text-primary: #3f4548;
+  --text-secondary: #72787b;
+  --text-muted: #9a9d9e;
+  --morandi-blue: #afc3ce;
+  --morandi-blue-soft: #e7eef1;
+  --morandi-green: #bfcdbb;
+  --morandi-green-soft: #eaf0e7;
+  --morandi-pink: #d8c2c4;
+  --morandi-pink-soft: #f1e7e8;
+  --morandi-apricot: #e8d4b8;
+  --morandi-apricot-soft: #f4ece0;
+  --border-soft: #e8e4df;
+  --shadow-soft: 0 12px 32px rgba(81, 76, 68, 0.06);
+  --radius-main: 16px;
+  --radius-card: 12px;
+  --radius-input: 14px;
+}
