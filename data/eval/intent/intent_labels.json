@@ -1,0 +1,45 @@
+{
+  "intent_labels": [
+    "query",
+    "complaint",
+    "request",
+    "greeting",
+    "escalation",
+    "technical",
+    "billing",
+    "account",
+    "feedback",
+    "order_status",
+    "logistics",
+    "refund",
+    "invoice",
+    "payment_issue",
+    "account_security",
+    "technical_login",
+    "technical_crash",
+    "human_handoff",
+    "other"
+  ],
+  "specific_intents": [
+    "order_status",
+    "logistics",
+    "refund",
+    "invoice",
+    "payment_issue",
+    "account_security",
+    "technical_login",
+    "technical_crash",
+    "human_handoff"
+  ],
+  "intent_groups": {
+    "order_status": "query",
+    "logistics": "query",
+    "refund": "billing",
+    "invoice": "billing",
+    "payment_issue": "billing",
+    "account_security": "account",
+    "technical_login": "technical",
+    "technical_crash": "technical",
+    "human_handoff": "escalation"
+  }
+}

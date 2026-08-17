@@ -1,0 +1,25 @@
+{
+  "single_intent_cases": 76,
+  "routing_cases": 12,
+  "distribution": {
+    "order_status": 5,
+    "logistics": 5,
+    "refund": 6,
+    "invoice": 4,
+    "payment_issue": 6,
+    "account_security": 5,
+    "technical_login": 6,
+    "technical_crash": 5,
+    "human_handoff": 4,
+    "query": 4,
+    "complaint": 4,
+    "request": 4,
+    "greeting": 3,
+    "escalation": 3,
+    "account": 3,
+    "feedback": 3,
+    "other": 2,
+    "technical": 2,
+    "billing": 2
+  }
+}

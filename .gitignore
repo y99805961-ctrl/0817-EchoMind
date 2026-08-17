@@ -1,3 +1,8 @@
+# Secrets
+.env
+.env.*
+!.env.example
+
 # Python
 __pycache__/
 *.py[cod]
@@ -7,30 +12,47 @@ build/
 .venv/
 venv/
 
-# 环境变量（含敏感信息）
-.env
-
-# 数据目录
-data/
-logs/
-
 # IDE
 .idea/
 .vscode/
 *.swp
 *.swo
 
+# Logs
+*.log
+logs/
+
 # OS
 .DS_Store
 Thumbs.db
 
-# Docker 构建产物
-build-image*.sh
+# Model caches
+.cache/
+models/
+huggingface/
 
-# ChromaDB 本地数据
+# Frontend generated
+node_modules/
+dist/
+
+# Runtime DB / cache
+*.db
+*.sqlite
 *.sqlite3
+data/chroma/
+data/rag_index/
+data/eval/results/
 
-# 备份文件
+# Preserve benchmark and knowledge-source data
+!data/
+!data/eval/
+!data/eval/intent/
+!data/eval/intent/**
+!data/demo_docs/
+!data/demo_docs/customer_kb_v2/
+!data/demo_docs/customer_kb_v2/**
+
+# Backup files
 *~
 *.bak
 docker-compose(1).yml
