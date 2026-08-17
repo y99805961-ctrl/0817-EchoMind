@@ -93,11 +93,12 @@ class MemoryManager:
         api_key:      str = "",
         base_url:     Optional[str] = None,
         model:        str = "claude-3-5-sonnet-20241022",
+        client:       Optional[Any] = None,
     ):
         kwargs: Dict[str, Any] = {"api_key": api_key}
         if base_url:
             kwargs["base_url"] = base_url
-        self._client = AsyncAnthropic(**kwargs)
+        self._client = client or AsyncAnthropic(**kwargs)
         self._model  = model
 
         self._redis = redis.from_url(redis_url, decode_responses=True)

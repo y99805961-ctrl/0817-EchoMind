@@ -184,6 +184,7 @@ class IntentRecognizer:
         embedding_service: Optional[Any] = None,
         llm_classifier: Optional[Any] = None,
         mode: Optional[str] = None,
+        client: Optional[Any] = None,
     ) -> None:
         self.model = model
         self.threshold = float(
@@ -219,7 +220,7 @@ class IntentRecognizer:
             kwargs: Dict[str, Any] = {"api_key": api_key}
             if base_url:
                 kwargs["base_url"] = base_url
-            self._client = AsyncAnthropic(**kwargs)
+            self._client = client or AsyncAnthropic(**kwargs)
         self._cache: Dict[str, IntentResult] = {}
         self.cache_hits = 0
         self.cache_misses = 0

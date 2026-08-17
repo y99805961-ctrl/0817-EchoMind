@@ -25,6 +25,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from prometheus_client import CONTENT_TYPE_LATEST, generate_latest
 from pydantic import BaseModel, Field
 
+from api.e2e_support import FakeAnthropicClient, is_e2e_test_mode
+
 load_dotenv()
 
 logging.basicConfig(
@@ -52,6 +54,8 @@ _evaluator    = None
 _skill_manager = None
 
 def _anthropic_cfg() -> Dict[str, Any]:
+    if is_e2e_test_mode():
+        return {"api_key": "e2e-test-key", "model": "e2e-fake-provider"}
     key = os.getenv("ANTHROPIC_API_KEY", "")
     if not key:
         raise RuntimeError("未设置 ANTHROPIC_API_KEY")
@@ -82,6 +86,7 @@ async def lifespan(app: FastAPI):
     from rag.pipeline import RAGPipeline
 
     cfg = _anthropic_cfg()
+    e2e_client = FakeAnthropicClient() if is_e2e_test_mode() else None
     logger.info(f"模型: {cfg['model']}  base_url: {cfg.get('base_url', '(官方)')}")
 
     # 意图识别器（Orchestrator 内部也会创建，这里单独暴露给 Evaluator）
@@ -89,6 +94,8 @@ async def lifespan(app: FastAPI):
         api_key=cfg["api_key"],
         base_url=cfg.get("base_url"),
         model=cfg["model"],
+        mode="llm_only" if e2e_client is not None else None,
+        client=e2e_client,
     )
 
     # Skills：启动时从目录加载业务能力说明，并在 Agent 调用 LLM 时动态注入。
@@ -105,6 +112,8 @@ async def lifespan(app: FastAPI):
         base_url=cfg.get("base_url"),
         model=cfg["model"],
         skill_manager=_skill_manager,
+        client=e2e_client,
+        intent_recognizer=recognizer,
     )
 
     # 记忆管理器（Redis 工作记忆 + ChromaDB 情景记忆/用户画像）
@@ -116,6 +125,7 @@ async def lifespan(app: FastAPI):
         api_key=cfg["api_key"],
         base_url=cfg.get("base_url"),
         model=cfg["model"],
+        client=e2e_client,
     )
 
     # MCP 工具治理 remains the compatibility boundary; RAG algorithms live
@@ -124,6 +134,7 @@ async def lifespan(app: FastAPI):
         api_key=cfg["api_key"],
         base_url=cfg.get("base_url"),
         model=cfg["model"],
+        client=e2e_client,
     )
     rag_config = load_rag_config(os.getenv("RAG_CONFIG_PATH") or None)
     _rag_pipeline = RAGPipeline.from_index(
@@ -174,6 +185,7 @@ async def lifespan(app: FastAPI):
         base_url=cfg.get("base_url"),
         model=cfg["model"],
         baseline_path=os.getenv("EVAL_BASELINE_PATH", "/app/data/eval/baseline.json"),
+        client=e2e_client,
     )
 
     logger.info("EchoMind 已就绪")
@@ -193,6 +205,7 @@ app = FastAPI(
     lifespan=lifespan,
     docs_url="/docs",
 )
+app.state.e2e_fail_next_chat = False
 
 app.add_middleware(
     CORSMiddleware,
@@ -237,6 +250,15 @@ async def health():
     return {"status": "ok", "agents": _orchestrator.get_stats()}
 
 
+@app.post("/__e2e/fail-chat", include_in_schema=False)
+async def e2e_fail_chat():
+    """Test-only one-shot 503 switch; unreachable unless E2E_TEST_MODE=1."""
+    if not is_e2e_test_mode():
+        raise HTTPException(404, "Not found")
+    app.state.e2e_fail_next_chat = True
+    return {"status": "armed"}
+
+
 @app.get("/skills", tags=["Skills"])
 async def skills_summary():
     """查看当前已加载的 Skills，便于确认热加载结果和排查解析错误。"""
@@ -264,6 +286,9 @@ async def chat(req: ChatRequest):
     """
     if _orchestrator is None or _memory is None:
         raise HTTPException(503, "服务未就绪")
+    if is_e2e_test_mode() and getattr(app.state, "e2e_fail_next_chat", False):
+        app.state.e2e_fail_next_chat = False
+        raise HTTPException(503, "E2E simulated backend failure")
 
     from agents.agent_orchestrator import Request as OrcReq
     from memory.conversation_memory import MsgRole

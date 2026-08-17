@@ -1,0 +1,23 @@
+{
+  "version": "phase3-v1",
+  "frozen": true,
+  "cases": [
+    { "id": "E2E-001", "name": "App Boot", "kind": "core", "message": null },
+    { "id": "E2E-002", "name": "New Conversation", "kind": "core", "message": null },
+    { "id": "E2E-003", "name": "Greeting", "kind": "core", "message": "你好" },
+    { "id": "E2E-004", "name": "Refund", "kind": "core", "message": "我刚买的商品想退款" },
+    { "id": "E2E-005", "name": "Technical Login", "kind": "core", "message": "我一直登录不上，提示 401" },
+    { "id": "E2E-006", "name": "Human Handoff", "kind": "core", "message": "我要转人工客服" },
+    { "id": "E2E-007", "name": "RAG Knowledge", "kind": "core", "message": "订单显示已发货是什么意思？" },
+    { "id": "E2E-008", "name": "No RAG Greeting", "kind": "core", "message": "你好呀" },
+    { "id": "E2E-009", "name": "Compound Routing", "kind": "core", "message": "我登录不上，而且信用卡好像被重复扣款了" },
+    { "id": "E2E-010", "name": "Multi-turn Conversation", "kind": "core", "message": null },
+    { "id": "E2E-011", "name": "Conversation Switch", "kind": "core", "message": null },
+    { "id": "E2E-012", "name": "Search Playground", "kind": "core", "message": "退款多久到账" },
+    { "id": "E2E-013", "name": "Knowledge Stats", "kind": "core", "message": null },
+    { "id": "E2E-014", "name": "Backend Failure UX", "kind": "core", "message": "请帮我查询订单状态" },
+    { "id": "LIVE-001", "name": "Live Greeting", "kind": "live", "message": "你好" },
+    { "id": "LIVE-002", "name": "Live Refund", "kind": "live", "message": "我刚买的商品想退款" },
+    { "id": "LIVE-003", "name": "Live RAG Knowledge", "kind": "live", "message": "订单显示已发货是什么意思？" }
+  ]
+}

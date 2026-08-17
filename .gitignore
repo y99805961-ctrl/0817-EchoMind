@@ -60,6 +60,14 @@ data/eval/results/
 !data/eval/results/
 !data/eval/results/rag/
 !data/eval/results/rag/*.json
+!data/eval/results/e2e/
+!data/eval/results/e2e/screenshots/
+!data/eval/results/e2e/screenshots/*.png
+data/eval/results/e2e/playwright-results.json
+data/eval/e2e/runtime/
+playwright-report/
+frontend/playwright-report/
+frontend/test-results/
 
 # Backup files
 *~
