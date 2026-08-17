@@ -26,6 +26,9 @@ EchoMind/
 ├── mcp/knowledge_base.py          # ChromaDB RAG 知识库
 ├── monitor/performance_monitor.py # Agent/工具在线监控
 ├── evaluation/evaluator.py        # 端到端评测
+├── frontend/                      # React + TypeScript + Vite 客服工作台
+├── data/eval/e2e/e2e_cases.json    # 冻结的 Phase 3 E2E 用例清单
+├── docs/frontend_e2e_report.md     # 前端、部署和 E2E 验收报告
 ├── data/demo_docs/                # 演示知识库文档
 ├── docker-compose.yml             # Docker 全栈编排
 ├── Dockerfile
@@ -118,29 +121,55 @@ docker compose logs -f echomind
 
 | 服务 | 容器名 | 宿主机端口 | 容器内端口 | 用途 |
 |------|--------|------------|------------|------|
-| EchoMind API | `echomind-app` | `8000` | `8000` | 主 API 服务 |
-| Nginx | `echomind-nginx` | `80` | `80` | 反向代理 |
-| ChromaDB | `echomind-chromadb` | `8001` | `8000` | 向量数据库 |
-| Redis | `echomind-redis` | `6379` | `6379` | 工作记忆 |
-| Prometheus | `echomind-prometheus` | `9090` | `9090` | 监控数据 |
+| 产品入口 Nginx | `echomind-nginx` | `80` | `80` | React SPA + `/api` 反向代理 |
+| EchoMind API | `echomind-app` | — | `8000` | Compose 内部 API |
+| React 前端 | `echomind-frontend` | — | `80` | 静态资源与 SPA fallback |
+| ChromaDB | `echomind-chromadb` | — | `8000` | Compose 内部向量数据库 |
+| Redis | `echomind-redis` | — | `6379` | Compose 内部工作记忆 |
+| Prometheus | `echomind-prometheus` | — | `9090` | Compose 内部监控数据 |
 
 健康检查：
 
 ```bash
-curl http://localhost:8000/health
+curl http://localhost/health
 ```
 
 Swagger 文档：
 
 ```text
-http://localhost:8000/docs
+http://localhost/docs
 ```
 
-也可以通过 Nginx 访问：
+产品前端和浏览器 API 入口：
 
 ```bash
-curl http://localhost/health
+open http://localhost/
+curl http://localhost/api/health
 ```
+
+### 3.1 Phase 3 前端工作台
+
+前端包含 Chat、Knowledge、Monitor 三个页面，使用真实 FastAPI 数据；会话和稳定用户 ID 保存在浏览器 `localStorage`，回答区支持 Markdown、重试、Diagnostics/Agent Trace 和响应式窄屏布局。Nginx 只暴露一个宿主机入口：页面使用 `/api/*`，代理会去掉 `/api` 后转发到 FastAPI，同时保留 `/health`、`/docs`、`/redoc`、`/openapi.json` 和 `/metrics`。
+
+本地前端开发：
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Phase 3 验证命令：
+
+```bash
+npm run build
+npm run lint
+npm run test:e2e                 # 14 个确定性 Core 用例，启动时启用 Fake Provider
+npm run test:e2e:live            # 3 个真实 provider smoke，不使用 LLM judge
+npm run test:e2e:visual          # 1440x900 视觉验收截图
+```
+
+确定性模式只由测试启动脚本设置 `E2E_TEST_MODE=1`，Fake Provider 仍经过真实 FastAPI、Memory、Intent、Routing、Agent 和 RAG 链路；测试没有 mock `/chat`。详见 [`docs/frontend_e2e_report.md`](docs/frontend_e2e_report.md)。
 
 ## 4. Docker Run 开发模式
 
@@ -196,6 +225,8 @@ docker run -it --rm \
 ## 5. Swagger 和接口总览
 
 EchoMind 基于 FastAPI 构建，启动 HTTP 服务后可以直接在浏览器访问 Swagger UI 调用接口。
+
+通过生产 Nginx 访问时，浏览器 API 统一使用 `/api` 前缀，例如 `/api/chat`、`/api/search`、`/api/knowledge/stats`；下表列出的路径是 FastAPI 的真实路径，适用于后端直连或去掉前缀后的代理目标。
 
 本地 Swagger 地址：
 
