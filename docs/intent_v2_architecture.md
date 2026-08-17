@@ -5,14 +5,12 @@ User Query + recent history
               |
       +-------+--------+
       |       |        |
-     LLM    BGE-M3   Rules
+     LLM    BGE-M3   Rules evidence
       |       |        |
-  0..1 scores  template cosine/top-N  0..1 rule scores
+  0..1 scores  template cosine/top-N  signals/domains/overrides
       +-------+--------+
               |
-      source normalization
-              |
-      configurable weighted fusion
+      production LLM+BGE semantic fusion
               |
      top1 confidence + top2 margin
               |
@@ -51,24 +49,27 @@ For each query, the embedding path computes cosine similarity to every template,
 normalizes it to `[0, 1]`, and averages the best configurable `top_n` templates
 per intent. It does not collapse the category to one center vector.
 
-## Three-way score fusion
+## Semantic fusion and Rules evidence
 
-LLM output is converted to a per-intent score map. The rule layer emits per-intent
-high-precision scores and hit diagnostics for signals such as refund, invoice,
-duplicate payment, 401/500, crash, suspicious login, and human handoff. All
-active source values are clamped or transformed into `[0, 1]` before fusion.
+LLM output is converted to a per-intent score map. BGE-M3 contributes template
+similarity and candidate diagnostics. The rule layer emits high-precision hit
+diagnostics for signals such as refund, invoice, duplicate payment, 401/500,
+crash, suspicious login, and human handoff. In production, Rules are routing
+and safety evidence rather than a fixed semantic-fusion source.
 
 The initial configurable weights are:
 
 ```text
-LLM       0.45
-Embedding 0.35
-Rules     0.20
+Production LLM       0.45
+Production Embedding 0.35
+Production Rules     0.00 (routing/override evidence)
 ```
 
-If a source is disabled or unavailable, active weights are renormalized across
-the remaining sources. The source statuses and detailed candidate diagnostics
-are retained in `IntentResult.source_scores`.
+If a production semantic source is disabled or unavailable, active semantic
+weights are renormalized across LLM and BGE. The source statuses, rule signals,
+and detailed candidate diagnostics are retained in `IntentResult.source_scores`.
+The three-way rules-weighted path remains available as `llm_embedding_rules`
+for ablation.
 
 ## Confidence and margin gating
 
@@ -103,14 +104,15 @@ BGE_MODEL_NAME=BAAI/bge-m3
 BGE_DEVICE=auto
 BGE_USE_FP16=true
 BGE_BATCH_SIZE=16
+INTENT_MODE=llm_embedding
 INTENT_LLM_WEIGHT=0.45
 INTENT_EMBED_WEIGHT=0.35
-INTENT_RULE_WEIGHT=0.20
+INTENT_RULE_WEIGHT=0.20  # ablation-only semantic weight
 INTENT_CONFIDENCE_THRESHOLD=0.50
 INTENT_MARGIN_THRESHOLD=0.05
 INTENT_EMBEDDING_TOP_N=3
 ```
 
-The final weights and thresholds should be selected from a development split
-when data volume permits. With this 76-case benchmark, threshold search is
-reported as exploratory rather than treated as a test-set optimization claim.
+The LLM and BGE values are the current production baseline, not a claim of
+test-set-optimal tuning. Calibration and threshold search on this 76-case
+benchmark remain exploratory.

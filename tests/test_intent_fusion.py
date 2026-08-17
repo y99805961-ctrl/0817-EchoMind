@@ -25,3 +25,33 @@ def test_fusion_renormalizes_available_sources_and_keeps_diagnostics():
     assert fused["intent"] == IntentCategory.REFUND
     assert fused["source_scores"]["rules"]["hits"]
     assert fused["source_scores"]["fusion"]["weights"] == {"rules": 0.2}
+
+
+def test_production_mode_uses_llm_and_embedding_without_rule_weight():
+    recognizer = IntentRecognizer(mode="llm_embedding")
+    fused = recognizer._fuse(
+        {"status": "ok", "scores": {"refund": 0.9}, "confidence": 0.9},
+        {"status": "ok", "scores": {"refund": 0.8}},
+        {"status": "ok", "scores": {"technical_crash": 1.0}, "hits": [{"intent": "technical_crash"}]},
+        message="页面报500但我想退款",
+    )
+    assert fused["intent"] == IntentCategory.REFUND
+    assert fused["source_scores"]["fusion"]["weights"] == {"llm": 0.45, "embedding": 0.35}
+
+
+def test_only_explicit_handoff_is_an_intent_override():
+    recognizer = IntentRecognizer(mode="llm_embedding")
+    handoff = recognizer._fuse(
+        {"status": "ok", "scores": {"refund": 0.9}, "confidence": 0.9},
+        {"status": "ok", "scores": {"refund": 0.8}},
+        {"status": "ok", "scores": {"human_handoff": 1.0}, "hits": [{"intent": "human_handoff"}]},
+        message="请转人工处理退款",
+    )
+    ordinary_signal = recognizer._fuse(
+        {"status": "ok", "scores": {"refund": 0.9}, "confidence": 0.9},
+        {"status": "ok", "scores": {"refund": 0.8}},
+        {"status": "ok", "scores": {"technical_crash": 1.0}, "hits": [{"intent": "technical_crash"}]},
+        message="页面报500但我想退款",
+    )
+    assert handoff["intent"] == IntentCategory.HUMAN_HANDOFF
+    assert ordinary_signal["intent"] == IntentCategory.REFUND

@@ -183,7 +183,7 @@ class IntentRecognizer:
         templates_path: Optional[str] = None,
         embedding_service: Optional[Any] = None,
         llm_classifier: Optional[Any] = None,
-        mode: str = "llm_embedding_rules",
+        mode: Optional[str] = None,
     ) -> None:
         self.model = model
         self.threshold = float(
@@ -205,7 +205,7 @@ class IntentRecognizer:
             1,
             int(embedding_top_n or os.getenv("INTENT_EMBEDDING_TOP_N", "3")),
         )
-        self.mode = mode.lower()
+        self.mode = (mode or os.getenv("INTENT_MODE", "llm_embedding")).lower()
         self._active_sources = _sources_for_mode(self.mode)
         self._templates_path = Path(templates_path) if templates_path else _DEFAULT_TEMPLATE_PATH
         self._templates = self._load_templates()
@@ -249,11 +249,12 @@ class IntentRecognizer:
                 llm_result = await self._llm_recognize(clean_message, history)
             if "embedding" in self._active_sources:
                 embedding_result = await self._embedding_recognize(clean_message)
-        rules_result = self._rule_recognize(clean_message) if "rules" in self._active_sources else {
-            "status": "disabled", "scores": {}, "hits": []
-        }
+        # Rules are always collected as high-precision/routing diagnostics.
+        # They participate in fusion only when the explicit rules ablation
+        # mode is selected; production defaults to LLM+BGE semantic fusion.
+        rules_result = self._rule_recognize(clean_message)
 
-        fusion = self._fuse(llm_result, embedding_result, rules_result)
+        fusion = self._fuse(llm_result, embedding_result, rules_result, message=clean_message)
         final_intent = fusion["intent"]
         result = IntentResult(
             intent=final_intent,
@@ -522,13 +523,19 @@ class IntentRecognizer:
                 scores[intent.value] = min(1.0, current + increment)
                 hits.append({"intent": intent.value, "rule": label})
         scores = {label: normalize_rule_score(score) for label, score in scores.items()}
-        return {"status": "ok", "scores": scores, "hits": hits}
+        return {
+            "status": "ok",
+            "scores": scores,
+            "hits": hits,
+            "high_precision_signals": hits,
+        }
 
     def _fuse(
         self,
         llm: Dict[str, Any],
         embedding: Dict[str, Any],
         rules: Dict[str, Any],
+        message: str = "",
     ) -> Dict[str, Any]:
         results = {"llm": llm, "embedding": embedding, "rules": rules}
         active_weights = {
@@ -556,6 +563,10 @@ class IntentRecognizer:
             and margin >= self.margin_threshold
             else IntentCategory.OTHER
         )
+        exceptional_override = self._exceptional_override(message, rules)
+        if exceptional_override:
+            gated = IntentCategory(exceptional_override["intent"])
+        confidence = 1.0 if exceptional_override else top1
         source_scores = {
             "llm": {
                 "intent": getattr(llm.get("intent"), "value", llm.get("intent")),
@@ -572,6 +583,8 @@ class IntentRecognizer:
             "rules": {
                 "intent_scores": rules.get("scores", {}),
                 "hits": rules.get("hits", []),
+                "high_precision_signals": rules.get("high_precision_signals", rules.get("hits", [])),
+                "exceptional_overrides": [exceptional_override] if exceptional_override else [],
                 "status": rules.get("status", "disabled"),
             },
             "fusion": {
@@ -581,7 +594,7 @@ class IntentRecognizer:
         }
         return {
             "intent": gated,
-            "confidence": round(top1, 6),
+            "confidence": round(confidence, 6),
             "top1_score": round(top1, 6),
             "top2_score": round(top2, 6),
             "margin": round(margin, 6),
@@ -591,6 +604,29 @@ class IntentRecognizer:
             ],
             "source_scores": source_scores,
         }
+
+    @staticmethod
+    def _exceptional_override(
+        message: str,
+        rules: Dict[str, Any],
+    ) -> Optional[Dict[str, str]]:
+        """Return only explicit safety/handoff overrides.
+
+        Ordinary refund, invoice, payment, 401, and 500 signals remain
+        routing evidence; they never override the LLM+BGE semantic result.
+        """
+        labels = {str(hit.get("intent")) for hit in rules.get("hits", [])}
+        if "human_handoff" in labels:
+            return {"intent": IntentCategory.HUMAN_HANDOFF.value, "reason": "explicit_human_handoff"}
+        lower = (message or "").lower()
+        security_signal = any(
+            keyword in lower
+            for keyword in ("账号被盗", "账户被盗", "账号遭盗", "未经授权", "盗用")
+        ) or "account_security" in labels
+        urgent = any(keyword in lower for keyword in _URGENCY_KEYWORDS[UrgencyLevel.CRITICAL])
+        if urgent and security_signal:
+            return {"intent": IntentCategory.ESCALATION.value, "reason": "critical_security_event"}
+        return None
 
     def _extract_entities(self, message: str) -> Dict[str, List[str]]:
         order_ids = re.findall(

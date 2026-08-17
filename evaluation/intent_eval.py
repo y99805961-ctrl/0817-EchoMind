@@ -330,7 +330,7 @@ async def run_threshold_search(
     return payload
 
 
-async def evaluate_routing(output_path: Path, intent_mode: str = "rules_only") -> Dict[str, Any]:
+async def evaluate_routing(output_path: Path, intent_mode: str = "llm_embedding") -> Dict[str, Any]:
     benchmark = load_json(ROUTING_BENCHMARK)
     recognizer = _make_recognizer(intent_mode)
     orchestrator = AgentOrchestrator(api_key="routing-benchmark-placeholder")
@@ -354,6 +354,9 @@ async def evaluate_routing(output_path: Path, intent_mode: str = "rules_only") -
             urgency=intent_result.urgency,
             entities=intent_result.entities,
             intent_confidence=intent_result.confidence,
+            top_candidates=intent_result.top_candidates,
+            rule_signals=intent_result.source_scores.get("rules", {}).get("hits", []),
+            intent_source_scores=intent_result.source_scores,
         )
         decision = orchestrator._route_decision(req)
         predicted_primary = decision.primary_agent.value
@@ -366,6 +369,10 @@ async def evaluate_routing(output_path: Path, intent_mode: str = "rules_only") -
         exact += predicted_primary == expected_primary and predicted_support == expected_support
         rows.append({
             "id": case.get("id"),
+            "semantic_intent": intent_result.intent.value,
+            "top_candidates": intent_result.top_candidates,
+            "rule_signals": intent_result.source_scores.get("rules", {}).get("hits", []),
+            "domain_scores": decision.domain_scores,
             "expected_primary": expected_primary,
             "predicted_primary": predicted_primary,
             "expected_supporting": expected_support,
@@ -423,7 +430,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--mode",
         choices=["rules_only", "embedding_only", "llm_only", "llm_embedding", "llm_embedding_rules", "full"],
-        default="llm_embedding_rules",
+        default="llm_embedding",
     )
     parser.add_argument("--output", help="Output JSON path")
     parser.add_argument("--ablation", action="store_true")
@@ -431,7 +438,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--threshold-search", action="store_true")
     parser.add_argument("--threshold-mode", default="embedding_only", choices=["rules_only", "embedding_only"])
     parser.add_argument("--routing", action="store_true")
-    parser.add_argument("--intent-mode", default="rules_only")
+    parser.add_argument("--intent-mode", default="llm_embedding")
     return parser
 
 

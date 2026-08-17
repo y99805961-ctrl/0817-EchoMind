@@ -53,6 +53,27 @@ The `0.45 / 0.35 / 0.20` LLM/embedding/rules weights were used only as the
 baseline requested for this run. They are not declared the final best
 parameters, and no weight or production calibration change was made.
 
+## Production Intent finalization
+
+The production recognizer now uses `llm_embedding`: LLM and BGE-M3 are the
+semantic intent sources, with the same 76-case benchmark remaining frozen. The
+latest production rerun is saved in `intent_llm_embedding.json`:
+
+```text
+Production Intent Mode: llm_embedding
+Intent Accuracy:        0.921053
+Intent Macro-F1:         0.902673
+Ungated Top1 Accuracy:   0.934211
+Other rejection count:   1
+```
+
+Rules are still collected on every production request as high-precision
+signals, routing/domain evidence, urgency inputs, entity support, and the two
+exceptional overrides (`explicit_human_handoff` and `critical_security_event`).
+Refund, invoice, payment, 401, and 500 rules do not compete as a fixed
+third-source weight in production. The `llm_embedding_rules` path remains
+available for ablation only.
+
 ## What the results show
 
 - Rules are strong on exact signals: invoice, logistics, greeting, refund, and
@@ -81,7 +102,8 @@ separate development split was provided, threshold search is explicitly
 The separate calibration experiment is saved in
 `data/eval/results/intent/semantic_calibration.json`. It reads the same 76
 cases and the same 132 templates; no benchmark query was added to the
-templates. The production three-way weights remain `0.45 / 0.35 / 0.20`.
+templates. This experiment does not change production `llm_embedding`; the
+three-way rules-weighted path remains an ablation configuration.
 
 `other_rejection_count` is the number of final predictions returned as
 `other`; `gate_rejection_count` is the subset whose ungated Top1 was a
@@ -121,16 +143,25 @@ no final three-way weight or production calibration was changed.
 
 ## Routing benchmark
 
-The final routing run used `llm_embedding_rules` for all 12 cases and completed
-with status `OK`. It did not use rules-only or BGE-only substitution:
+The final routing run used the production `llm_embedding` Intent output for all
+12 cases and completed with status `OK`. It did not use rules-only or BGE-only
+substitution. Every case stores semantic intent, top candidates, rule signals,
+domain scores, primary agent, supporting agents, and routing reason in
+`routing_benchmark.json`:
 
 ```text
-Primary Routing Accuracy: 0.666667
-Supporting Recall:        0.500000
-Exact Match:              0.666667
+Primary Routing Accuracy: 1.000000
+Supporting Recall:        1.000000
+Exact Match:              1.000000
 ```
 
-The changes were limited to compound-case scoring: technical login evidence
+There are no remaining routing failures in this run. The result comes from
+general domain evidence scoring: explicit technical failure signals can make
+Technical primary while Billing remains supporting; ordinary billing signals
+do not override the semantic intent.
+
+The changes use generalized semantic candidates, rule signals, entities,
+urgency, and domain evidence for compound routing. Technical login evidence
 can take primary position over the existing account-security billing mapping,
 and supporting general/billing domains are retained where the benchmark
 expects them. No router framework or new agent family was introduced.
@@ -138,19 +169,20 @@ expects them. No router framework or new agent family was introduced.
 ## Final configuration
 
 ```text
+Production mode:  llm_embedding
 LLM weight:       0.45
 Embedding weight: 0.35
-Rule weight:      0.20
+Rule weight:      0.00 (routing/override evidence only)
 
 confidence threshold: 0.50
 margin threshold:     0.05
 embedding top_n:      3
 ```
 
-These are baseline values for this run, not empirically final values. The
-calibration search remains exploratory, and the observed ablation differences
-do not authorize selecting a new production weight without a separate
-development-set decision.
+The LLM and embedding weights are retained as the current production baseline;
+the rules weight is removed from production semantic competition but remains in
+the ablation path. Calibration search remains exploratory, and no test-set
+hardcoding or production weight tuning was added.
 
 ## FastAPI smoke
 

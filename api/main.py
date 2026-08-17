@@ -297,6 +297,9 @@ async def chat(req: ChatRequest):
         intent_group=intent_result.intent_group,
         urgency=intent_result.urgency,
         intent_confidence=intent_result.confidence,
+        top_candidates=intent_result.top_candidates,
+        rule_signals=intent_result.source_scores.get("rules", {}).get("hits", []),
+        intent_source_scores=intent_result.source_scores,
     )
 
     # 3. 执行

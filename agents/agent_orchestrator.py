@@ -86,6 +86,9 @@ class Request:
     intent_group: Optional[str] = None
     urgency:     Optional[UrgencyLevel]   = None
     intent_confidence: float = 1.0
+    top_candidates: List[Dict[str, Any]] = field(default_factory=list)
+    rule_signals: List[Dict[str, Any]] = field(default_factory=list)
+    intent_source_scores: Dict[str, Any] = field(default_factory=dict)
     request_id:  str = field(default_factory=lambda: str(uuid.uuid4())[:8])
 
 
@@ -111,6 +114,9 @@ class RoutingDecision:
     supporting_agents: List[AgentType] = field(default_factory=list)
     reason: str = ""
     confidence: float = 0.0
+    domain_scores: Dict[str, float] = field(default_factory=dict)
+    top_candidates: List[Dict[str, Any]] = field(default_factory=list)
+    rule_signals: List[Dict[str, Any]] = field(default_factory=list)
 
     @property
     def agent_types(self) -> List[AgentType]:
@@ -304,6 +310,9 @@ class AgentOrchestrator:
             req.intent_group = intent_result.intent_group
             req.urgency = intent_result.urgency
             req.intent_confidence = intent_result.confidence
+            req.top_candidates = intent_result.top_candidates
+            req.rule_signals = intent_result.source_scores.get("rules", {}).get("hits", [])
+            req.intent_source_scores = intent_result.source_scores
 
         if self._needs_clarification(req):
             return OrchestratorResult(
@@ -416,17 +425,25 @@ class AgentOrchestrator:
         这样可以表达“主处理 + 辅助诊断”，避免关键词命中后无主次地拼接。
         """
         if req.urgency == UrgencyLevel.CRITICAL:
+            domain_scores = self._domain_scores(req)
             return RoutingDecision(
                 primary_agent=AgentType.ESCALATION,
                 reason="紧急度为 CRITICAL，触发升级路由",
                 confidence=1.0,
+                domain_scores=self._domain_scores_for_output(domain_scores),
+                top_candidates=req.top_candidates,
+                rule_signals=req.rule_signals,
             )
 
         if req.intent in (IntentCategory.ESCALATION, IntentCategory.HUMAN_HANDOFF):
+            domain_scores = self._domain_scores(req)
             return RoutingDecision(
                 primary_agent=AgentType.ESCALATION,
                 reason=f"意图为 {req.intent.value if req.intent else 'unknown'}，触发升级路由",
                 confidence=max(req.intent_confidence, 0.8),
+                domain_scores=self._domain_scores_for_output(domain_scores),
+                top_candidates=req.top_candidates,
+                rule_signals=req.rule_signals,
             )
 
         scores = self._domain_scores(req)
@@ -440,14 +457,17 @@ class AgentOrchestrator:
                 primary_agent=AgentType.GENERAL,
                 reason="无可用专属 Agent，降级到 GeneralAgent",
                 confidence=0.1,
+                domain_scores=self._domain_scores_for_output(scores),
+                top_candidates=req.top_candidates,
+                rule_signals=req.rule_signals,
             )
 
-        ordered = sorted(available_scores.items(), key=lambda item: item[1], reverse=True)
+        ordered = sorted(available_scores.items(), key=lambda item: (-item[1], item[0].value))
         primary_agent, primary_score = ordered[0]
         supporting_agents = [
             agent_type
             for agent_type, score in ordered[1:]
-            if score >= 0.18
+            if score >= 0.35
             and score >= primary_score * 0.15
             and not (primary_agent == AgentType.TECHNICAL and agent_type == AgentType.GENERAL)
         ]
@@ -458,78 +478,119 @@ class AgentOrchestrator:
             supporting_agents=supporting_agents,
             reason=reason,
             confidence=round(min(primary_score, 1.0), 3),
+            domain_scores=self._domain_scores_for_output(available_scores),
+            top_candidates=req.top_candidates,
+            rule_signals=req.rule_signals,
         )
 
     def _domain_scores(self, req: Request) -> Dict[AgentType, float]:
-        """按意图、关键词和实体为各领域 Agent 打分。"""
+        """Combine semantic, rule, entity, urgency, and explicit evidence."""
         msg = req.message.lower()
         scores = {
             AgentType.GENERAL: 0.1,
             AgentType.TECHNICAL: 0.0,
             AgentType.BILLING: 0.0,
+            AgentType.ESCALATION: 0.0,
         }
 
-        if req.intent in (
-            IntentCategory.QUERY,
-            IntentCategory.ORDER_STATUS,
-            IntentCategory.LOGISTICS,
-            IntentCategory.REQUEST,
-            IntentCategory.COMPLAINT,
-            IntentCategory.GREETING,
-            IntentCategory.FEEDBACK,
-            IntentCategory.OTHER,
-        ):
-            scores[AgentType.GENERAL] += 0.55
+        semantic_domains = {
+            IntentCategory.QUERY: AgentType.GENERAL,
+            IntentCategory.ORDER_STATUS: AgentType.GENERAL,
+            IntentCategory.LOGISTICS: AgentType.GENERAL,
+            IntentCategory.REQUEST: AgentType.GENERAL,
+            IntentCategory.COMPLAINT: AgentType.GENERAL,
+            IntentCategory.GREETING: AgentType.GENERAL,
+            IntentCategory.FEEDBACK: AgentType.GENERAL,
+            IntentCategory.OTHER: AgentType.GENERAL,
+            IntentCategory.TECHNICAL: AgentType.TECHNICAL,
+            IntentCategory.TECHNICAL_LOGIN: AgentType.TECHNICAL,
+            IntentCategory.TECHNICAL_CRASH: AgentType.TECHNICAL,
+            IntentCategory.BILLING: AgentType.BILLING,
+            IntentCategory.ACCOUNT: AgentType.BILLING,
+            IntentCategory.ACCOUNT_SECURITY: AgentType.BILLING,
+            IntentCategory.REFUND: AgentType.BILLING,
+            IntentCategory.INVOICE: AgentType.BILLING,
+            IntentCategory.PAYMENT_ISSUE: AgentType.BILLING,
+            IntentCategory.ESCALATION: AgentType.ESCALATION,
+            IntentCategory.HUMAN_HANDOFF: AgentType.ESCALATION,
+        }
+        if req.intent in semantic_domains:
+            scores[semantic_domains[req.intent]] += 0.70
 
-        if req.intent in (
-            IntentCategory.TECHNICAL,
-            IntentCategory.TECHNICAL_LOGIN,
-            IntentCategory.TECHNICAL_CRASH,
-        ):
-            scores[AgentType.TECHNICAL] += 0.75
-
-        if req.intent in (
-            IntentCategory.BILLING,
-            IntentCategory.ACCOUNT,
-            IntentCategory.ACCOUNT_SECURITY,
-            IntentCategory.REFUND,
-            IntentCategory.INVOICE,
-            IntentCategory.PAYMENT_ISSUE,
-        ):
-            scores[AgentType.BILLING] += 0.75
-
-        # Account-security cases can contain a concrete login/verification
-        # failure. Keep the existing billing ownership of account security as
-        # supporting context, but let the technical signal become primary.
+        # Account-security remains a billing/security domain, but a concrete
+        # login or verification failure is a technical handling signal.
         if req.intent == IntentCategory.ACCOUNT_SECURITY and any(
-            kw in msg for kw in ("验证码", "登录", "401", "认证")
+            keyword in msg for keyword in ("验证码", "登录", "401", "认证")
         ):
-            scores[AgentType.TECHNICAL] += 0.75
+            scores[AgentType.TECHNICAL] += 0.80
 
-        technical_kws = ["崩溃", "报错", "error", "crash", "无法登录", "登录失败", "500", "401", "验证码"]
-        billing_kws = [
-            "退款", "退货", "扣款", "扣了", "重复扣", "发票", "账单", "支付",
-            "订阅", "refund", "invoice", "多扣", "异常登录",
-        ]
-        general_kws = ["订单", "物流", "快递", "配送", "会员", "积分", "咨询", "帮助"]
+        for candidate in (req.top_candidates or [])[:3]:
+            try:
+                candidate_intent = IntentCategory(str(candidate.get("intent")))
+            except ValueError:
+                continue
+            domain = semantic_domains.get(candidate_intent)
+            if domain:
+                scores[domain] += min(0.25, max(0.0, float(candidate.get("score", 0.0))) * 0.25)
 
-        technical_hits = sum(1 for kw in technical_kws if kw in msg)
-        billing_hits = sum(1 for kw in billing_kws if kw in msg)
-        general_hits = sum(1 for kw in general_kws if kw in msg)
+        rule_domains = {
+            "technical": AgentType.TECHNICAL,
+            "technical_login": AgentType.TECHNICAL,
+            "technical_crash": AgentType.TECHNICAL,
+            "refund": AgentType.BILLING,
+            "invoice": AgentType.BILLING,
+            "payment_issue": AgentType.BILLING,
+            "billing": AgentType.BILLING,
+            "account_security": AgentType.BILLING,
+            "order_status": AgentType.GENERAL,
+            "logistics": AgentType.GENERAL,
+            "human_handoff": AgentType.ESCALATION,
+            "escalation": AgentType.ESCALATION,
+        }
+        for signal in req.rule_signals or []:
+            domain = rule_domains.get(str(signal.get("intent")))
+            if domain:
+                scores[domain] += 0.45
 
-        scores[AgentType.TECHNICAL] += min(0.45, technical_hits * 0.18)
-        scores[AgentType.BILLING] += min(0.45, billing_hits * 0.18)
-        scores[AgentType.GENERAL] += min(0.35, general_hits * 0.12)
+        strong_technical = (
+            "401", "500", "crash", "闪退", "崩溃", "无法登录", "登录失败",
+            "系统错误", "服务器错误",
+        )
+        technical_signals = ("报错", "error", "验证码", "认证失败", "页面错误", "接口错误")
+        billing_signals = (
+            "退款", "退货", "扣款", "扣了", "重复扣", "多扣", "发票", "账单",
+            "支付", "订阅", "refund", "invoice",
+        )
+        general_signals = ("订单", "物流", "快递", "配送", "发货", "未收到", "签收")
+        escalation_signals = ("转人工", "人工客服", "真人客服", "账号被盗", "账户被盗", "未经授权")
+
+        strong_technical_hits = sum(1 for signal in strong_technical if signal in msg)
+        technical_hits = sum(1 for signal in technical_signals if signal in msg)
+        billing_hits = sum(1 for signal in billing_signals if signal in msg)
+        general_hits = sum(1 for signal in general_signals if signal in msg)
+        escalation_hits = sum(1 for signal in escalation_signals if signal in msg)
+
+        scores[AgentType.TECHNICAL] += min(2.40, strong_technical_hits * 1.80)
+        scores[AgentType.TECHNICAL] += min(0.80, technical_hits * 0.40)
+        scores[AgentType.BILLING] += min(0.90, billing_hits * 0.30)
+        scores[AgentType.GENERAL] += min(0.60, general_hits * 0.30)
+        scores[AgentType.ESCALATION] += min(2.0, escalation_hits * 1.0)
 
         entities = req.entities or {}
         if entities.get("error_code"):
-            scores[AgentType.TECHNICAL] += 0.2
+            scores[AgentType.TECHNICAL] += 0.35
         if entities.get("amount"):
-            scores[AgentType.BILLING] += 0.15
+            scores[AgentType.BILLING] += 0.20
         if entities.get("order_id"):
-            scores[AgentType.GENERAL] += 0.1
+            scores[AgentType.GENERAL] += 0.15
+        if req.urgency == UrgencyLevel.CRITICAL:
+            scores[AgentType.ESCALATION] += 2.0
 
         return {agent_type: round(score, 3) for agent_type, score in scores.items()}
+
+    @staticmethod
+    def _domain_scores_for_output(scores: Dict[AgentType, float]) -> Dict[str, float]:
+        return {agent_type.value: round(score, 3) for agent_type, score in scores.items()}
 
     @staticmethod
     def _routing_reason(
@@ -544,9 +605,18 @@ class AgentOrchestrator:
         )
         support_text = ", ".join(agent.value for agent in supporting_agents) or "none"
         intent = req.intent.value if req.intent else "unknown"
+        candidate_text = ", ".join(
+            f"{item.get('intent')}:{float(item.get('score', 0.0)):.2f}"
+            for item in (req.top_candidates or [])[:3]
+        ) or "none"
+        rule_text = ", ".join(
+            str(item.get("rule", item.get("intent", "")))
+            for item in req.rule_signals
+        ) or "none"
         return (
             f"intent={intent}, group={req.intent_group or 'unknown'}, "
-            f"primary={primary_agent.value}, supporting={support_text}, scores=[{score_text}]"
+            f"primary={primary_agent.value}, supporting={support_text}, scores=[{score_text}], "
+            f"top_candidates=[{candidate_text}], rule_signals=[{rule_text}]"
         )
 
     def _collaboration_targets(self, req: Request) -> List[AgentType]:
@@ -586,6 +656,8 @@ class AgentOrchestrator:
     def _needs_clarification(req: Request) -> bool:
         """低置信度且无明确意图时，先追问，避免误路由。"""
         if req.intent != IntentCategory.OTHER:
+            return False
+        if req.rule_signals or (req.entities or {}).get("error_code") or req.urgency == UrgencyLevel.CRITICAL:
             return False
         text = (req.message or "").strip()
         if len(text) <= 2:
