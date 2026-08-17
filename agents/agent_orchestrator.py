@@ -447,7 +447,9 @@ class AgentOrchestrator:
         supporting_agents = [
             agent_type
             for agent_type, score in ordered[1:]
-            if agent_type != AgentType.GENERAL and score >= 0.45 and score >= primary_score * 0.55
+            if score >= 0.18
+            and score >= primary_score * 0.15
+            and not (primary_agent == AgentType.TECHNICAL and agent_type == AgentType.GENERAL)
         ]
 
         reason = self._routing_reason(req, available_scores, primary_agent, supporting_agents)
@@ -496,8 +498,19 @@ class AgentOrchestrator:
         ):
             scores[AgentType.BILLING] += 0.75
 
+        # Account-security cases can contain a concrete login/verification
+        # failure. Keep the existing billing ownership of account security as
+        # supporting context, but let the technical signal become primary.
+        if req.intent == IntentCategory.ACCOUNT_SECURITY and any(
+            kw in msg for kw in ("验证码", "登录", "401", "认证")
+        ):
+            scores[AgentType.TECHNICAL] += 0.75
+
         technical_kws = ["崩溃", "报错", "error", "crash", "无法登录", "登录失败", "500", "401", "验证码"]
-        billing_kws = ["退款", "退货", "扣款", "发票", "账单", "支付", "订阅", "refund", "invoice", "多扣"]
+        billing_kws = [
+            "退款", "退货", "扣款", "扣了", "重复扣", "发票", "账单", "支付",
+            "订阅", "refund", "invoice", "多扣", "异常登录",
+        ]
         general_kws = ["订单", "物流", "快递", "配送", "会员", "积分", "咨询", "帮助"]
 
         technical_hits = sum(1 for kw in technical_kws if kw in msg)

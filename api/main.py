@@ -225,7 +225,8 @@ class ChatResponse(BaseModel):
     knowledge_used: bool = False
     entities: Dict[str, List[str]] = Field(default_factory=dict)
     intent_confidence: float = 0.0
-    intent_source_scores: Dict[str, float] = Field(default_factory=dict)
+    # Nested source diagnostics are intentionally additive for Intent v2.
+    intent_source_scores: Dict[str, Any] = Field(default_factory=dict)
 
 
 # ── 路由 ──────────────────────────────────────────────────────────────────────
