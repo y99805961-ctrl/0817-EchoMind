@@ -1,0 +1,12 @@
+{
+  "status": "NOT_RUN",
+  "implementation": "IntentRecognizer before Intent v2 changes",
+  "benchmark": "data/eval/intent/intent_benchmark_76.json",
+  "reason": "All 76 external LLM calls returned HTTP 401 authentication failures; no v1 accuracy, Macro-F1, Entity-F1, or latency score is claimed.",
+  "accuracy": "NOT_RUN",
+  "macro_f1": "NOT_RUN",
+  "entity_f1": "NOT_RUN",
+  "mean_latency_ms": "NOT_RUN",
+  "p50_latency_ms": "NOT_RUN",
+  "p95_latency_ms": "NOT_RUN"
+}

@@ -1,0 +1,76 @@
+{
+  "status": "OK",
+  "benchmark": "D:\\AAA-0817\\EchoMind所有代码+简历\\EchoMind\\data\\eval\\intent\\intent_benchmark_76.json",
+  "results": [
+    {
+      "method": "rules_only",
+      "label": "Rules Only",
+      "status": "OK",
+      "accuracy": 0.486842,
+      "macro_f1": 0.506536,
+      "entity_f1": 0.941176,
+      "mean_latency_ms": 0.072068,
+      "p95_latency_ms": 0.0595,
+      "reason": null,
+      "unavailable_sources": {}
+    },
+    {
+      "method": "embedding_only",
+      "label": "BGE-M3 Only",
+      "status": "NOT_RUN",
+      "accuracy": "NOT_RUN",
+      "macro_f1": "NOT_RUN",
+      "entity_f1": "NOT_RUN",
+      "mean_latency_ms": "NOT_RUN",
+      "p95_latency_ms": "NOT_RUN",
+      "reason": "required source unavailable or failed",
+      "unavailable_sources": {
+        "embedding:failed": 76
+      }
+    },
+    {
+      "method": "llm_only",
+      "label": "LLM Only",
+      "status": "NOT_RUN",
+      "accuracy": "NOT_RUN",
+      "macro_f1": "NOT_RUN",
+      "entity_f1": "NOT_RUN",
+      "mean_latency_ms": "NOT_RUN",
+      "p95_latency_ms": "NOT_RUN",
+      "reason": "required source unavailable or failed",
+      "unavailable_sources": {
+        "llm:failed": 76
+      }
+    },
+    {
+      "method": "llm_embedding",
+      "label": "LLM + BGE-M3",
+      "status": "NOT_RUN",
+      "accuracy": "NOT_RUN",
+      "macro_f1": "NOT_RUN",
+      "entity_f1": "NOT_RUN",
+      "mean_latency_ms": "NOT_RUN",
+      "p95_latency_ms": "NOT_RUN",
+      "reason": "required source unavailable or failed",
+      "unavailable_sources": {
+        "llm:failed": 76,
+        "embedding:failed": 76
+      }
+    },
+    {
+      "method": "llm_embedding_rules",
+      "label": "LLM + BGE-M3 + Rules",
+      "status": "NOT_RUN",
+      "accuracy": "NOT_RUN",
+      "macro_f1": "NOT_RUN",
+      "entity_f1": "NOT_RUN",
+      "mean_latency_ms": "NOT_RUN",
+      "p95_latency_ms": "NOT_RUN",
+      "reason": "required source unavailable or failed",
+      "unavailable_sources": {
+        "llm:failed": 76,
+        "embedding:failed": 76
+      }
+    }
+  ]
+}
