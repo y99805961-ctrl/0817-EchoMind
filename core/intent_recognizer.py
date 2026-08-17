@@ -320,7 +320,8 @@ class IntentRecognizer:
             )
         prompt = self._clean_text(
             f"""你是 EchoMind 客服意图分类器。请优先选择细粒度业务意图，只有无法判断时才使用宽泛类别。
-返回严格 JSON，字段为 intent、confidence、reasoning。
+返回严格 JSON，字段为 intent、confidence、reasoning。只返回一个 JSON 对象，
+不要 Markdown 或额外文字。
 可选意图: {', '.join(item.value for item in IntentCategory)}
 
 参考示例:
@@ -332,18 +333,41 @@ class IntentRecognizer:
         try:
             response = await self._client.messages.create(
                 model=self.model,
-                max_tokens=256,
-                temperature=0.1,
+                # DeepSeek-compatible reasoning responses can consume the
+                # smaller budget before emitting the final JSON object.
+                max_tokens=4096,
+                temperature=0.0,
                 messages=[{"role": "user", "content": prompt}],
             )
-            raw = extract_text_content(response.content)
-            start, end = raw.find("{"), raw.rfind("}") + 1
-            if start < 0 or end <= start:
-                raise ValueError("LLM response did not contain a JSON object")
-            return self._coerce_llm_result(json.loads(raw[start:end]))
+            try:
+                return self._parse_llm_response(response)
+            except ValueError:
+                # Some reasoning responses occasionally end without exposing
+                # the final JSON object. Retry once with a compact correction;
+                # never infer an intent from non-JSON prose.
+                retry_prompt = (
+                    "只输出一个完整 JSON 对象，不要解释、不要 Markdown、不要额外文字。"
+                    "字段必须是 intent、confidence、reasoning。"
+                    f"intent 必须是以下之一：{', '.join(item.value for item in IntentCategory)}。"
+                    f"用户消息：{message}"
+                )
+                retry_response = await self._client.messages.create(
+                    model=self.model,
+                    max_tokens=4096,
+                    temperature=0.0,
+                    messages=[{"role": "user", "content": retry_prompt}],
+                )
+                return self._parse_llm_response(retry_response)
         except Exception as exc:
             logger.warning("LLM recognition failed: %s", exc)
             return {"status": "failed", "scores": {}, "reasoning": "LLM 失败", "failed": True}
+
+    def _parse_llm_response(self, response: Any) -> Dict[str, Any]:
+        raw = extract_text_content(response.content)
+        start, end = raw.find("{"), raw.rfind("}") + 1
+        if start < 0 or end <= start:
+            raise ValueError("LLM response did not contain a JSON object")
+        return self._coerce_llm_result(json.loads(raw[start:end]))
 
     def _coerce_llm_result(self, data: Any) -> Dict[str, Any]:
         if not isinstance(data, dict):

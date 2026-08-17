@@ -1,14 +1,149 @@
 {
-  "status": "NOT_RUN",
+  "status": "OK",
   "intent_mode": "llm_embedding_rules",
   "total": 12,
-  "full_three_way": false,
-  "reason": "Final Intent v2 routing requires the LLM source; the single LLM smoke test returned HTTP 401, so no repeated LLM requests were sent.",
-  "available_component_run": {
-    "file": "routing_benchmark_embedding.json",
-    "intent_mode": "embedding_only",
-    "primary_routing_accuracy": 0.166667,
-    "supporting_agent_recall": 0.625,
-    "exact_match": 0.166667
-  }
+  "primary_routing_accuracy": 0.666667,
+  "supporting_agent_recall": 0.5,
+  "exact_match": 0.666667,
+  "cases": [
+    {
+      "id": "route_001",
+      "expected_primary": "technical",
+      "predicted_primary": "billing",
+      "expected_supporting": [
+        "billing"
+      ],
+      "predicted_supporting": [
+        "technical"
+      ],
+      "intent": "payment_issue",
+      "routing_reason": "intent=payment_issue, group=billing, primary=billing, supporting=technical, scores=[billing=1.26, technical=0.38, general=0.10]"
+    },
+    {
+      "id": "route_002",
+      "expected_primary": "technical",
+      "predicted_primary": "billing",
+      "expected_supporting": [
+        "billing"
+      ],
+      "predicted_supporting": [],
+      "intent": "refund",
+      "routing_reason": "intent=refund, group=billing, primary=billing, supporting=none, scores=[billing=1.11, general=0.10, technical=0.00]"
+    },
+    {
+      "id": "route_003",
+      "expected_primary": "general",
+      "predicted_primary": "general",
+      "expected_supporting": [],
+      "predicted_supporting": [],
+      "intent": "logistics",
+      "routing_reason": "intent=logistics, group=query, primary=general, supporting=none, scores=[general=0.99, technical=0.00, billing=0.00]"
+    },
+    {
+      "id": "route_004",
+      "expected_primary": "technical",
+      "predicted_primary": "billing",
+      "expected_supporting": [
+        "billing"
+      ],
+      "predicted_supporting": [
+        "general",
+        "technical"
+      ],
+      "intent": "payment_issue",
+      "routing_reason": "intent=payment_issue, group=billing, primary=billing, supporting=technical, general, scores=[billing=0.93, technical=0.38, general=0.22]"
+    },
+    {
+      "id": "route_005",
+      "expected_primary": "billing",
+      "predicted_primary": "billing",
+      "expected_supporting": [
+        "general"
+      ],
+      "predicted_supporting": [
+        "general"
+      ],
+      "intent": "invoice",
+      "routing_reason": "intent=invoice, group=billing, primary=billing, supporting=general, scores=[billing=0.93, general=0.32, technical=0.00]"
+    },
+    {
+      "id": "route_006",
+      "expected_primary": "billing",
+      "predicted_primary": "billing",
+      "expected_supporting": [
+        "general"
+      ],
+      "predicted_supporting": [
+        "general"
+      ],
+      "intent": "refund",
+      "routing_reason": "intent=refund, group=billing, primary=billing, supporting=general, scores=[billing=0.93, general=0.34, technical=0.00]"
+    },
+    {
+      "id": "route_007",
+      "expected_primary": "technical",
+      "predicted_primary": "technical",
+      "expected_supporting": [
+        "billing"
+      ],
+      "predicted_supporting": [
+        "billing"
+      ],
+      "intent": "account_security",
+      "routing_reason": "intent=account_security, group=account, primary=technical, supporting=billing, scores=[technical=0.93, billing=0.93, general=0.10]"
+    },
+    {
+      "id": "route_008",
+      "expected_primary": "technical",
+      "predicted_primary": "billing",
+      "expected_supporting": [
+        "billing"
+      ],
+      "predicted_supporting": [
+        "technical"
+      ],
+      "intent": "refund",
+      "routing_reason": "intent=refund, group=billing, primary=billing, supporting=technical, scores=[billing=0.93, technical=0.38, general=0.10]"
+    },
+    {
+      "id": "route_009",
+      "expected_primary": "billing",
+      "predicted_primary": "billing",
+      "expected_supporting": [],
+      "predicted_supporting": [],
+      "intent": "refund",
+      "routing_reason": "intent=refund, group=billing, primary=billing, supporting=none, scores=[billing=0.93, general=0.10, technical=0.00]"
+    },
+    {
+      "id": "route_010",
+      "expected_primary": "billing",
+      "predicted_primary": "billing",
+      "expected_supporting": [
+        "general"
+      ],
+      "predicted_supporting": [
+        "general"
+      ],
+      "intent": "payment_issue",
+      "routing_reason": "intent=payment_issue, group=billing, primary=billing, supporting=general, scores=[billing=0.93, general=0.22, technical=0.00]"
+    },
+    {
+      "id": "route_011",
+      "expected_primary": "escalation",
+      "predicted_primary": "escalation",
+      "expected_supporting": [],
+      "predicted_supporting": [],
+      "intent": "human_handoff",
+      "routing_reason": "意图为 human_handoff，触发升级路由"
+    },
+    {
+      "id": "route_012",
+      "expected_primary": "escalation",
+      "predicted_primary": "escalation",
+      "expected_supporting": [],
+      "predicted_supporting": [],
+      "intent": "account_security",
+      "routing_reason": "紧急度为 CRITICAL，触发升级路由"
+    }
+  ]
 }

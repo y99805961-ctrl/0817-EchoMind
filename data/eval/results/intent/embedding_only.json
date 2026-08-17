@@ -284,6 +284,11 @@
       "count": 1
     }
   ],
+  "gated_accuracy": 0.328947,
+  "ungated_top1_accuracy": 0.855263,
+  "top1_ranking_accuracy": 0.855263,
+  "other_rejection_count": 53,
+  "gate_rejection_count": 53,
   "entity_precision": 1.0,
   "entity_recall": 0.888889,
   "entity_f1": 0.941176,
@@ -320,9 +325,9 @@
     "fn": 2
   },
   "latency": {
-    "mean_ms": 215.667107,
-    "p50_ms": 49.8384,
-    "p95_ms": 55.6222
+    "mean_ms": 1997.320072,
+    "p50_ms": 2111.9885,
+    "p95_ms": 2412.2295
   },
   "template_leakage": {
     "exact_match_count": 0,
@@ -361,6 +366,9 @@
       "query": "订单 A83921 现在处理到哪一步了？",
       "expected_intent": "order_status",
       "predicted_intent": "order_status",
+      "ungated_top1_intent": "order_status",
+      "ungated_top1_score": 0.885815,
+      "ungated_margin": 0.061374,
       "expected_group": "query",
       "predicted_group": "query",
       "expected_entities": {
@@ -401,7 +409,7 @@
         }
       ],
       "margin": 0.061374,
-      "latency_ms": 12627.8557,
+      "latency_ms": 1928.616,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -596,6 +604,9 @@
       "query": "我昨天买的那个东西到底发货了没？",
       "expected_intent": "order_status",
       "predicted_intent": "other",
+      "ungated_top1_intent": "logistics",
+      "ungated_top1_score": 0.904726,
+      "ungated_margin": 0.00292,
       "expected_group": "query",
       "predicted_group": "other",
       "expected_entities": {
@@ -636,7 +647,7 @@
         }
       ],
       "margin": 0.00292,
-      "latency_ms": 49.7678,
+      "latency_ms": 2317.6893,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -831,6 +842,9 @@
       "query": "订单号#ZX9088显示处理中，这是什么意思？",
       "expected_intent": "order_status",
       "predicted_intent": "order_status",
+      "ungated_top1_intent": "order_status",
+      "ungated_top1_score": 0.870642,
+      "ungated_margin": 0.064055,
       "expected_group": "query",
       "predicted_group": "query",
       "expected_entities": {
@@ -871,7 +885,7 @@
         }
       ],
       "margin": 0.064055,
-      "latency_ms": 51.4069,
+      "latency_ms": 2500.909,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -1066,6 +1080,9 @@
       "query": "帮我看下 order_id: ORD_7721 是不是已经取消了",
       "expected_intent": "order_status",
       "predicted_intent": "other",
+      "ungated_top1_intent": "order_status",
+      "ungated_top1_score": 0.851246,
+      "ungated_margin": 0.021016,
       "expected_group": "query",
       "predicted_group": "other",
       "expected_entities": {
@@ -1106,7 +1123,7 @@
         }
       ],
       "margin": 0.021016,
-      "latency_ms": 50.1554,
+      "latency_ms": 2304.3763,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -1301,6 +1318,9 @@
       "query": "上次那个订单有结果了吗？",
       "expected_intent": "order_status",
       "predicted_intent": "order_status",
+      "ungated_top1_intent": "order_status",
+      "ungated_top1_score": 0.923319,
+      "ungated_margin": 0.058207,
       "expected_group": "query",
       "predicted_group": "query",
       "expected_entities": {},
@@ -1335,7 +1355,7 @@
         }
       ],
       "margin": 0.058207,
-      "latency_ms": 49.3082,
+      "latency_ms": 2293.8147,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -1530,6 +1550,9 @@
       "query": "快递都三天没更新了，是卡在哪了吗？",
       "expected_intent": "logistics",
       "predicted_intent": "other",
+      "ungated_top1_intent": "logistics",
+      "ungated_top1_score": 0.873913,
+      "ungated_margin": 0.013767,
       "expected_group": "query",
       "predicted_group": "other",
       "expected_entities": {},
@@ -1564,7 +1587,7 @@
         }
       ],
       "margin": 0.013767,
-      "latency_ms": 54.6051,
+      "latency_ms": 2034.5336,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -1759,6 +1782,9 @@
       "query": "物流显示派送中，今天能到吗？",
       "expected_intent": "logistics",
       "predicted_intent": "other",
+      "ungated_top1_intent": "logistics",
+      "ungated_top1_score": 0.901886,
+      "ungated_margin": 0.042053,
       "expected_group": "query",
       "predicted_group": "other",
       "expected_entities": {
@@ -1799,7 +1825,7 @@
         }
       ],
       "margin": 0.042053,
-      "latency_ms": 57.7046,
+      "latency_ms": 2013.1829,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -1994,6 +2020,9 @@
       "query": "运单一直停在分拨中心没动",
       "expected_intent": "logistics",
       "predicted_intent": "other",
+      "ungated_top1_intent": "logistics",
+      "ungated_top1_score": 0.865751,
+      "ungated_margin": 0.015323,
       "expected_group": "query",
       "predicted_group": "other",
       "expected_entities": {},
@@ -2028,7 +2057,7 @@
         }
       ],
       "margin": 0.015323,
-      "latency_ms": 52.2627,
+      "latency_ms": 2084.7769,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -2223,6 +2252,9 @@
       "query": "我的包裹显示签收了，但我根本没拿到",
       "expected_intent": "logistics",
       "predicted_intent": "logistics",
+      "ungated_top1_intent": "logistics",
+      "ungated_top1_score": 0.903562,
+      "ungated_margin": 0.050984,
       "expected_group": "query",
       "predicted_group": "query",
       "expected_entities": {},
@@ -2257,7 +2289,7 @@
         }
       ],
       "margin": 0.050984,
-      "latency_ms": 52.5549,
+      "latency_ms": 1875.4493,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -2452,6 +2484,9 @@
       "query": "ORD5566 已经发货了，我想知道配送还要多久",
       "expected_intent": "logistics",
       "predicted_intent": "other",
+      "ungated_top1_intent": "logistics",
+      "ungated_top1_score": 0.887369,
+      "ungated_margin": 0.047396,
       "expected_group": "query",
       "predicted_group": "other",
       "expected_entities": {},
@@ -2486,7 +2521,7 @@
         }
       ],
       "margin": 0.047396,
-      "latency_ms": 53.7637,
+      "latency_ms": 2575.4619,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -2681,6 +2716,9 @@
       "query": "这件我不要了，怎么退？",
       "expected_intent": "refund",
       "predicted_intent": "refund",
+      "ungated_top1_intent": "refund",
+      "ungated_top1_score": 0.903613,
+      "ungated_margin": 0.074657,
       "expected_group": "billing",
       "predicted_group": "billing",
       "expected_entities": {},
@@ -2715,7 +2753,7 @@
         }
       ],
       "margin": 0.074657,
-      "latency_ms": 50.4212,
+      "latency_ms": 2161.9055,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -2910,6 +2948,9 @@
       "query": "退款显示成功了，钱什么时候能回银行卡？",
       "expected_intent": "refund",
       "predicted_intent": "refund",
+      "ungated_top1_intent": "refund",
+      "ungated_top1_score": 0.92464,
+      "ungated_margin": 0.089828,
       "expected_group": "billing",
       "predicted_group": "billing",
       "expected_entities": {},
@@ -2944,7 +2985,7 @@
         }
       ],
       "margin": 0.089828,
-      "latency_ms": 50.1686,
+      "latency_ms": 2228.3251,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -3139,6 +3180,9 @@
       "query": "订单 #RF8890 想申请退货退款",
       "expected_intent": "refund",
       "predicted_intent": "refund",
+      "ungated_top1_intent": "refund",
+      "ungated_top1_score": 0.886563,
+      "ungated_margin": 0.065668,
       "expected_group": "billing",
       "predicted_group": "billing",
       "expected_entities": {
@@ -3179,7 +3223,7 @@
         }
       ],
       "margin": 0.065668,
-      "latency_ms": 50.2118,
+      "latency_ms": 2349.5273,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -3374,6 +3418,9 @@
       "query": "我取消订单以后钱一直没回来",
       "expected_intent": "refund",
       "predicted_intent": "other",
+      "ungated_top1_intent": "refund",
+      "ungated_top1_score": 0.905846,
+      "ungated_margin": 0.037815,
       "expected_group": "billing",
       "predicted_group": "other",
       "expected_entities": {},
@@ -3408,7 +3455,7 @@
         }
       ],
       "margin": 0.037815,
-      "latency_ms": 49.1232,
+      "latency_ms": 2282.9864,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -3603,6 +3650,9 @@
       "query": "部分商品退掉的话，优惠券那部分怎么算退款？",
       "expected_intent": "refund",
       "predicted_intent": "refund",
+      "ungated_top1_intent": "refund",
+      "ungated_top1_score": 0.86415,
+      "ungated_margin": 0.067837,
       "expected_group": "billing",
       "predicted_group": "billing",
       "expected_entities": {},
@@ -3637,7 +3687,7 @@
         }
       ],
       "margin": 0.067837,
-      "latency_ms": 52.7439,
+      "latency_ms": 2292.6969,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -3832,6 +3882,9 @@
       "query": "昨天申请的返款为什么还在审核中？",
       "expected_intent": "refund",
       "predicted_intent": "other",
+      "ungated_top1_intent": "refund",
+      "ungated_top1_score": 0.923234,
+      "ungated_margin": 0.035113,
       "expected_group": "billing",
       "predicted_group": "other",
       "expected_entities": {
@@ -3872,7 +3925,7 @@
         }
       ],
       "margin": 0.035113,
-      "latency_ms": 48.3224,
+      "latency_ms": 2138.0964,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -4067,6 +4120,9 @@
       "query": "电子发票在哪里下载？",
       "expected_intent": "invoice",
       "predicted_intent": "invoice",
+      "ungated_top1_intent": "invoice",
+      "ungated_top1_score": 0.897595,
+      "ungated_margin": 0.07128,
       "expected_group": "billing",
       "predicted_group": "billing",
       "expected_entities": {},
@@ -4101,7 +4157,7 @@
         }
       ],
       "margin": 0.07128,
-      "latency_ms": 49.7627,
+      "latency_ms": 2210.0918,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -4296,6 +4352,9 @@
       "query": "公司抬头写错了，已经开的票还能改吗？",
       "expected_intent": "invoice",
       "predicted_intent": "other",
+      "ungated_top1_intent": "invoice",
+      "ungated_top1_score": 0.85639,
+      "ungated_margin": 0.029885,
       "expected_group": "billing",
       "predicted_group": "other",
       "expected_entities": {},
@@ -4330,7 +4389,7 @@
         }
       ],
       "margin": 0.029885,
-      "latency_ms": 49.0806,
+      "latency_ms": 2177.4389,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -4525,6 +4584,9 @@
       "query": "税号填错了要怎么重新开发票",
       "expected_intent": "invoice",
       "predicted_intent": "other",
+      "ungated_top1_intent": "invoice",
+      "ungated_top1_score": 0.876898,
+      "ungated_margin": 0.047535,
       "expected_group": "billing",
       "predicted_group": "other",
       "expected_entities": {},
@@ -4559,7 +4621,7 @@
         }
       ],
       "margin": 0.047535,
-      "latency_ms": 55.6222,
+      "latency_ms": 2106.9339,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -4754,6 +4816,9 @@
       "query": "订单 INV8899 能帮我开企业发票吗",
       "expected_intent": "invoice",
       "predicted_intent": "invoice",
+      "ungated_top1_intent": "invoice",
+      "ungated_top1_score": 0.865671,
+      "ungated_margin": 0.057386,
       "expected_group": "billing",
       "predicted_group": "billing",
       "expected_entities": {
@@ -4794,7 +4859,7 @@
         }
       ],
       "margin": 0.057386,
-      "latency_ms": 49.2388,
+      "latency_ms": 2391.6876,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -4989,6 +5054,9 @@
       "query": "怎么同一笔订单扣了我两次 299 元？",
       "expected_intent": "payment_issue",
       "predicted_intent": "other",
+      "ungated_top1_intent": "payment_issue",
+      "ungated_top1_score": 0.902995,
+      "ungated_margin": 0.036902,
       "expected_group": "billing",
       "predicted_group": "other",
       "expected_entities": {
@@ -5029,7 +5097,7 @@
         }
       ],
       "margin": 0.036902,
-      "latency_ms": 47.9935,
+      "latency_ms": 1836.2649,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -5224,6 +5292,9 @@
       "query": "支付一直失败，换了卡也不行",
       "expected_intent": "payment_issue",
       "predicted_intent": "other",
+      "ungated_top1_intent": "payment_issue",
+      "ungated_top1_score": 0.906434,
+      "ungated_margin": 0.046429,
       "expected_group": "billing",
       "predicted_group": "other",
       "expected_entities": {},
@@ -5258,7 +5329,7 @@
         }
       ],
       "margin": 0.046429,
-      "latency_ms": 51.146,
+      "latency_ms": 1898.8085,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -5453,6 +5524,9 @@
       "query": "银行显示扣款了，但订单还提示待支付",
       "expected_intent": "payment_issue",
       "predicted_intent": "other",
+      "ungated_top1_intent": "payment_issue",
+      "ungated_top1_score": 0.8869,
+      "ungated_margin": 0.021986,
       "expected_group": "billing",
       "predicted_group": "other",
       "expected_entities": {},
@@ -5487,7 +5561,7 @@
         }
       ],
       "margin": 0.021986,
-      "latency_ms": 51.4437,
+      "latency_ms": 1942.5377,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -5682,6 +5756,9 @@
       "query": "PAY_5001 是什么情况？刚付款就报这个",
       "expected_intent": "payment_issue",
       "predicted_intent": "other",
+      "ungated_top1_intent": "payment_issue",
+      "ungated_top1_score": 0.819691,
+      "ungated_margin": 0.01641,
       "expected_group": "billing",
       "predicted_group": "other",
       "expected_entities": {
@@ -5720,7 +5797,7 @@
         }
       ],
       "margin": 0.01641,
-      "latency_ms": 53.514,
+      "latency_ms": 1853.4982,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -5915,6 +5992,9 @@
       "query": "我看到两条扣款记录，其中一笔是不是预授权？",
       "expected_intent": "payment_issue",
       "predicted_intent": "other",
+      "ungated_top1_intent": "payment_issue",
+      "ungated_top1_score": 0.892277,
+      "ungated_margin": 0.030762,
       "expected_group": "billing",
       "predicted_group": "other",
       "expected_entities": {},
@@ -5949,7 +6029,7 @@
         }
       ],
       "margin": 0.030762,
-      "latency_ms": 50.2909,
+      "latency_ms": 1861.7852,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -6144,6 +6224,9 @@
       "query": "订单 ABCD7788 实际应该是 199 元，为什么收了我 219 元",
       "expected_intent": "payment_issue",
       "predicted_intent": "other",
+      "ungated_top1_intent": "billing",
+      "ungated_top1_score": 0.852937,
+      "ungated_margin": 0.021353,
       "expected_group": "billing",
       "predicted_group": "other",
       "expected_entities": {
@@ -6191,7 +6274,7 @@
         }
       ],
       "margin": 0.021353,
-      "latency_ms": 52.2598,
+      "latency_ms": 1828.9687,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -6386,6 +6469,9 @@
       "query": "刚收到提醒说有人在别的城市登录我的账号",
       "expected_intent": "account_security",
       "predicted_intent": "account_security",
+      "ungated_top1_intent": "account_security",
+      "ungated_top1_score": 0.909341,
+      "ungated_margin": 0.059329,
       "expected_group": "account",
       "predicted_group": "account",
       "expected_entities": {},
@@ -6420,7 +6506,7 @@
         }
       ],
       "margin": 0.059329,
-      "latency_ms": 48.6469,
+      "latency_ms": 1850.4886,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -6615,6 +6701,9 @@
       "query": "我怀疑账号被盗了，邮箱也被别人改了",
       "expected_intent": "account_security",
       "predicted_intent": "other",
+      "ungated_top1_intent": "account_security",
+      "ungated_top1_score": 0.902942,
+      "ungated_margin": 0.049263,
       "expected_group": "account",
       "predicted_group": "other",
       "expected_entities": {},
@@ -6649,7 +6738,7 @@
         }
       ],
       "margin": 0.049263,
-      "latency_ms": 49.3302,
+      "latency_ms": 1900.4568,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -6844,6 +6933,9 @@
       "query": "怎么把所有陌生设备踢下线？",
       "expected_intent": "account_security",
       "predicted_intent": "other",
+      "ungated_top1_intent": "account_security",
+      "ungated_top1_score": 0.815821,
+      "ungated_margin": 0.024138,
       "expected_group": "account",
       "predicted_group": "other",
       "expected_entities": {},
@@ -6878,7 +6970,7 @@
         }
       ],
       "margin": 0.024138,
-      "latency_ms": 50.7013,
+      "latency_ms": 1821.5594,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -7073,6 +7165,9 @@
       "query": "两步验证设备丢了，我现在担心别人进我的号",
       "expected_intent": "account_security",
       "predicted_intent": "other",
+      "ungated_top1_intent": "account_security",
+      "ungated_top1_score": 0.895138,
+      "ungated_margin": 0.01787,
       "expected_group": "account",
       "predicted_group": "other",
       "expected_entities": {},
@@ -7107,7 +7202,7 @@
         }
       ],
       "margin": 0.01787,
-      "latency_ms": 50.073,
+      "latency_ms": 1740.5686,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -7302,6 +7397,9 @@
       "query": "这笔付款不是我操作的，而且账号刚有异常登录",
       "expected_intent": "account_security",
       "predicted_intent": "other",
+      "ungated_top1_intent": "payment_issue",
+      "ungated_top1_score": 0.901613,
+      "ungated_margin": 0.009268,
       "expected_group": "account",
       "predicted_group": "other",
       "expected_entities": {},
@@ -7336,7 +7434,7 @@
         }
       ],
       "margin": 0.009268,
-      "latency_ms": 47.6926,
+      "latency_ms": 2007.3835,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -7531,6 +7629,9 @@
       "query": "登录一直报 401，重新打开也不行",
       "expected_intent": "technical_login",
       "predicted_intent": "technical_login",
+      "ungated_top1_intent": "technical_login",
+      "ungated_top1_score": 0.900225,
+      "ungated_margin": 0.059356,
       "expected_group": "technical",
       "predicted_group": "technical",
       "expected_entities": {
@@ -7571,7 +7672,7 @@
         }
       ],
       "margin": 0.059356,
-      "latency_ms": 48.6291,
+      "latency_ms": 2086.8224,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -7766,6 +7867,9 @@
       "query": "验证码一直收不到，所以进不去账号",
       "expected_intent": "technical_login",
       "predicted_intent": "technical_login",
+      "ungated_top1_intent": "technical_login",
+      "ungated_top1_score": 0.92608,
+      "ungated_margin": 0.082476,
       "expected_group": "technical",
       "predicted_group": "technical",
       "expected_entities": {},
@@ -7800,7 +7904,7 @@
         }
       ],
       "margin": 0.082476,
-      "latency_ms": 48.8993,
+      "latency_ms": 2107.6162,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -7995,6 +8099,9 @@
       "query": "密码明明没错，为什么一直提示无法登录？",
       "expected_intent": "technical_login",
       "predicted_intent": "technical_login",
+      "ungated_top1_intent": "technical_login",
+      "ungated_top1_score": 0.941494,
+      "ungated_margin": 0.089292,
       "expected_group": "technical",
       "predicted_group": "technical",
       "expected_entities": {},
@@ -8029,7 +8136,7 @@
         }
       ],
       "margin": 0.089292,
-      "latency_ms": 48.6971,
+      "latency_ms": 2192.8053,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -8224,6 +8331,9 @@
       "query": "AUTH_4011 一直出现，是不是 token 过期了？",
       "expected_intent": "technical_login",
       "predicted_intent": "other",
+      "ungated_top1_intent": "technical_login",
+      "ungated_top1_score": 0.836833,
+      "ungated_margin": 0.034368,
       "expected_group": "technical",
       "predicted_group": "other",
       "expected_entities": {
@@ -8262,7 +8372,7 @@
         }
       ],
       "margin": 0.034368,
-      "latency_ms": 50.4043,
+      "latency_ms": 2152.4863,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -8457,6 +8567,9 @@
       "query": "刚才还能用，现在突然把我登出了，再登录就失败",
       "expected_intent": "technical_login",
       "predicted_intent": "technical_login",
+      "ungated_top1_intent": "technical_login",
+      "ungated_top1_score": 0.9135,
+      "ungated_margin": 0.054198,
       "expected_group": "technical",
       "predicted_group": "technical",
       "expected_entities": {},
@@ -8491,7 +8604,7 @@
         }
       ],
       "margin": 0.054198,
-      "latency_ms": 51.3755,
+      "latency_ms": 2039.4885,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -8686,6 +8799,9 @@
       "query": "刚才那个还是不行，我还是进不去",
       "expected_intent": "technical_login",
       "predicted_intent": "technical_login",
+      "ungated_top1_intent": "technical_login",
+      "ungated_top1_score": 0.911679,
+      "ungated_margin": 0.077353,
       "expected_group": "technical",
       "predicted_group": "technical",
       "expected_entities": {},
@@ -8720,7 +8836,7 @@
         }
       ],
       "margin": 0.077353,
-      "latency_ms": 52.3633,
+      "latency_ms": 2276.7326,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -8915,6 +9031,9 @@
       "query": "App一打开就闪退",
       "expected_intent": "technical_crash",
       "predicted_intent": "technical_crash",
+      "ungated_top1_intent": "technical_crash",
+      "ungated_top1_score": 0.90051,
+      "ungated_margin": 0.068359,
       "expected_group": "technical",
       "predicted_group": "technical",
       "expected_entities": {},
@@ -8949,7 +9068,7 @@
         }
       ],
       "margin": 0.068359,
-      "latency_ms": 47.5456,
+      "latency_ms": 2111.9885,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -9144,6 +9263,9 @@
       "query": "页面一直返回 500，刷新也没用",
       "expected_intent": "technical_crash",
       "predicted_intent": "other",
+      "ungated_top1_intent": "technical_login",
+      "ungated_top1_score": 0.839772,
+      "ungated_margin": 0.011144,
       "expected_group": "technical",
       "predicted_group": "other",
       "expected_entities": {
@@ -9184,7 +9306,7 @@
         }
       ],
       "margin": 0.011144,
-      "latency_ms": 48.4602,
+      "latency_ms": 2311.1243,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -9379,6 +9501,9 @@
       "query": "系统卡死后直接崩了，已经出现三次",
       "expected_intent": "technical_crash",
       "predicted_intent": "other",
+      "ungated_top1_intent": "technical_crash",
+      "ungated_top1_score": 0.831118,
+      "ungated_margin": 0.002015,
       "expected_group": "technical",
       "predicted_group": "other",
       "expected_entities": {},
@@ -9413,7 +9538,7 @@
         }
       ],
       "margin": 0.002015,
-      "latency_ms": 50.3089,
+      "latency_ms": 2506.0682,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -9608,6 +9733,9 @@
       "query": "接口连续报 503，我这边业务完全跑不起来",
       "expected_intent": "technical_crash",
       "predicted_intent": "other",
+      "ungated_top1_intent": "technical",
+      "ungated_top1_score": 0.846272,
+      "ungated_margin": 0.002628,
       "expected_group": "technical",
       "predicted_group": "other",
       "expected_entities": {
@@ -9648,7 +9776,7 @@
         }
       ],
       "margin": 0.002628,
-      "latency_ms": 50.8448,
+      "latency_ms": 2431.447,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -9843,6 +9971,9 @@
       "query": "昨天升级完客户端以后，打开订单页面就崩溃",
       "expected_intent": "technical_crash",
       "predicted_intent": "other",
+      "ungated_top1_intent": "technical_crash",
+      "ungated_top1_score": 0.857205,
+      "ungated_margin": 0.010636,
       "expected_group": "technical",
       "predicted_group": "other",
       "expected_entities": {
@@ -9883,7 +10014,7 @@
         }
       ],
       "margin": 0.010636,
-      "latency_ms": 48.3525,
+      "latency_ms": 2289.3612,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -10078,6 +10209,9 @@
       "query": "别机器人回了，给我转人工客服",
       "expected_intent": "human_handoff",
       "predicted_intent": "other",
+      "ungated_top1_intent": "human_handoff",
+      "ungated_top1_score": 0.905728,
+      "ungated_margin": 0.049335,
       "expected_group": "escalation",
       "predicted_group": "other",
       "expected_entities": {},
@@ -10112,7 +10246,7 @@
         }
       ],
       "margin": 0.049335,
-      "latency_ms": 47.2449,
+      "latency_ms": 2176.6755,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -10307,6 +10441,9 @@
       "query": "我要找真人处理这个问题",
       "expected_intent": "human_handoff",
       "predicted_intent": "other",
+      "ungated_top1_intent": "human_handoff",
+      "ungated_top1_score": 0.924968,
+      "ungated_margin": 0.038737,
       "expected_group": "escalation",
       "predicted_group": "other",
       "expected_entities": {},
@@ -10341,7 +10478,7 @@
         }
       ],
       "margin": 0.038737,
-      "latency_ms": 49.2825,
+      "latency_ms": 2284.2191,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -10536,6 +10673,9 @@
       "query": "麻烦升级给人工，我不想继续自助排查",
       "expected_intent": "human_handoff",
       "predicted_intent": "other",
+      "ungated_top1_intent": "human_handoff",
+      "ungated_top1_score": 0.876137,
+      "ungated_margin": 0.017769,
       "expected_group": "escalation",
       "predicted_group": "other",
       "expected_entities": {},
@@ -10570,7 +10710,7 @@
         }
       ],
       "margin": 0.017769,
-      "latency_ms": 50.8475,
+      "latency_ms": 2268.0333,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -10765,6 +10905,9 @@
       "query": "请帮我接人工客服，谢谢",
       "expected_intent": "human_handoff",
       "predicted_intent": "other",
+      "ungated_top1_intent": "human_handoff",
+      "ungated_top1_score": 0.920198,
+      "ungated_margin": 0.037809,
       "expected_group": "escalation",
       "predicted_group": "other",
       "expected_entities": {},
@@ -10799,7 +10942,7 @@
         }
       ],
       "margin": 0.037809,
-      "latency_ms": 55.9746,
+      "latency_ms": 2234.4698,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -10994,6 +11137,9 @@
       "query": "会员等级一共有几档？",
       "expected_intent": "query",
       "predicted_intent": "other",
+      "ungated_top1_intent": "account",
+      "ungated_top1_score": 0.766057,
+      "ungated_margin": 0.007631,
       "expected_group": "query",
       "predicted_group": "other",
       "expected_entities": {},
@@ -11028,7 +11174,7 @@
         }
       ],
       "margin": 0.007631,
-      "latency_ms": 53.7579,
+      "latency_ms": 2229.2097,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -11223,6 +11369,9 @@
       "query": "你们支持哪些支付方式？",
       "expected_intent": "query",
       "predicted_intent": "other",
+      "ungated_top1_intent": "billing",
+      "ungated_top1_score": 0.828624,
+      "ungated_margin": 0.023333,
       "expected_group": "query",
       "predicted_group": "other",
       "expected_entities": {},
@@ -11257,7 +11406,7 @@
         }
       ],
       "margin": 0.023333,
-      "latency_ms": 48.6699,
+      "latency_ms": 2099.4657,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -11452,6 +11601,9 @@
       "query": "客服一般几点可以联系？",
       "expected_intent": "query",
       "predicted_intent": "other",
+      "ungated_top1_intent": "greeting",
+      "ungated_top1_score": 0.86485,
+      "ungated_margin": 0.001789,
       "expected_group": "query",
       "predicted_group": "other",
       "expected_entities": {},
@@ -11486,7 +11638,7 @@
         }
       ],
       "margin": 0.001789,
-      "latency_ms": 49.8384,
+      "latency_ms": 2141.041,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -11681,6 +11833,9 @@
       "query": "这个服务主要能做什么？",
       "expected_intent": "query",
       "predicted_intent": "other",
+      "ungated_top1_intent": "query",
+      "ungated_top1_score": 0.830496,
+      "ungated_margin": 0.017936,
       "expected_group": "query",
       "predicted_group": "other",
       "expected_entities": {},
@@ -11715,7 +11870,7 @@
         }
       ],
       "margin": 0.017936,
-      "latency_ms": 46.564,
+      "latency_ms": 2143.6325,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -11910,6 +12065,9 @@
       "query": "你们这个服务真的太差了，我已经等很久了",
       "expected_intent": "complaint",
       "predicted_intent": "complaint",
+      "ungated_top1_intent": "complaint",
+      "ungated_top1_score": 0.898873,
+      "ungated_margin": 0.063636,
       "expected_group": "complaint",
       "predicted_group": "complaint",
       "expected_entities": {},
@@ -11944,7 +12102,7 @@
         }
       ],
       "margin": 0.063636,
-      "latency_ms": 48.8572,
+      "latency_ms": 2234.6459,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -12139,6 +12297,9 @@
       "query": "每次联系客服都让我重新说一遍，体验很糟糕",
       "expected_intent": "complaint",
       "predicted_intent": "other",
+      "ungated_top1_intent": "complaint",
+      "ungated_top1_score": 0.861174,
+      "ungated_margin": 0.016745,
       "expected_group": "complaint",
       "predicted_group": "other",
       "expected_entities": {},
@@ -12173,7 +12334,7 @@
         }
       ],
       "margin": 0.016745,
-      "latency_ms": 48.2685,
+      "latency_ms": 2401.2723,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -12368,6 +12529,9 @@
       "query": "处理效率也太低了吧",
       "expected_intent": "complaint",
       "predicted_intent": "other",
+      "ungated_top1_intent": "complaint",
+      "ungated_top1_score": 0.861378,
+      "ungated_margin": 0.025999,
       "expected_group": "complaint",
       "predicted_group": "other",
       "expected_entities": {},
@@ -12402,7 +12566,7 @@
         }
       ],
       "margin": 0.025999,
-      "latency_ms": 47.0985,
+      "latency_ms": 2121.5626,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -12597,6 +12761,9 @@
       "query": "我不是要转人工，就是想说你们这次服务让我很不满意",
       "expected_intent": "complaint",
       "predicted_intent": "other",
+      "ungated_top1_intent": "complaint",
+      "ungated_top1_score": 0.888273,
+      "ungated_margin": 0.016685,
       "expected_group": "complaint",
       "predicted_group": "other",
       "expected_entities": {},
@@ -12631,7 +12798,7 @@
         }
       ],
       "margin": 0.016685,
-      "latency_ms": 49.2274,
+      "latency_ms": 2412.2295,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -12826,6 +12993,9 @@
       "query": "帮我把收货地址改一下",
       "expected_intent": "request",
       "predicted_intent": "other",
+      "ungated_top1_intent": "request",
+      "ungated_top1_score": 0.866389,
+      "ungated_margin": 0.003765,
       "expected_group": "request",
       "predicted_group": "other",
       "expected_entities": {},
@@ -12860,7 +13030,7 @@
         }
       ],
       "margin": 0.003765,
-      "latency_ms": 46.5377,
+      "latency_ms": 2340.3,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -13055,6 +13225,9 @@
       "query": "麻烦帮我更新一下联系方式",
       "expected_intent": "request",
       "predicted_intent": "other",
+      "ungated_top1_intent": "request",
+      "ungated_top1_score": 0.895142,
+      "ungated_margin": 0.016157,
       "expected_group": "request",
       "predicted_group": "other",
       "expected_entities": {},
@@ -13089,7 +13262,7 @@
         }
       ],
       "margin": 0.016157,
-      "latency_ms": 46.1429,
+      "latency_ms": 2260.8955,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -13284,6 +13457,9 @@
       "query": "可以帮我重新发送一次通知邮件吗？",
       "expected_intent": "request",
       "predicted_intent": "other",
+      "ungated_top1_intent": "request",
+      "ungated_top1_score": 0.857323,
+      "ungated_margin": 0.007943,
       "expected_group": "request",
       "predicted_group": "other",
       "expected_entities": {},
@@ -13318,7 +13494,7 @@
         }
       ],
       "margin": 0.007943,
-      "latency_ms": 48.0014,
+      "latency_ms": 2337.2718,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -13513,6 +13689,9 @@
       "query": "请帮我把这个问题记录下来",
       "expected_intent": "request",
       "predicted_intent": "other",
+      "ungated_top1_intent": "request",
+      "ungated_top1_score": 0.87788,
+      "ungated_margin": 0.008919,
       "expected_group": "request",
       "predicted_group": "other",
       "expected_entities": {},
@@ -13547,7 +13726,7 @@
         }
       ],
       "margin": 0.008919,
-      "latency_ms": 48.1118,
+      "latency_ms": 2238.377,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -13742,6 +13921,9 @@
       "query": "你好，在吗？",
       "expected_intent": "greeting",
       "predicted_intent": "greeting",
+      "ungated_top1_intent": "greeting",
+      "ungated_top1_score": 0.882249,
+      "ungated_margin": 0.064638,
       "expected_group": "greeting",
       "predicted_group": "greeting",
       "expected_entities": {},
@@ -13776,7 +13958,7 @@
         }
       ],
       "margin": 0.064638,
-      "latency_ms": 47.2858,
+      "latency_ms": 2161.8818,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -13971,6 +14153,9 @@
       "query": "早上好呀",
       "expected_intent": "greeting",
       "predicted_intent": "greeting",
+      "ungated_top1_intent": "greeting",
+      "ungated_top1_score": 0.889341,
+      "ungated_margin": 0.072931,
       "expected_group": "greeting",
       "predicted_group": "greeting",
       "expected_entities": {},
@@ -14005,7 +14190,7 @@
         }
       ],
       "margin": 0.072931,
-      "latency_ms": 46.5228,
+      "latency_ms": 1983.9649,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -14200,6 +14385,9 @@
       "query": "hi～第一次来用",
       "expected_intent": "greeting",
       "predicted_intent": "other",
+      "ungated_top1_intent": "greeting",
+      "ungated_top1_score": 0.87098,
+      "ungated_margin": 0.039337,
       "expected_group": "greeting",
       "predicted_group": "other",
       "expected_entities": {},
@@ -14234,7 +14422,7 @@
         }
       ],
       "margin": 0.039337,
-      "latency_ms": 48.8324,
+      "latency_ms": 1689.3966,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -14429,6 +14617,9 @@
       "query": "这个问题我要正式投诉，请升级处理",
       "expected_intent": "escalation",
       "predicted_intent": "other",
+      "ungated_top1_intent": "escalation",
+      "ungated_top1_score": 0.913206,
+      "ungated_margin": 0.03169,
       "expected_group": "escalation",
       "predicted_group": "other",
       "expected_entities": {},
@@ -14463,7 +14654,7 @@
         }
       ],
       "margin": 0.03169,
-      "latency_ms": 46.2822,
+      "latency_ms": 1812.1973,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -14658,6 +14849,9 @@
       "query": "我要找你们主管处理这次服务投诉",
       "expected_intent": "escalation",
       "predicted_intent": "other",
+      "ungated_top1_intent": "human_handoff",
+      "ungated_top1_score": 0.907311,
+      "ungated_margin": 0.001333,
       "expected_group": "escalation",
       "predicted_group": "other",
       "expected_entities": {},
@@ -14692,7 +14886,7 @@
         }
       ],
       "margin": 0.001333,
-      "latency_ms": 49.0722,
+      "latency_ms": 1604.6364,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -14887,6 +15081,9 @@
       "query": "普通客服解决不了，我要求升级到更高一级处理",
       "expected_intent": "escalation",
       "predicted_intent": "other",
+      "ungated_top1_intent": "escalation",
+      "ungated_top1_score": 0.910144,
+      "ungated_margin": 0.035513,
       "expected_group": "escalation",
       "predicted_group": "other",
       "expected_entities": {},
@@ -14921,7 +15118,7 @@
         }
       ],
       "margin": 0.035513,
-      "latency_ms": 49.4609,
+      "latency_ms": 1563.7637,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -15116,6 +15313,9 @@
       "query": "我要修改账户绑定的邮箱",
       "expected_intent": "account",
       "predicted_intent": "account",
+      "ungated_top1_intent": "account",
+      "ungated_top1_score": 0.908917,
+      "ungated_margin": 0.057354,
       "expected_group": "account",
       "predicted_group": "account",
       "expected_entities": {},
@@ -15150,7 +15350,7 @@
         }
       ],
       "margin": 0.057354,
-      "latency_ms": 50.1035,
+      "latency_ms": 1792.1923,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -15345,6 +15545,9 @@
       "query": "怎么注销我的账户？",
       "expected_intent": "account",
       "predicted_intent": "other",
+      "ungated_top1_intent": "account",
+      "ungated_top1_score": 0.875164,
+      "ungated_margin": 0.027036,
       "expected_group": "account",
       "predicted_group": "other",
       "expected_entities": {},
@@ -15379,7 +15582,7 @@
         }
       ],
       "margin": 0.027036,
-      "latency_ms": 53.9248,
+      "latency_ms": 1793.982,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -15574,6 +15777,9 @@
       "query": "个人资料里的手机号想换一个",
       "expected_intent": "account",
       "predicted_intent": "other",
+      "ungated_top1_intent": "account",
+      "ungated_top1_score": 0.90229,
+      "ungated_margin": 0.041074,
       "expected_group": "account",
       "predicted_group": "other",
       "expected_entities": {},
@@ -15608,7 +15814,7 @@
         }
       ],
       "margin": 0.041074,
-      "latency_ms": 52.0682,
+      "latency_ms": 1888.9863,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -15803,6 +16009,9 @@
       "query": "这次处理得挺快的，给你们点个赞",
       "expected_intent": "feedback",
       "predicted_intent": "other",
+      "ungated_top1_intent": "feedback",
+      "ungated_top1_score": 0.887316,
+      "ungated_margin": 0.029713,
       "expected_group": "feedback",
       "predicted_group": "other",
       "expected_entities": {},
@@ -15837,7 +16046,7 @@
         }
       ],
       "margin": 0.029713,
-      "latency_ms": 48.5538,
+      "latency_ms": 1892.4217,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -16032,6 +16241,9 @@
       "query": "问题解决了，谢谢，体验不错",
       "expected_intent": "feedback",
       "predicted_intent": "other",
+      "ungated_top1_intent": "feedback",
+      "ungated_top1_score": 0.888639,
+      "ungated_margin": 0.036211,
       "expected_group": "feedback",
       "predicted_group": "other",
       "expected_entities": {},
@@ -16066,7 +16278,7 @@
         }
       ],
       "margin": 0.036211,
-      "latency_ms": 49.8903,
+      "latency_ms": 1762.4728,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -16261,6 +16473,9 @@
       "query": "这个功能做得很好用",
       "expected_intent": "feedback",
       "predicted_intent": "feedback",
+      "ungated_top1_intent": "feedback",
+      "ungated_top1_score": 0.895641,
+      "ungated_margin": 0.055032,
       "expected_group": "feedback",
       "predicted_group": "feedback",
       "expected_entities": {},
@@ -16295,7 +16510,7 @@
         }
       ],
       "margin": 0.055032,
-      "latency_ms": 48.452,
+      "latency_ms": 1579.324,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -16490,6 +16705,9 @@
       "query": "给我讲个关于月亮的冷笑话",
       "expected_intent": "other",
       "predicted_intent": "other",
+      "ungated_top1_intent": "technical",
+      "ungated_top1_score": 0.722629,
+      "ungated_margin": 0.004323,
       "expected_group": "other",
       "predicted_group": "other",
       "expected_entities": {},
@@ -16524,7 +16742,7 @@
         }
       ],
       "margin": 0.004323,
-      "latency_ms": 48.5787,
+      "latency_ms": 1035.1156,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -16719,6 +16937,9 @@
       "query": "帮我证明一下勾股定理",
       "expected_intent": "other",
       "predicted_intent": "other",
+      "ungated_top1_intent": "request",
+      "ungated_top1_score": 0.769342,
+      "ungated_margin": 0.00895,
       "expected_group": "other",
       "predicted_group": "other",
       "expected_entities": {},
@@ -16753,7 +16974,7 @@
         }
       ],
       "margin": 0.00895,
-      "latency_ms": 52.2063,
+      "latency_ms": 943.58,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -16948,6 +17169,9 @@
       "query": "有个功能不太正常，但没有报错，我想让技术支持帮我看看",
       "expected_intent": "technical",
       "predicted_intent": "other",
+      "ungated_top1_intent": "technical",
+      "ungated_top1_score": 0.869212,
+      "ungated_margin": 0.032054,
       "expected_group": "technical",
       "predicted_group": "other",
       "expected_entities": {},
@@ -16982,7 +17206,7 @@
         }
       ],
       "margin": 0.032054,
-      "latency_ms": 56.1349,
+      "latency_ms": 939.0807,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -17177,6 +17401,9 @@
       "query": "这是个技术问题，不过我现在还说不清具体是哪一步出错",
       "expected_intent": "technical",
       "predicted_intent": "other",
+      "ungated_top1_intent": "technical",
+      "ungated_top1_score": 0.856889,
+      "ungated_margin": 0.017562,
       "expected_group": "technical",
       "predicted_group": "other",
       "expected_entities": {},
@@ -17211,7 +17438,7 @@
         }
       ],
       "margin": 0.017562,
-      "latency_ms": 53.2098,
+      "latency_ms": 863.0883,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -17406,6 +17633,9 @@
       "query": "我想核对一下这个月的账单明细，不是退款也不是支付失败",
       "expected_intent": "billing",
       "predicted_intent": "other",
+      "ungated_top1_intent": "billing",
+      "ungated_top1_score": 0.899456,
+      "ungated_margin": 0.024165,
       "expected_group": "billing",
       "predicted_group": "other",
       "expected_entities": {},
@@ -17440,7 +17670,7 @@
         }
       ],
       "margin": 0.024165,
-      "latency_ms": 51.9816,
+      "latency_ms": 638.8732,
       "source_scores": {
         "llm": {
           "intent": null,
@@ -17635,6 +17865,9 @@
       "query": "账单这块我有疑问，想先看看费用是怎么计算的",
       "expected_intent": "billing",
       "predicted_intent": "billing",
+      "ungated_top1_intent": "billing",
+      "ungated_top1_score": 0.895122,
+      "ungated_margin": 0.055797,
       "expected_group": "billing",
       "predicted_group": "billing",
       "expected_entities": {},
@@ -17669,7 +17902,7 @@
         }
       ],
       "margin": 0.055797,
-      "latency_ms": 50.6619,
+      "latency_ms": 611.3064,
       "source_scores": {
         "llm": {
           "intent": null,

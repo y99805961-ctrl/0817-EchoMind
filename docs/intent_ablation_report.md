@@ -8,29 +8,50 @@ check found `0` copied benchmark queries. The template set contains 19 intents
 and 132 templates: six for each broad category and eight for each fine-grained
 category.
 
+## Runtime and LLM smoke
+
+The evaluation used the project `.venv` with Python 3.11.9. `.env` is ignored by
+Git (`git check-ignore .env` passed) and the full API key is never written to
+logs, results, or source. The safe configuration check reported:
+
+```text
+base_url: https://api.deepseek.com/anthropic
+model: deepseek-v4-pro
+api_key_loaded: true
+LLM smoke: PASS
+```
+
+The smoke input was `你好`. The DeepSeek-compatible endpoint returned a valid
+response. The classifier uses `temperature=0.0`, `max_tokens=4096`, and one
+compact JSON-only retry only when a response ends without a parseable JSON
+object; no intent is inferred from non-JSON prose.
+
 ## Ablation results
 
-All values below come from `data/eval/results/intent/ablation.json`. `NOT_RUN`
-means the required source was unavailable or failed; it is not a zero score.
+All values below come from `data/eval/results/intent/ablation.json`. Every row
+is `OK` over all 76 frozen cases. `Accuracy` is the gated accuracy; the BGE row
+also reports the gate-free ranking diagnostic requested by the calibration
+experiment.
 
-| Method | Accuracy | Macro-F1 | Entity F1 | Mean latency | P95 latency |
-| --- | ---: | ---: | ---: | ---: | ---: |
-| Rules Only | 0.486842 | 0.506536 | 0.941176 | 0.064459 ms | 0.058000 ms |
-| BGE-M3 Only | 0.328947 | 0.371850 | 0.941176 | 210.832989 ms | 59.282500 ms |
-| LLM Only | NOT_RUN | NOT_RUN | NOT_RUN | NOT_RUN | NOT_RUN |
-| LLM + BGE-M3 | NOT_RUN | NOT_RUN | NOT_RUN | NOT_RUN | NOT_RUN |
-| LLM + BGE-M3 + Rules | NOT_RUN | NOT_RUN | NOT_RUN | NOT_RUN | NOT_RUN |
+| Method | Gated Accuracy | Macro-F1 | Ungated Top1 | Other rejection | Entity F1 | Mean latency | P95 latency |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| Rules Only | 0.486842 | 0.506536 | 0.500000 | 32 | 0.941176 | 0.073317 ms | 0.058800 ms |
+| BGE-M3 Only | 0.328947 | 0.371850 | 0.855263 | 53 | 0.941176 | 3533.617949 ms | 4265.229200 ms |
+| LLM Only | 0.921053 | 0.896157 | 0.921053 | 1 | 0.941176 | 5982.555441 ms | 13197.182200 ms |
+| LLM + BGE-M3 | 0.934211 | 0.916040 | 0.934211 | 1 | 0.941176 | 4589.739399 ms | 8364.675400 ms |
+| LLM + BGE-M3 + Rules | 0.907895 | 0.890097 | 0.907895 | 1 | 0.941176 | 4994.558234 ms | 10385.292000 ms |
 
-Both the rules-only and BGE-M3-only runs are genuine executions of all 76
-cases. Entity micro scores were precision `1.000000`, recall `0.888889`, and
-F1 `0.941176`; field-level results are retained in the detailed JSON files.
+All five rows are genuine executions of all 76 cases. Entity micro scores were
+precision `1.000000`, recall `0.888889`, and F1 `0.941176`; field-level results
+are retained in the detailed JSON files. The LLM-containing rows are real
+endpoint results, not deterministic fakes.
 BGE-M3 loaded locally on CPU with 1024-dimensional vectors. For the required
 sanity query, `钱什么时候退回来` had cosine `0.779918` to a refund template
 versus `0.513805` to a technical-crash template.
 
-The configured DeepSeek-compatible LLM endpoint failed the single allowed
-smoke test with HTTP 401, so all LLM-containing rows remain `NOT_RUN` and no
-additional unauthenticated benchmark requests were sent.
+The `0.45 / 0.35 / 0.20` LLM/embedding/rules weights were used only as the
+baseline requested for this run. They are not declared the final best
+parameters, and no weight or production calibration change was made.
 
 ## What the results show
 
@@ -42,8 +63,9 @@ additional unauthenticated benchmark requests were sent.
   `payment_issue -> other` (4), `query -> other` (4), and
   `technical_login -> other` (4). These are the cases where BGE-M3 and an
   available LLM are intended to add coverage.
-- No claim is made that the three-way pipeline improves over either component
-  until a working LLM endpoint is supplied.
+- On this baseline run, LLM-only and LLM+BGE outperform the three-way result;
+  this is an observation for later weight analysis, not a final parameter
+  selection.
 
 ## Threshold search
 
@@ -94,23 +116,19 @@ samples:       76
 ```
 
 Every calibration case also stores `raw_cosine_scores` and the selected raw
-template matches for diagnosis. No final three-way weight was changed pending
-the LLM credential fix.
+template matches for diagnosis. The calibration variants remain exploratory;
+no final three-way weight or production calibration was changed.
 
 ## Routing benchmark
 
-The final three-way routing benchmark is `NOT_RUN` because the LLM smoke test
-failed with HTTP 401. The old rules-only 1.0/1.0/1.0 result is not used as a
-final-system score. A separate real BGE-M3-only component run through the
-existing `AgentOrchestrator` produced:
+The final routing run used `llm_embedding_rules` for all 12 cases and completed
+with status `OK`. It did not use rules-only or BGE-only substitution:
 
 ```text
-Primary Routing Accuracy: 0.166667
-Supporting Recall:        0.625000
-Exact Match:              0.166667
+Primary Routing Accuracy: 0.666667
+Supporting Recall:        0.500000
+Exact Match:              0.666667
 ```
-
-Final three-way routing: `NOT_RUN` pending valid LLM credentials.
 
 The changes were limited to compound-case scoring: technical login evidence
 can take primary position over the existing account-security billing mapping,
@@ -129,15 +147,16 @@ margin threshold:     0.05
 embedding top_n:      3
 ```
 
-These are configurable starting values, not empirically final values. BGE-M3
-is installed and validated; the LLM credential still needs correction before
-the complete three-way system can be selected and compared.
+These are baseline values for this run, not empirically final values. The
+calibration search remains exploratory, and the observed ablation differences
+do not authorize selecting a new production weight without a separate
+development-set decision.
 
 ## FastAPI smoke
 
 The full FastAPI lifespan passed with ChromaDB installed and returned `/health`
 200. Five `/chat` compatibility cases also returned 200 with expected routing
 for greeting, refund, payment issue, technical login, and human handoff. Those
-endpoint requests used deterministic in-process LLM/agent fakes specifically to
-avoid retrying the known invalid external credential; they validate the main
-chain contract, not external LLM quality.
+endpoint requests used deterministic in-process LLM/agent fakes to validate the
+main chain contract; the ablation and routing numbers above are the separate
+real external-LLM results.

@@ -138,30 +138,54 @@ async def evaluate_intent(
     latencies: List[float] = []
     required_sources = recognizer._active_sources
     unavailable: Counter[str] = Counter()
-    for case in benchmark:
-        started = time.perf_counter()
-        result = await recognizer.recognize(case["query"], history=case.get("history"))
-        latency_ms = (time.perf_counter() - started) * 1000
+    concurrency = min(10, max(1, int(os.getenv("INTENT_EVAL_CONCURRENCY", "10"))))
+    semaphore = asyncio.Semaphore(concurrency)
+
+    # Warm template embeddings once before concurrent query requests. This
+    # avoids duplicate template work when BGE is active and keeps online
+    # latency samples focused on each benchmark query.
+    if "embedding" in required_sources:
+        await recognizer._load_template_embeddings()
+
+    async def evaluate_case(case: Dict[str, Any]) -> Tuple[Dict[str, Any], float, Counter[str]]:
+        async with semaphore:
+            started = time.perf_counter()
+            result = await recognizer.recognize(case["query"], history=case.get("history"))
+            latency_ms = (time.perf_counter() - started) * 1000
+            case_unavailable: Counter[str] = Counter()
+            for source in required_sources:
+                status = result.source_scores.get(source, {}).get("status", "disabled")
+                if status != "ok":
+                    case_unavailable[f"{source}:{status}"] += 1
+            row = {
+                "id": case.get("id"),
+                "query": case["query"],
+                "expected_intent": case["expected_intent"],
+                "predicted_intent": result.intent.value,
+                "ungated_top1_intent": (
+                    result.top_candidates[0]["intent"]
+                    if result.top_candidates
+                    else result.intent.value
+                ),
+                "ungated_top1_score": result.top1_score,
+                "ungated_margin": result.margin,
+                "expected_group": case.get("expected_group"),
+                "predicted_group": result.intent_group,
+                "expected_entities": case.get("entities", {}),
+                "predicted_entities": result.entities,
+                "confidence": result.confidence,
+                "top_candidates": result.top_candidates,
+                "margin": result.margin,
+                "latency_ms": round(latency_ms, 6),
+                "source_scores": result.source_scores,
+            }
+            return row, latency_ms, case_unavailable
+
+    evaluated = await asyncio.gather(*(evaluate_case(case) for case in benchmark))
+    for row, latency_ms, case_unavailable in evaluated:
+        rows.append(row)
         latencies.append(latency_ms)
-        for source in required_sources:
-            status = result.source_scores.get(source, {}).get("status", "disabled")
-            if status != "ok":
-                unavailable[f"{source}:{status}"] += 1
-        rows.append({
-            "id": case.get("id"),
-            "query": case["query"],
-            "expected_intent": case["expected_intent"],
-            "predicted_intent": result.intent.value,
-            "expected_group": case.get("expected_group"),
-            "predicted_group": result.intent_group,
-            "expected_entities": case.get("entities", {}),
-            "predicted_entities": result.entities,
-            "confidence": result.confidence,
-            "top_candidates": result.top_candidates,
-            "margin": result.margin,
-            "latency_ms": round(latency_ms, 6),
-            "source_scores": result.source_scores,
-        })
+        unavailable.update(case_unavailable)
 
     if unavailable:
         return {
@@ -179,6 +203,14 @@ async def evaluate_intent(
         [row["expected_intent"] for row in rows],
         [row["predicted_intent"] for row in rows],
     )
+    ungated_predictions = [row["ungated_top1_intent"] for row in rows]
+    ungated_top1_accuracy = (
+        sum(gold == predicted for gold, predicted in zip(
+            [row["expected_intent"] for row in rows],
+            ungated_predictions,
+        )) / len(rows)
+        if rows else 0.0
+    )
     entity = _entity_metrics([
         {"gold": row["expected_entities"], "pred": row["predicted_entities"]}
         for row in rows
@@ -187,6 +219,14 @@ async def evaluate_intent(
         "status": "OK",
         "total": len(rows),
         **classification,
+        "gated_accuracy": classification["accuracy"],
+        "ungated_top1_accuracy": round(ungated_top1_accuracy, 6),
+        "top1_ranking_accuracy": round(ungated_top1_accuracy, 6),
+        "other_rejection_count": sum(row["predicted_intent"] == "other" for row in rows),
+        "gate_rejection_count": sum(
+            row["ungated_top1_intent"] != "other" and row["predicted_intent"] == "other"
+            for row in rows
+        ),
         **entity,
         "latency": {
             "mean_ms": round(statistics.mean(latencies), 6) if latencies else None,
@@ -237,7 +277,11 @@ async def run_ablation(output_path: Path, skip_llm: bool = False) -> Dict[str, A
             "label": label,
             "status": metrics.get("status"),
             "accuracy": metrics.get("accuracy", "NOT_RUN"),
+            "gated_accuracy": metrics.get("gated_accuracy", metrics.get("accuracy", "NOT_RUN")),
             "macro_f1": metrics.get("macro_f1", "NOT_RUN"),
+            "ungated_top1_accuracy": metrics.get("ungated_top1_accuracy", "NOT_RUN"),
+            "other_rejection_count": metrics.get("other_rejection_count", "NOT_RUN"),
+            "gate_rejection_count": metrics.get("gate_rejection_count", "NOT_RUN"),
             "entity_f1": metrics.get("entity_f1", "NOT_RUN"),
             "mean_latency_ms": metrics.get("latency", {}).get("mean_ms", "NOT_RUN"),
             "p95_latency_ms": metrics.get("latency", {}).get("p95_ms", "NOT_RUN"),
@@ -294,8 +338,13 @@ async def evaluate_routing(output_path: Path, intent_mode: str = "rules_only") -
     primary_correct = 0
     support_true = support_total = 0
     exact = 0
+    unavailable: Counter[str] = Counter()
     for case in benchmark:
         intent_result = await recognizer.recognize(case["query"])
+        for source in recognizer._active_sources:
+            status = intent_result.source_scores.get(source, {}).get("status", "disabled")
+            if status != "ok":
+                unavailable[f"{source}:{status}"] += 1
         req = Request(
             message=case["query"],
             user_id="routing-eval",
@@ -333,6 +382,10 @@ async def evaluate_routing(output_path: Path, intent_mode: str = "rules_only") -
         "exact_match": round(exact / len(rows), 6) if rows else 0.0,
         "cases": rows,
     }
+    if unavailable:
+        payload["status"] = "NOT_RUN"
+        payload["reason"] = "required source unavailable or failed"
+        payload["unavailable_sources"] = dict(unavailable)
     _write_json(output_path, payload)
     return payload
 
