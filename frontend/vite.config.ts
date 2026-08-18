@@ -4,13 +4,15 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   plugins: [react()],
   server: {
-    port: 5173,
+    port: Number(process.env.VITE_PORT ?? 5173),
     host: "0.0.0.0",
     proxy: {
       "/api": {
-        target: "http://localhost:8000",
+        target: process.env.VITE_API_PROXY_TARGET ?? "http://localhost",
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ""),
+        ...(process.env.VITE_API_PROXY_STRIP_PREFIX === "1"
+          ? { rewrite: (path: string) => path.replace(/^\/api/, "") }
+          : {}),
       },
     },
   },

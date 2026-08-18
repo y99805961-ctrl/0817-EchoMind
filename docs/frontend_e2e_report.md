@@ -3,6 +3,11 @@
 Date: 2026-08-17  
 Branch: `feat/frontend-e2e`
 
+## Local Entry Points
+
+- `http://localhost:5175`: frontend development / Vite hot reload. Start it with `VITE_PORT=5175 npm run dev -- --host 0.0.0.0`; its `/api/*` requests proxy to the Docker Compose entry at `http://localhost`.
+- `http://localhost`: final Docker Compose demo entry, served by the production Nginx gateway.
+
 ## Frontend Architecture
 
 - React 18 + TypeScript + Vite, with Ant Design for primitives, Zustand for persisted client state, React Router for the three product routes, `fetch` for API calls, and `react-markdown` for assistant output.
